@@ -2,6 +2,109 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.12](https://github.com/surveyjs/survey-creator/compare/v1.8.11...v1.8.12) (2020-10-28)
+
+### [1.8.11](https://github.com/surveyjs/survey-creator/compare/v1.8.10...v1.8.11) (2020-10-23)
+
+### [1.8.10](https://github.com/surveyjs/survey-creator/compare/v1.8.9...v1.8.10) (2020-10-21)
+
+### [1.8.9](https://github.com/surveyjs/survey-creator/compare/v1.8.8...v1.8.9) (2020-10-14)
+
+### [1.8.8](https://github.com/surveyjs/survey-creator/compare/v1.8.7...v1.8.8) (2020-10-09)
+
+### [1.8.7](https://github.com/surveyjs/survey-creator/compare/v1.8.6...v1.8.7) (2020-10-06)
+
+
+### Bug Fixes
+
+* Changes into new added question onQuestionAdded event generates addition undo transactions [#972](https://github.com/surveyjs/survey-creator/issues/972) ([ec4829d](https://github.com/surveyjs/survey-creator/commit/ec4829d23001391c430a7f5a860fa1dc166ef182))
+
+### [1.8.6](https://github.com/surveyjs/survey-creator/compare/v1.8.4...v1.8.6) (2020-09-29)
+
+### [1.8.4](https://github.com/surveyjs/survey-creator/compare/v1.8.3...v1.8.4) (2020-09-22)
+
+### [1.8.3](https://github.com/surveyjs/survey-creator/compare/v1.8.2...v1.8.3) (2020-09-16)
+
+
+### Bug Fixes
+
+* Changing of options.list from onConditionQuestionsGetList is ignored for T5191 ([eb43fbd](https://github.com/surveyjs/survey-creator/commit/eb43fbdcadc357eccfbe827afc3d5f5e01e7426e)), closes [#957](https://github.com/surveyjs/survey-creator/issues/957)
+* On adding new item in radio group if there is a large number in choices it hangs the browser [#958](https://github.com/surveyjs/survey-creator/issues/958) ([f3054d9](https://github.com/surveyjs/survey-creator/commit/f3054d9b862a1b7066b067aed861782b758e0772))
+
+### [1.8.2](https://github.com/surveyjs/survey-creator/compare/v1.8.1...v1.8.2) (2020-09-10)
+
+### [1.8.1](https://github.com/surveyjs/survey-creator/compare/v1.8.0...v1.8.1) (2020-09-09)
+
+
+### Bug Fixes
+
+* Fire PAGE_ADDED one time on copying page, [#943](https://github.com/surveyjs/survey-creator/issues/943) ([445b224](https://github.com/surveyjs/survey-creator/commit/445b2243d137a968868c718fd09a6816e607ce7a))
+* when page moved , the setModified of type "PAGE_MOVED" has not excute [#943](https://github.com/surveyjs/survey-creator/issues/943) ([972ecfd](https://github.com/surveyjs/survey-creator/commit/972ecfdb1a274ad18cabdd63ddfcfb71d311a286))
+
+## [1.8.0](https://github.com/surveyjs/survey-creator/compare/v1.7.28...v1.8.0) (2020-09-02)
+
+### [1.7.28](https://github.com/surveyjs/survey-creator/compare/v1.7.27...v1.7.28) (2020-08-25)
+
+### [1.7.27](https://github.com/surveyjs/survey-creator/compare/v1.7.26...v1.7.27) (2020-08-19)
+
+### [1.7.26](https://github.com/surveyjs/survey-creator/compare/v1.7.25...v1.7.26) (2020-08-11)
+
+### [1.7.25](https://github.com/surveyjs/survey-creator/compare/v1.7.24...v1.7.25) (2020-08-04)
+
+### [1.7.24](https://github.com/surveyjs/survey-creator/compare/v1.7.23...v1.7.24) (2020-07-28)
+
+### [1.7.23](https://github.com/surveyjs/survey-creator/compare/v1.7.22...v1.7.23) (2020-07-22)
+
+### [1.7.22](https://github.com/surveyjs/survey-creator/compare/v1.7.21...v1.7.22) (2020-07-22)
+
+### [1.7.21](https://github.com/surveyjs/survey-creator/compare/v1.7.20...v1.7.21) (2020-07-22)
+
+
+### Bug Fixes
+
+* ItemValue Property Editor, Fast Entry works slow for several hunderds items [#903](https://github.com/surveyjs/survey-creator/issues/903) ([a1fd2e0](https://github.com/surveyjs/survey-creator/commit/a1fd2e098e16be6f7c659c30ac6a2efd455603e6))
+
+### [1.7.20](https://github.com/surveyjs/survey-creator/compare/v1.7.19...v1.7.20) (2020-07-15)
+
+### [1.7.19](https://github.com/surveyjs/survey-creator/compare/v1.7.18...v1.7.19) (2020-07-09)
+
+### [1.7.18](https://github.com/surveyjs/survey-creator/compare/v1.7.17...v1.7.18) (2020-07-04)
+
+### [1.7.17](https://github.com/surveyjs/survey-creator/compare/v1.7.16...v1.7.17) (2020-07-01)
+
+### [1.7.16](https://github.com/surveyjs/survey-creator/compare/v1.7.15...v1.7.16) (2020-06-30)
+
+### [1.7.15](https://github.com/surveyjs/survey-creator/compare/v1.7.14...v1.7.15) (2020-06-25)
+
+### [1.7.14](https://github.com/surveyjs/survey-creator/compare/v1.7.13...v1.7.14) (2020-06-25)
+
+### [1.7.13](https://github.com/surveyjs/survey-creator/compare/v1.7.12...v1.7.13) (2020-06-24)
+
+### [1.7.12](https://github.com/surveyjs/survey-creator/compare/v1.7.11...v1.7.12) (2020-06-16)
+
+### [1.7.11](https://github.com/surveyjs/survey-creator/compare/v1.7.10...v1.7.11) (2020-06-10)
+
+
+### Bug Fixes
+
+* SelectBase has wrong ItemValue instances in markup after question converted to other type [#834](https://github.com/surveyjs/survey-creator/issues/834) ([86e024f](https://github.com/surveyjs/survey-creator/commit/86e024f0bf6faa74bc6a4d54bd7d36262e436ef1))
+
+### [1.7.10](https://github.com/surveyjs/survey-creator/compare/v1.7.9...v1.7.10) (2020-06-03)
+
+### [1.7.9](https://github.com/surveyjs/survey-creator/compare/v1.7.8...v1.7.9) (2020-05-27)
+
+### [1.7.8](https://github.com/surveyjs/survey-creator/compare/v1.7.7...v1.7.8) (2020-05-26)
+
+### [1.7.7](https://github.com/surveyjs/survey-creator/compare/v1.7.6...v1.7.7) (2020-05-19)
+
+### [1.7.6](https://github.com/surveyjs/survey-creator/compare/v1.7.5...v1.7.6) (2020-05-12)
+
+### [1.7.5](https://github.com/surveyjs/survey-creator/compare/v1.7.4...v1.7.5) (2020-05-07)
+
+### [1.7.4](https://github.com/surveyjs/survey-creator/compare/v1.7.3...v1.7.4) (2020-04-29)
+
+### [1.7.3](https://github.com/surveyjs/survey-creator/compare/v1.7.2...v1.7.3) (2020-04-21)
+
 ### [1.7.2](https://github.com/surveyjs/survey-creator/compare/v1.7.1...v1.7.2) (2020-04-17)
 
 ### [1.7.1](https://github.com/surveyjs/survey-creator/compare/v1.5.19...v1.7.1) (2020-04-15)
