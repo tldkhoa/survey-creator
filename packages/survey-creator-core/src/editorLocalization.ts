@@ -8,6 +8,7 @@ renamedKeys["tabs.theme"] = "ed.themeSurvey";
 renamedKeys["tabs.translation"] = "ed.translation";
 renamedKeys["tabs.designer"] = "ed.designer";
 renamedKeys["tabs.editor"] = "ed.jsonEditor";
+renamedKeys["tabs.json"] = "tabs.editor";
 renamedKeys["tabs.logic"] = "ed.logic";
 
 export class EditorLocalization {
@@ -46,6 +47,7 @@ export class EditorLocalization {
     this.reset();
   }
   public getString(strName: string, locale: string = null): string {
+    if(!strName) return strName;
     const oldVal = this.getOldKeysString(strName, locale);
     if(!!oldVal) return oldVal;
     const path = strName.split(".");
@@ -86,17 +88,17 @@ export class EditorLocalization {
     }
     return obj;
   }
-  public getLocaleName(loc: string, defaultLocale: string = null): string {
-    let localeNames = surveyLocalization["localeNames"];
+  public getLocaleName(loc: string, defaultLocale: string = null, inEnglish?: boolean): string {
     if (!defaultLocale) {
       defaultLocale = surveyLocalization.defaultLocale;
     }
-    let res = !!loc
-      ? capitalize(localeNames[loc])
-      : editorLocalization
-        .getString("ed.defaultLocale")
-        ["format"](capitalize(localeNames[defaultLocale]));
-    return !!res ? res : loc;
+    let name = surveyLocalization.getLocaleName(loc || defaultLocale, inEnglish);
+    if(name === loc) return name;
+    name = capitalize(name);
+    if(!loc) {
+      name = editorLocalization.getString("ed.defaultLocale")["format"](name);
+    }
+    return name || loc;
   }
   public getPropertyName(strName: string, defaultName: string = null): string {
     var obj = this.getProperty(strName, defaultName);
@@ -269,9 +271,15 @@ export class EditorLocalization {
   }
   public getLocale(locale?: string): any {
     if (!locale) locale = this.currentLocale;
-    var strs = locale ? this.locales[locale] : this.getDefaultStrings();
-    if (!strs) strs = this.getDefaultStrings();
-    return strs;
+    return (locale ? this.getLocaleStrings(locale) : this.getDefaultStrings()) || this.getDefaultStrings();
+  }
+  public getLocaleStrings(loc: string): any {
+    if(!loc) loc = this.defaultLocale;
+    if(loc === "en") return defaultStrings;
+    return this.locales[loc];
+  }
+  public setupLocale(loc: string, strings: any): void {
+    this.locales[loc] = strings;
   }
   private getPresetLocale(locale?: string): any {
     if(!this.presetStrings) return undefined;
@@ -291,7 +299,7 @@ export class EditorLocalization {
     return res;
   }
   private getValueInternal(value: any, prefix: string, locale: string = null): string {
-    if (value === "" || value === null || value === undefined) return "";
+    if (!value || (value.indexOf && value.indexOf(".") > -1)) return "";
     value = value.toString();
     const res = this.getString(prefix + "." + value, locale);
     if (!!res) return res;
@@ -338,4 +346,11 @@ export function getLocString(strName: string, locale: string = null) {
   return editorLocalization.getString(strName, locale);
 }
 
+export function getLocaleStrings(loc: string): any {
+  return editorLocalization.getLocaleStrings(loc);
+}
+
 export var defaultStrings = enStrings;
+export function setupLocale(localeConfig: { localeCode: string, strings: any }): void {
+  editorLocalization.setupLocale(localeConfig.localeCode, localeConfig.strings);
+}

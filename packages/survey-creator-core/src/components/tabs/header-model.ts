@@ -4,7 +4,10 @@ import { fontsettingsFromCssVariable, fontsettingsToCssVariable } from "./theme-
 import { assign } from "../../utils/utils";
 
 export class HeaderModel extends Base implements IHeader {
+  static primaryColorStr = "var(--sjs-primary-backcolor)";
+
   height: number;
+  mobileHeight: number;
   inheritWidthFrom: "survey" | "container";
   textAreaWidth: number;
   overlapEnabled: boolean;
@@ -84,15 +87,17 @@ export class HeaderModel extends Base implements IHeader {
 
   private setHeaderBackgroundColorCssVariable(cssVariables: any) {
     if (this["backgroundColorSwitch"] === "none") {
-      cssVariables["--sjs-header-backcolor"] = "transparent";
+      cssVariables["--sjs-header-backcolor"] = undefined;
     } else if (this["backgroundColorSwitch"] === "custom") {
       cssVariables["--sjs-header-backcolor"] = this["backgroundColor"] ?? "transparent";
+    } else {
+      cssVariables["--sjs-header-backcolor"] = HeaderModel.primaryColorStr;
     }
   }
 
   private getBackgroundColorSwitchByValue(backgroundColor: string) {
-    if (!backgroundColor) return "accentColor";
-    if (backgroundColor === "transparent") return "none";
+    if (backgroundColor === HeaderModel.primaryColorStr) return "accentColor";
+    if (!backgroundColor || backgroundColor === "transparent") return "none";
     return "custom";
   }
 
@@ -109,12 +114,12 @@ function getDefaultTitleSetting() {
 function getDefaultDescriptionSetting(isAdvanced?: boolean) {
   const result = { family: settings.themeEditor.defaultFontFamily, weight: "400", size: 16 };
   if (isAdvanced) {
-    result["weight"] = "600";
+    result["size"] = 20;
   }
   return result;
 }
 
-function getHorizontalAlignment(questionName: string, defaultValue: string): IJsonPropertyInfo {
+function getHorizontalAlignment(questionName: string): IJsonPropertyInfo {
   return <IJsonPropertyInfo>{
     type: "buttongroup",
     name: questionName,
@@ -124,10 +129,10 @@ function getHorizontalAlignment(questionName: string, defaultValue: string): IJs
       { value: "center" },
       { value: "right", },
     ],
-    default: defaultValue,
+    defaultFunc: () => Serializer.getProperty("cover", questionName).defaultValue,
   };
 }
-function getVerticalAlignment(questionName: string, defaultValue: string): IJsonPropertyInfo {
+function getVerticalAlignment(questionName: string): IJsonPropertyInfo {
   return <IJsonPropertyInfo>{
     type: "buttongroup",
     name: questionName,
@@ -138,7 +143,7 @@ function getVerticalAlignment(questionName: string, defaultValue: string): IJson
       { value: "middle" },
       { value: "bottom" },
     ],
-    default: defaultValue,
+    defaultFunc: () => Serializer.getProperty("cover", questionName).defaultValue,
   };
 }
 
@@ -148,7 +153,7 @@ Serializer.addClass(
     {
       type: "buttongroup",
       name: "headerView",
-      default: "basic",
+      default: "advanced",
       choices: [
         { value: "basic" },
         { value: "advanced" }
@@ -158,7 +163,7 @@ Serializer.addClass(
       type: "buttongroup",
       name: "logoPosition",
       visibleIf: (obj) => obj.headerView === "basic",
-      default: "left",
+      defaultFunc: () => Serializer.getProperty("survey", "logoPosition").defaultValue,
       choices: [
         { value: "left" },
         { value: "right" }
@@ -168,7 +173,19 @@ Serializer.addClass(
       type: "spinedit",
       name: "height",
       visibleIf: (obj) => obj.headerView === "advanced",
-      default: 256,
+      defaultFunc: () => Serializer.getProperty("cover", "height").defaultValue,
+      onPropertyEditorUpdate: function (obj: any, editor: any) {
+        if (!!editor) {
+          editor.unit = "px";
+          editor.min = 0;
+        }
+      }
+    },
+    {
+      type: "spinedit",
+      name: "mobileHeight",
+      visibleIf: (obj) => obj.headerView === "advanced",
+      defaultFunc: () => Serializer.getProperty("cover", "mobileHeight").defaultValue,
       onPropertyEditorUpdate: function (obj: any, editor: any) {
         if (!!editor) {
           editor.unit = "px";
@@ -180,7 +197,7 @@ Serializer.addClass(
       type: "buttongroup",
       name: "inheritWidthFrom",
       visibleIf: (obj) => obj.headerView === "advanced",
-      default: "container",
+      defaultFunc: () => Serializer.getProperty("cover", "inheritWidthFrom").defaultValue,
       choices: [
         { value: "survey" },
         { value: "container" }
@@ -190,7 +207,7 @@ Serializer.addClass(
       type: "spinedit",
       name: "textAreaWidth",
       visibleIf: (obj) => obj.headerView === "advanced",
-      default: 512,
+      defaultFunc: () => Serializer.getProperty("cover", "textAreaWidth").defaultValue,
       onPropertyEditorUpdate: function (obj: any, editor: any) {
         if (!!editor) {
           editor.unit = "px";
@@ -203,7 +220,7 @@ Serializer.addClass(
       name: "backgroundColorSwitch",
       visibleIf: (obj) => obj.headerView === "advanced",
       isSerializable: false,
-      default: "accentColor",
+      default: "none",
       choices: [
         { value: "none" },
         { value: "accentColor" },
@@ -243,7 +260,7 @@ Serializer.addClass(
         { value: "contain" },
         { value: "tile" },
       ],
-      default: "cover",
+      defaultFunc: () => Serializer.getProperty("cover", "backgroundImageFit").defaultValue,
       visibleIf: (obj) => obj.headerView === "advanced",
       onPropertyEditorUpdate: function (obj: any, editor: any) {
         if (!!editor) {
@@ -255,7 +272,13 @@ Serializer.addClass(
       type: "spinedit",
       name: "backgroundImageOpacity",
       visibleIf: (obj) => obj.headerView === "advanced",
-      default: 100,
+      defaultFunc: () => {
+        const defaultValue = Serializer.getProperty("cover", "backgroundImageOpacity").defaultValue;
+        if(defaultValue !== undefined && defaultValue !== null) {
+          return defaultValue * 100;
+        }
+        return defaultValue;
+      },
       onPropertyEditorUpdate: function (obj: any, editor: any) {
         if (!!editor) {
           editor.unit = "%";
@@ -279,12 +302,12 @@ Serializer.addClass(
       }
     },
 
-    getHorizontalAlignment("logoPositionX", "right"),
-    getVerticalAlignment("logoPositionY", "top"),
-    getHorizontalAlignment("titlePositionX", "left"),
-    getVerticalAlignment("titlePositionY", "bottom"),
-    getHorizontalAlignment("descriptionPositionX", "left"),
-    getVerticalAlignment("descriptionPositionY", "bottom"),
+    getHorizontalAlignment("logoPositionX"),
+    getVerticalAlignment("logoPositionY"),
+    getHorizontalAlignment("titlePositionX"),
+    getVerticalAlignment("titlePositionY"),
+    getHorizontalAlignment("descriptionPositionX"),
+    getVerticalAlignment("descriptionPositionY"),
   ]);
 
 Serializer.addProperties("header", [

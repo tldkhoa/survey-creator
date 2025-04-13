@@ -8,12 +8,17 @@ import {
   CustomWidgetCollection,
   Question,
   QuestionButtonGroupModel,
-  DragOrClickHelper
+  DragOrClickHelper,
+  settings as surveySettings
 } from "survey-core";
 import { QuestionLinkValueModel } from "../src/components/link-value";
 import { settings } from "../src/creator-settings";
-import { QuestionToolbox } from "../src/toolbox";
+import { IQuestionToolboxItem, QuestionToolbox, QuestionToolboxItem } from "../src/toolbox";
 import { CreatorTester } from "./creator-tester";
+import { ToolboxToolViewModel } from "../src/components/toolbox/toolbox-tool";
+import { editorLocalization } from "../src/editorLocalization";
+export * from "../src/localization/english";
+export * from "../src/localization/german";
 
 test("toolbox support options", (): any => {
   var allTypes = ElementFactory.Instance.getAllToolboxTypes();
@@ -128,7 +133,8 @@ test("toolbox default categories calculator", (): any => {
   expect(toolbox["getDefaultQuestionCategories"]()).toEqual({
     "radiogroup": "choice",
     "dropdown": "choice",
-    "matrix": "matrix" });
+    "matrix": "matrix"
+  });
 });
 
 test("toolbox default categories actions separator", (): any => {
@@ -699,51 +705,6 @@ test("Toolbox search within categories with titles", (): any => {
   expect(creator.toolbox.getCategoryByName("text").empty).toBeFalsy();
 });
 
-test("Toolbox keep scroll while search", (): any => {
-  const creator = new CreatorTester();
-  const elementMock: any = { scrollHeight: 200, clientHeight: 100 };
-
-  creator.toolbox.searchEnabled = true;
-  creator.toolbox.setRootElement({ querySelector: () => elementMock } as any);
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  creator.toolbox.searchManager.filterString = "a";
-  expect(creator.toolbox.isScrollLocked).toBeTruthy();
-  elementMock.scrollHeight = 150;
-  expect(creator.toolbox.isScrollLocked).toBeTruthy();
-  creator.toolbox.searchManager.filterString = "ab";
-  expect(creator.toolbox.isScrollLocked).toBeTruthy();
-  elementMock.scrollHeight = 100;
-  expect(creator.toolbox.isScrollLocked).toBeTruthy();
-  creator.toolbox.searchManager.filterString = "abc";
-  expect(creator.toolbox.isScrollLocked).toBeTruthy();
-  elementMock.scrollHeight = 50;
-  elementMock.clientHeight = 50;
-  creator.toolbox.searchManager.filterString = "";
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  elementMock.scrollHeight = 200;
-  elementMock.scrollHeight = 100;
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-
-  elementMock.scrollHeight = 50;
-  elementMock.clientHeight = 50;
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  creator.toolbox.searchManager.filterString = "a";
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  elementMock.scrollHeight = 20;
-  elementMock.clientHeight = 20;
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  creator.toolbox.searchManager.filterString = "ab";
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  elementMock.scrollHeight = 10;
-  elementMock.clientHeight = 10;
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  creator.toolbox.searchManager.filterString = "";
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-  elementMock.scrollHeight = 50;
-  elementMock.clientHeight = 50;
-  expect(creator.toolbox.isScrollLocked).toBeFalsy();
-});
-
 test("Toolbox show search depending on items count", (): any => {
   const creator = new CreatorTester();
   creator.toolbox.searchEnabled = true;
@@ -760,5 +721,168 @@ test("Toolbox show search depending on items count", (): any => {
 test("Toolbox child items do not get focus", (): any => {
   const creator = new CreatorTester();
   creator.toolbox.searchEnabled = true;
-  expect(creator.toolbox.items.filter(i => i.name == "text")[0].popupModel.isFocusedContainer).toBeFalsy();
+
+  const textItem = creator.toolbox.getItemByName("text") as QuestionToolboxItem;
+  const toolboxItemTool = new ToolboxToolViewModel(textItem, creator, creator.toolbox); // init popup model
+  expect(textItem.popupModel.isFocusedContainer).toBeFalsy();
+});
+
+test("Toolbox showSubitems property", (): any => {
+  const creator = new CreatorTester();
+  const textItem = creator.toolbox.getItemByName("text");
+  const toolboxTool = new ToolboxToolViewModel(textItem, creator, creator.toolbox);
+
+  expect(toolboxTool.itemComponent).toBe("svc-toolbox-item-group");
+
+  creator.toolbox.showSubitems = false;
+  expect(toolboxTool.itemComponent).toBe("svc-toolbox-item");
+});
+
+test("Toolbox item clearSubitems function", (): any => {
+  const creator = new CreatorTester();
+  const textItem = creator.toolbox.getItemByName("text") as QuestionToolboxItem;
+
+  expect(textItem.items.length).toBe(13);
+  expect(textItem.component).toBe("svc-toolbox-item-group");
+
+  textItem.clearSubitems();
+  expect(textItem.items.length).toBe(0);
+  expect(textItem.component).toBe("");
+});
+
+test("Toolbox item addSubitem function", (): any => {
+  const subitemsClassName = "svc-toolbox__item-subtype";
+  const creator = new CreatorTester();
+  const booleanItem = creator.toolbox.getItemByName("boolean") as QuestionToolboxItem;
+  const radioBooleanItem = <IQuestionToolboxItem>{
+    id: "boolRadio",
+    name: "boolRadio",
+    title: "Radio",
+  };
+
+  const checkboxBooleanItem = <IQuestionToolboxItem>{
+    id: "boolCheckbox",
+    name: "boolCheckbox",
+    title: "Checkbox",
+  };
+
+  const customBooleanItem = <IQuestionToolboxItem>{
+    id: "boolCustom",
+    name: "boolCustom",
+    title: "Custom",
+  };
+  expect(booleanItem.hasSubItems).toBe(false);
+
+  booleanItem.addSubitem(radioBooleanItem);
+  expect(booleanItem.items.length).toBe(1);
+  expect(booleanItem.items[0].id).toBe("boolRadio");
+  expect(booleanItem.items[0].className).toContain(subitemsClassName);
+
+  booleanItem.addSubitem(checkboxBooleanItem);
+  expect(booleanItem.items.length).toBe(2);
+  expect(booleanItem.items[0].id).toBe("boolRadio");
+  expect(booleanItem.items[1].id).toBe("boolCheckbox");
+  expect(booleanItem.items[1].className).toContain(subitemsClassName);
+
+  booleanItem.addSubitem(customBooleanItem, 1);
+  expect(booleanItem.items.length).toBe(3);
+  expect(booleanItem.items[0].id).toBe("boolRadio");
+  expect(booleanItem.items[1].id).toBe("boolCustom");
+  expect(booleanItem.items[2].id).toBe("boolCheckbox");
+  expect(booleanItem.items[1].className).toContain(subitemsClassName);
+});
+
+test("Toolbox item removeSubitem function", (): any => {
+  const creator = new CreatorTester();
+  const ratingItem = creator.toolbox.getItemByName("rating") as QuestionToolboxItem;
+
+  expect(ratingItem.hasSubItems).toBe(true);
+  expect(ratingItem.items.length).toBe(3);
+
+  ratingItem.removeSubitem(ratingItem.items[0]);
+  expect(ratingItem.items.length).toBe(2);
+
+  ratingItem.removeSubitem("stars");
+  expect(ratingItem.items.length).toBe(1);
+  expect(ratingItem.items[0].id).toBe("smileys");
+  expect(ratingItem.component).toBe("svc-toolbox-item-group");
+
+  ratingItem.removeSubitem(ratingItem.items[0]);
+  expect(ratingItem.hasSubItems).toBe(false);
+  expect(ratingItem.component).toBe("");
+});
+
+test("ICustomQuestionTypeConfiguration.title should support a localizable, Bug#5904", (): any => {
+  editorLocalization.locales["en"] = editorLocalization.getLocale();
+  expect(editorLocalization.locales["en"]).toBeTruthy();
+  expect(editorLocalization.locales["de"]).toBeTruthy();
+  ComponentCollection.Instance.clear();
+  ComponentCollection.Instance.add(<any>{
+    name: "newquestion",
+    title: { en: "New Question en", de: "New Question de" },
+    questionJSON: {
+      type: "dropdown",
+      choices: [1, 2, 3, 4, 5]
+    }
+  });
+  const creator = new CreatorTester({ questionTypes: ["text", "checkbox"] });
+  const item = creator.toolbox.getItemByName("newquestion") as QuestionToolboxItem;
+  expect(item.title).toBe("New Question en");
+  creator.locale = "de";
+  expect(item.title).toBe("New Question de");
+  ComponentCollection.Instance.clear();
+});
+
+test("Check toolbox getAnimatedElement methods", (): any => {
+  const creator = new CreatorTester();
+
+  const toolbox = creator.toolbox;
+  const animationOptions = toolbox["getAnimationOptions"]();
+  const rootElement = document.createElement("div");
+  const panelElement = document.createElement("div");
+  panelElement.className = "svc-toolbox__panel";
+  rootElement.appendChild(panelElement);
+  toolbox["_rootElementValue"] = rootElement;
+
+  expect(animationOptions.getAnimatedElement()).toBe(panelElement);
+
+  const leaveClass = "svc-toolbox__panel--leave";
+  const enterClass = "svc-toolbox__panel--enter";
+  const isFlyoutToCompactRunningClass = "svc-toolbox--flyout-to-compact-running";
+  surveySettings.animationEnabled = true;
+  toolbox.enableOnElementRerenderedEvent();
+  expect(animationOptions.isAnimationEnabled()).toBeTruthy();
+  toolbox.blockAnimations();
+  expect(animationOptions.isAnimationEnabled()).toBeFalsy();
+  toolbox.releaseAnimations();
+  expect(animationOptions.isAnimationEnabled()).toBeTruthy();
+  surveySettings.animationEnabled = false;
+  expect(animationOptions.isAnimationEnabled()).toBeFalsy();
+
+  const enterOptions = animationOptions.getEnterOptions && animationOptions.getEnterOptions();
+  expect(enterOptions?.cssClass).toBe(enterClass);
+  const leaveOptions = animationOptions.getLeaveOptions && animationOptions.getLeaveOptions();
+  expect(leaveOptions?.cssClass).toBe(leaveClass);
+
+  surveySettings.animationEnabled = true;
+  toolbox.isCompact = true;
+  toolbox.isFocused = true;
+  expect(toolbox.isFlyoutToCompactRunning).toBeFalsy();
+  expect(toolbox.classNames.indexOf(isFlyoutToCompactRunningClass) >= 0).toBeFalsy();
+  toolbox.isFocused = false;
+  expect(toolbox.isFlyoutToCompactRunning).toBeTruthy();
+  expect(toolbox.classNames.indexOf(isFlyoutToCompactRunningClass) >= 0).toBeTruthy();
+  leaveOptions?.onAfterRunAnimation && leaveOptions?.onAfterRunAnimation(panelElement);
+  expect(toolbox.isFlyoutToCompactRunning).toBeFalsy();
+  expect(toolbox.classNames.indexOf(isFlyoutToCompactRunningClass) >= 0).toBeFalsy();
+  surveySettings.animationEnabled = false;
+});
+test("Update subitems on locale change, Bug#6014", (): any => {
+  const creator = new CreatorTester({ questionTypes: ["text", "checkbox"] });
+  creator.locale = "de";
+  const checkbox = creator.toolbox.getItemByName("checkbox") as QuestionToolboxItem;
+  expect(checkbox.locTitle.renderedHtml).toBe("Auswahl");
+  const text = creator.toolbox.getItemByName("text") as QuestionToolboxItem;
+  expect(text.getSubitem("color").locTitle.renderedHtml).toBe("Farbe");
+  creator.locale = "en";
 });

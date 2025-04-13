@@ -8,7 +8,9 @@ import { ThemeTabPlugin } from "../../src/components/tabs/theme-plugin";
 import { assign } from "../../src/utils/utils";
 import { CreatorTester } from "../creator-tester";
 import { ThemeModel, getThemeChanges } from "../../src/components/tabs/theme-model";
-
+import { registerSurveyTheme } from "../../src/components/tabs/theme-model";
+import SurveyThemes from "survey-core/themes";
+registerSurveyTheme(SurveyThemes);
 import "survey-core/survey.i18n";
 
 const themeFromFile = {
@@ -87,7 +89,7 @@ test("assign function", (): any => {
 test("Theme model de/serialization", (): any => {
   const themeModel = new ThemeModel();
   let result = themeModel.cssVariables || {};
-  expect(Object.keys(result).length).toBe(0);
+  expect(Object.keys(result).length).toBe(2);
 
   const themeJson: ITheme = {
     themeName: "custom",
@@ -100,6 +102,7 @@ test("Theme model de/serialization", (): any => {
     cssVariables: {
       "--sjs-base-unit": "6px",
       "--sjs-corner-radius": "20px",
+      "--sjs-font-family": "Open Sans",
       "--sjs-font-size": "17.6px",
       "--sjs-general-backcolor": "rgba(253, 255, 148, 0.5)",
       "--sjs-general-backcolor-dark": "rgba(248, 248, 248, 1)",
@@ -142,11 +145,12 @@ test("Theme model backgroundImage serialization", (): any => {
   const themeModel = new ThemeModel();
   const initialJson = themeModel.toJSON();
   expect(Object.keys(initialJson)).toStrictEqual([
+    "backgroundImageFit",
+    "backgroundImageAttachment",
     "backgroundImage",
     "backgroundOpacity",
-    "backgroundImageAttachment",
-    "backgroundImageFit",
     "cssVariables",
+    "header",
     "headerView"]);
   expect(initialJson.backgroundImage).toBe("");
   themeModel.backgroundImage = "image";
@@ -170,13 +174,30 @@ test("Theme model load custom theme", (): any => {
     backgroundImageFit: "cover",
     backgroundOpacity: 1,
     cssVariables: {
-      "--a-var": "aVal"
+      "--a-var": "aVal",
+      "--sjs-font-family": "Open Sans",
+      "--sjs-font-size": "16px",
     },
+    "header": {
+      "backgroundImageFit": "cover",
+      "backgroundImageOpacity": 100,
+      "descriptionPositionX": "left",
+      "descriptionPositionY": "bottom",
+      "height": 0,
+      "inheritWidthFrom": "survey",
+      "logoPositionX": "left",
+      "logoPositionY": "top",
+      "mobileHeight": 0,
+      "overlapEnabled": false,
+      "textAreaWidth": 0,
+      "titlePositionX": "left",
+      "titlePositionY": "bottom",
+    }
   };
   themeModel.fromJSON(customeTheme);
 
   const json = themeModel.toJSON();
-  customeTheme.headerView = "basic";
+  customeTheme.headerView = "advanced";
   expect(json).toStrictEqual(customeTheme);
 
   Serializer.removeProperty("theme", "--a-var");
@@ -238,6 +259,23 @@ test("Theme builder switch themes", (): any => {
   themeModel.colorPalette = "dark";
   expect(themeModel["--sjs-primary-backcolor"]).toEqual("rgba(255, 152, 20, 1)");
   expect(themeModel["--sjs-general-backcolor-dim"]).toEqual("rgba(36, 36, 36, 1)");
+});
+
+test("Theme builder switch themes with reset of previous values", (): any => {
+  const themeModel = new ThemeModel();
+  themeModel.initialize();
+
+  expect(themeModel.themeName).toEqual("default");
+  expect(themeModel["--sjs-shadow-inner"]).toEqual("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel["--sjs-shadow-inner-reset"]).toEqual("inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
+
+  themeModel.themeName = "contrast";
+  expect(themeModel["--sjs-shadow-inner"]).toEqual("0px 0px 0px 2px rgba(0, 0, 0, 1),0px -2px 0px 2px rgba(0, 0, 0, 1)");
+  expect(themeModel["--sjs-shadow-inner-reset"]).toEqual("0px 0px 0px 0px rgba(0, 0, 0, 1),0px 0px 0px 0px rgba(0, 0, 0, 1)");
+
+  themeModel.themeName = "default";
+  expect(themeModel["--sjs-shadow-inner"]).toEqual("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel["--sjs-shadow-inner-reset"]).toEqual("inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
 });
 
 test("Theme builder: composite question font", (): any => {
@@ -597,7 +635,7 @@ test("Check reset for sjs-shadow-inner due to animation", () => {
   expect(themeModel.cssVariables["--sjs-shadow-inner"]).toBe("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
   expect(themeModel.cssVariables["--sjs-shadow-inner-reset"]).toBe("inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
 
-  themeModel["--sjs-shadow-inner"] = "0px 1px 2px 0px rgba(0, 0, 0, 0.15), inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)";
-  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toBe("0px 1px 2px 0px rgba(0, 0, 0, 0.15), inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
-  expect(themeModel.cssVariables["--sjs-shadow-inner-reset"]).toBe("0px 0px 0px 0px rgba(0, 0, 0, 0.15), inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
+  themeModel["--sjs-shadow-inner"] = "0px 1px 2px 0px rgba(0, 0, 0, 0.15),inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)";
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toBe("0px 1px 2px 0px rgba(0, 0, 0, 0.15),inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel.cssVariables["--sjs-shadow-inner-reset"]).toBe("0px 0px 0px 0px rgba(0, 0, 0, 0.15),inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
 });

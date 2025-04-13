@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Base } from "survey-core";
-import { SurveyActionBar, SurveyElementBase, Survey, SvgBundleComponent } from "survey-react-ui";
+import { SurveyElementBase, Survey, SvgBundleComponent } from "survey-react-ui";
 import { ICreatorOptions, SurveyCreatorModel } from "survey-creator-core";
 import { SurveyCreator, SurveyCreatorComponent } from "survey-creator-react";
 import { CreatorPresetEditorModel } from "creator-presets-core";
@@ -38,15 +38,8 @@ export class CreatorPresetEditorComponent extends SurveyElementBase<ICreatorPres
   }
   private renderContext() {
     const tab = this.editor.activeTab;
-    if (tab === "creator") {
-      return <SurveyCreatorComponent creator={this.editor.creator as SurveyCreator} />;
-    }
-    if (tab === "results") return this.renderResults();
+    if (tab === "creator") return <SurveyCreatorComponent creator={this.editor.creator as SurveyCreator} />;
+    if (tab === "results") return <Survey model={this.editor.resultModel}></Survey>;
     return <Survey model={this.editor.model}></Survey>;
-  }
-  private renderResults() {
-    const text = JSON.stringify(this.editor.json, null, 2);
-    const style = { width: "100%", height: "100%" };
-    return <textarea readOnly={true} style={style}>{text}</textarea>;
   }
 }

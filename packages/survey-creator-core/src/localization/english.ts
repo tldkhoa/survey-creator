@@ -16,7 +16,7 @@ export var enStrings = {
     deleteQuestion: "Delete Question",
     convertTo: "Convert to",
     drag: "Drag element",
-    license: "To use our library, a <a href='https://surveyjs.io/licensing'>developer license</a> is required. If you have an active license, <a href='https://surveyjs.io/remove-alert-banner'>set up your license key</a> and ensure you're using the latest version."
+    license: "To use our library, a <a href='https://surveyjs.io/licensing' target='_blank'>developer license</a> is required. If you have an active license, <a href='https://surveyjs.io/remove-alert-banner' target='_blank'>set up your license key</a> and ensure you're using the latest version."
   },
   // Creator tabs
   tabs: {
@@ -24,7 +24,7 @@ export var enStrings = {
     theme: "Themes",
     translation: "Translations",
     designer: "Designer",
-    editor: "JSON Editor",
+    json: "JSON Editor",
     logic: "Logic"
   },
   // Question types
@@ -71,6 +71,7 @@ export var enStrings = {
     surveySettingsTooltip: "Survey settings",
     themeSettings: "Theme Settings",
     themeSettingsTooltip: "Theme settings",
+    creatorSettingTitle: "Creator Settings",
     showPanel: "Show Panel",
     hidePanel: "Hide Panel",
     prevSelected: "Select previous",
@@ -108,6 +109,14 @@ export var enStrings = {
     redo: "Redo",
     undoTooltip: "Undo last change",
     redoTooltip: "Redo the change",
+    expandTooltip: "Expand",
+    collapseTooltip: "Collapse",
+    expandAllTooltip: "Expand All",
+    collapseAllTooltip: "Collapse All",
+    zoomInTooltip: "Zoom In",
+    zoom100Tooltip: "Zoom to 100%",
+    zoomOutTooltip: "Zoom Out",
+    lockQuestionsTooltip: "Lock expand/collapse state for questions",
     showMoreChoices: "Show more",
     showLessChoices: "Show less",
     copy: "Copy",
@@ -125,6 +134,8 @@ export var enStrings = {
     toolboxNoResultsFound: "No results found",
     propertyGridFilteredTextPlaceholder: "Type to search...",
     propertyGridNoResultsFound: "No results found",
+    propertyGridPlaceholderTitle: "Start configuring your form",
+    propertyGridPlaceholderDescription: "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface.",
     correctJSON: "Please correct JSON.",
     surveyResults: "Survey Results ",
     surveyResultsTable: "As Table",
@@ -140,6 +151,7 @@ export var enStrings = {
     saveError: "Error! Editor content is not saved.",
     translationPropertyGridTitle: "Language Settings",
     themePropertyGridTitle: "Theme Settings",
+    addLanguageTooltip: "Add Language",
     translationLanguages: "Languages",
     translationDeleteLanguage: "Are you certain you wish to delete all strings for this language?",
     translationAddLanguage: "Select language to translate",
@@ -156,6 +168,7 @@ export var enStrings = {
     translationPlaceHolder: "Translation...",
     translationSource: "Source: ",
     translationTarget: "Target: ",
+    translationYouTubeNotSupported: "YouTube links are not supported.",
     themeExportButton: "Export",
     themeImportButton: "Import",
     surveyJsonExportButton: "Export",
@@ -179,6 +192,18 @@ export var enStrings = {
     pagePlaceHolder: "The page is empty. Drag an element from the toolbox or click the button below.",
     imagePlaceHolder: "Drag and drop an image here or click the button below and choose an image to upload",
     surveyPlaceHolderMobile: "Click the \"Add Question\" button below to start creating your form.",
+    surveyPlaceholderTitle: "Your form is empty",
+    surveyPlaceholderTitleMobile: "Your form is empty",
+    surveyPlaceholderDescription: "Drag an element from the toolbox or click the button below.",
+    surveyPlaceholderDescriptionMobile: "Drag an element from the toolbox or click the button below.",
+    previewPlaceholderTitle: "No preview",
+    previewPlaceholderTitleMobile: "No preview",
+    previewPlaceholderDescription: "The survey doesn't contain any visible elements.",
+    previewPlaceholderDescriptionMobile: "The survey doesn't contain any visible elements.",
+    translationsPlaceholderTitle: "No strings to translate",
+    translationsPlaceholderTitleMobile: "No strings to translate",
+    translationsPlaceholderDescription: "Add elements to your form or change the strings filter in the toolbar.",
+    translationsPlaceholderDescriptionMobile: "Add elements to your form or change the strings filter in the toolbar.",
     pagePlaceHolderMobile: "Click the \"Add Question\" button below to add a new element to the page.",
     panelPlaceHolderMobile: "Click the \"Add Question\" button below to add a new element to the panel.",
     imagePlaceHolderMobile: "Click the button below and choose an image to upload",
@@ -191,6 +216,10 @@ export var enStrings = {
     lg: {
       addNewItem: "Add New Rule",
       empty_tab: "Create a rule to customize the flow of the survey.",
+      logicPlaceholderTitle: "No logical rules",
+      logicPlaceholderTitleMobile: "No logical rules",
+      logicPlaceholderDescription: "Create a rule to customize the flow of the survey.",
+      logicPlaceholderDescriptionMobile: "Create a rule to customize the flow of the survey.",
       page_visibilityName: "Show/hide page",
       page_enableName: "Enable/disable page",
       page_requireName: "Make page required",
@@ -275,14 +304,18 @@ export var enStrings = {
       description: "Panel description",
       visibleIf: "Make the panel visible if",
       requiredIf: "Make the panel required if",
-      questionsOrder: "Question order within the panel",
+      questionOrder: "Question order within the panel",
       page: "Move the panel to page",
       startWithNewLine: "Display the panel on a new line",
       state: "Panel collapse state",
       width: "Inline panel width",
       minWidth: "Minimum panel width",
       maxWidth: "Maximum panel width",
-      showNumber: "Number panels"
+      showNumber: "Number this panel"
+    },
+    panellayoutcolumn: {
+      effectiveWidth: "Effective width, %",
+      questionTitleWidth: "Question title width, px",
     },
     paneldynamic: {
       name: "Panel name",
@@ -303,12 +336,14 @@ export var enStrings = {
       templateTabTitle: "Tab title pattern",
       tabTitlePlaceholder: "Tab title placeholder",
       templateVisibleIf: "Make an individual panel visible if",
-      hideNumber: "Hide the panel number",
+      showNumber: "Number the panel",
       titleLocation: "Panel title alignment",
       descriptionLocation: "Panel description alignment",
-      templateTitleLocation: "Question title alignment",
+      templateQuestionTitleLocation: "Question title alignment",
+      templateQuestionTitleWidth: "Question title width",
       templateErrorLocation: "Error message alignment",
       newPanelPosition: "New panel location",
+      showRangeInProgress: "Show the progress bar",
       keyName: "Prevent duplicate responses in the following question"
     },
     question: {
@@ -319,7 +354,7 @@ export var enStrings = {
       requiredIf: "Make the question required if",
       page: "Move the question to page",
       state: "Question box collapse state",
-      hideNumber: "Hide the question number",
+      showNumber: "Number this question",
       titleLocation: "Question title alignment",
       descriptionLocation: "Question description alignment",
       errorLocation: "Error message alignment",
@@ -361,7 +396,8 @@ export var enStrings = {
     // survey templates
     survey: {
       title: "Survey title",
-      description: "Survey description"
+      description: "Survey description",
+      readOnly: "Make the survey read-only"
     },
     page: {
       name: "Page name",
@@ -369,8 +405,8 @@ export var enStrings = {
       description: "Page description",
       visibleIf: "Make the page visible if",
       requiredIf: "Make the page required if",
-      maxTimeToFinish: "Time limit to complete the page",
-      questionsOrder: "Question order on the page"
+      timeLimit: "Time limit to complete the page",
+      questionOrder: "Question order on the page"
     },
     matrixdropdowncolumn: {
       name: "Column name",
@@ -412,6 +448,7 @@ export var enStrings = {
     imageHeight: "Display area height",
     imageWidth: "Display area width",
     valueName: "Join identifier",
+    defaultDisplayValue: "Default display value for dynamic texts",
     rateDescriptionLocation: "Label alignment",
     size: "Input field width (in characters)",
     cellErrorLocation: "Cell error message alignment",
@@ -479,11 +516,13 @@ export var enStrings = {
     listIsEmpty: "You don't have any items yet",
     "listIsEmpty@choices": "You don't have any choices yet",
     "listIsEmpty@columns": "You don't have any columns yet",
+    "listIsEmpty@gridLayoutColumns": "You don't have layout columns yet",
     "listIsEmpty@rows": "You don't have any rows yet",
     "listIsEmpty@validators": "You don't have any validation rules yet",
     "listIsEmpty@calculatedValues": "You don't have any custom variables yet",
     "listIsEmpty@triggers": "You don't have any triggers yet",
     "listIsEmpty@navigateToUrlOnCondition": "You don't have any links yet",
+    "listIsEmpty@pages": "You don't have any pages yet",
     "addNew@choices": "Add new choice",
     "addNew@columns": "Add new column",
     "addNew@rows": "Add new row",
@@ -491,6 +530,7 @@ export var enStrings = {
     "addNew@calculatedValues": "Add new variable",
     "addNew@triggers": "Add new trigger",
     "addNew@navigateToUrlOnCondition": "Add new URL",
+    "addNew@pages": "Add new page",
     expressionIsEmpty: "Expression is empty",
     value: "Value",
     text: "Text",
@@ -510,6 +550,7 @@ export var enStrings = {
     titlePlaceholder: "Title",
     surveyTitlePlaceholder: "Survey Title",
     pageTitlePlaceholder: "Page {num}",
+    startPageTitlePlaceholder: "Start Page",
     descriptionPlaceholder: "Description",
     surveyDescriptionPlaceholder: "Description",
     pageDescriptionPlaceholder: "Description",
@@ -530,11 +571,12 @@ export var enStrings = {
     cellType: "Cell input type",
     colCount: "Column count",
     choicesOrder: "Choice order",
+    allowCustomChoices: "Allow custom choices",
     visible: "Visible",
     isRequired: "Required",
     markRequired: "Mark as required",
     removeRequiredMark: "Remove the required mark",
-    isAllRowRequired: "Require an answer in each row",
+    eachRowRequired: "Require an answer in each row",
     eachRowUnique: "Prevent duplicate responses in rows",
     requiredErrorText: "Error message for required questions",
     startWithNewLine: "Display the question on a new line",
@@ -546,7 +588,7 @@ export var enStrings = {
     maxSize: "Maximum file size (in bytes)",
     rowCount: "Row count",
     columnLayout: "Columns layout",
-    addRowLocation: "\"Add Row\" button alignment",
+    addRowButtonLocation: "\"Add Row\" button alignment",
     transposeData: "Transpose rows to columns",
     addRowText: "\"Add Row\" button text",
     removeRowText: "\"Remove Row\" button text",
@@ -582,10 +624,9 @@ export var enStrings = {
     simulator: "Select device type",
     landscapeOrientation: "Switch to landscape orientation",
     portraitOrientation: "Switch to portrait orientation",
-    mode: "Survey display mode",
     clearInvisibleValues: "Clear hidden question values",
     cookieName: "Limit to one response",
-    sendResultOnPageNext: "Auto-save survey progress on page change",
+    partialSendEnabled: "Auto-save survey progress on page change",
     storeOthersAsComment: "Save the \"Other\" option value as a separate property",
     showPageTitles: "Show page titles",
     showPageNumbers: "Show page numbers",
@@ -595,36 +636,39 @@ export var enStrings = {
     previewText: "\"Review Answers\" button text",
     editText: "\"Edit Answer\" button text",
     startSurveyText: "\"Start Survey\" button text",
-    showNavigationButtons: "Show/hide navigation buttons",
+    showNavigationButtons: "Show navigation buttons",
+    navigationButtonsLocation: "Navigation buttons alignment",
     showPrevButton: "Show the \"Previous Page\" button",
-    firstPageIsStarted: "First page is a start page",
-    showCompletedPage: "Show the \"Thank You\" page",
-    goNextPageAutomatic: "Auto-advance to the next page",
-    allowCompleteSurveyAutomatic: "Complete the survey automatically",
-    showProgressBar: "Progress bar alignment",
+    firstPageIsStartPage: "First page is a start page",
+    showCompletePage: "Show the \"Thank You\" page",
+    autoAdvanceEnabled: "Auto-advance to the next page",
+    autoAdvanceAllowComplete: "Complete the survey automatically",
+    showProgressBar: "Show the progress bar",
+    progressBarLocation: "Progress bar alignment",
     questionTitleLocation: "Question title alignment",
     questionTitleWidth: "Question title width",
-    requiredText: "Required symbol(s)",
+    requiredMark: "Required symbol(s)",
     questionTitleTemplate: "Question title template, default is: '{no}. {require} {title}'",
     questionErrorLocation: "Error message alignment",
-    focusFirstQuestionAutomatic: "Focus first question on a new page",
-    questionsOrder: "Question order",
-    maxTimeToFinish: "Time limit to complete the survey",
-    maxTimeToFinishPage: "Time limit to complete one page",
-    showTimerPanel: "Timer alignment",
-    showTimerPanelMode: "Timer mode",
+    autoFocusFirstQuestion: "Focus first question on a new page",
+    questionOrder: "Question order",
+    timeLimit: "Time limit to complete the survey",
+    timeLimitPerPage: "Time limit to complete one page",
+    showTimer: "Use a timer",
+    timerLocation: "Timer alignment",
+    timerInfoMode: "Timer mode",
     renderMode: "Panel display mode",
     allowAddPanel: "Enable panel addition",
     allowRemovePanel: "Enable panel removal",
-    panelAddText: "\"Add Panel\" button text",
-    panelRemoveText: "\"Remove Panel\" button text",
+    addPanelText: "\"Add Panel\" button text",
+    removePanelText: "\"Remove Panel\" button text",
     isSinglePage: "Show all elements on one page",
     html: "HTML markup",
     setValue: "Answer",
     dataFormat: "Storage format",
     allowAddRows: "Enable row addition",
     allowRemoveRows: "Enable row removal",
-    allowRowsDragAndDrop: "Enable row reordering",
+    allowRowReorder: "Enable row reordering",
     responsiveImageSizeHelp: "Does not apply if you specify the exact display area width or height.",
     minImageWidth: "Minimum display area width",
     maxImageWidth: "Maximum display area width",
@@ -632,6 +676,7 @@ export var enStrings = {
     maxImageHeight: "Maximum display area height",
     minValue: "Minimum value",
     maxValue: "Maximum value",
+    caseInsensitive: "Case insensitive",
     minLength: "Minimum length (in characters)",
     allowDigits: "Allow digits",
     minCount: "Minimum count",
@@ -650,20 +695,13 @@ export var enStrings = {
     logo: "Survey logo",
     questionsOnPageMode: "Survey layout",
     maxTextLength: "Restrict answer length",
-    maxOthersLength: "Restrict comment length",
+    maxCommentLength: "Restrict comment length",
     commentAreaRows: "Comment area height (in lines)",
     autoGrowComment: "Auto-expand text areas",
     allowResizeComment: "Allow users to resize text areas",
     textUpdateMode: "Update input field values",
     maskType: "Input mask type",
-    maskTypes: {
-      none: "None",
-      patternmask: "Pattern",
-      numericmask: "Numeric",
-      datetimemask: "Date and Time",
-      currencymask: "Currency"
-    },
-    focusOnFirstError: "Set focus on the first invalid answer",
+    autoFocusFirstError: "Set focus on the first invalid answer",
     checkErrorsMode: "Run validation",
     validateVisitedEmptyFields: "Validate empty fields on lost focus",
     navigateToUrl: "Redirect to an external link after submission",
@@ -697,10 +735,9 @@ export var enStrings = {
     minPanelCount: "Minimum panel count",
     maxPanelCount: "Maximum panel count",
     panelsState: "Inner panel collapse state",
-    panelPrevText: "\"Previous Panel\" button text",
-    panelNextText: "\"Next Panel\" button text",
-    showRangeInProgress: "Show the progress bar",
-    panelRemoveButtonLocation: "\"Remove Panel\" button alignment",
+    prevPanelText: "\"Previous Panel\" button text",
+    nextPanelText: "\"Next Panel\" button text",
+    removePanelButtonLocation: "\"Remove Panel\" button alignment",
     hideIfRowsEmpty: "Hide the question if it has no rows",
     hideColumnsIfEmpty: "Hide columns if there are no rows",
     rateValues: "Custom rating values",
@@ -722,21 +759,22 @@ export var enStrings = {
     keyDuplicationError: "Error message for duplicate responses",
     minSelectedChoices: "Minimum choices to select",
     maxSelectedChoices: "Maximum choices to select",
-    showClearButton: "Show the Clear button",
     logoWidth: "Logo width",
     logoHeight: "Logo height",
     readOnly: "Read-only",
     enableIf: "Disable the read-only mode if",
-    emptyRowsText: "\"No rows\" message",
+    noRowsText: "\"No rows\" message",
     separateSpecialChoices: "Separate special choices",
     choicesFromQuestion: "Copy choices from the following question",
     choicesFromQuestionMode: "Which choice options to copy",
-    progressBarShowPageTitles: "Display page titles in progress bar",
-    progressBarShowPageNumbers: "Display page numbers in progress bar",
+    choiceValuesFromQuestion: "Use values from the following matrix column or panel question as choice IDs",
+    choiceTextsFromQuestion: "Use values from the following matrix column or panel question as choice texts",
+    progressBarShowPageTitles: "Display page titles in the progress bar",
+    progressBarShowPageNumbers: "Display page numbers in the progress bar",
     showCommentArea: "Add a comment box",
     commentPlaceholder: "Placeholder text for the comment box",
     displayRateDescriptionsAsExtremeItems: "Show the labels as extreme values",
-    rowsOrder: "Row order",
+    rowOrder: "Row order",
     columnsLayout: "Column layout",
     columnColCount: "Nested column count",
     correctAnswer: "Correct Answer",
@@ -765,11 +803,17 @@ export var enStrings = {
       top: "On the top",
       bottom: "In the bottom"
     },
+    previewMode: "Preview mode",
+    gridLayoutEnabled: "Enable grid layout",
+    gridLayoutColumns: "Grid columns",
+    maskSettings: "Mask settings",
+    detailErrorLocation: "Row expansion error message alignment",
     // Creator tabs
     tabs: {
       panel: {
         layout: "Panel Layout"
       },
+
       general: "General",
       fileOptions: "Options",
       html: "HTML Editor",
@@ -812,6 +856,9 @@ export var enStrings = {
       header: "Header",
       background: "Background",
       appearance: "Appearance",
+      accentColors: "Accent colors",
+      surfaceBackground: "Surface background",
+      scaling: "Scaling",
       others: "Others"
     },
     editProperty: "Edit property '{0}'",
@@ -821,8 +868,7 @@ export var enStrings = {
     columnsEnableIf: "Make columns visible if",
     rowsEnableIf: "Make rows visible if",
     innerIndent: "Increase the inner indent",
-    defaultValueFromLastRow: "Use answers from the last row as default",
-    defaultValueFromLastPanel: "Use answers from the last panel as default",
+    copyDefaultValueFromLastEntry: "Use answers from the last entry as default",
     enterNewValue: "Please enter a value.",
     noquestions: "There are no questions in the survey.",
     createtrigger: "Please create a trigger",
@@ -865,6 +911,7 @@ export var enStrings = {
     maxWidth_placeholder: "Ex.: 50%",
     imageHeight_placeholder: "auto",
     imageWidth_placeholder: "auto",
+    itemTitleWidth_placeholder: "Ex.: 100px",
     theme: {
       themeName: "Theme",
       isPanelless: "Question appearance",
@@ -876,6 +923,7 @@ export var enStrings = {
       fontSize: "Survey font size",
       scale: "Survey scale factor",
       cornerRadius: "Corner radius",
+      advancedMode: "Advanced mode",
       pageTitle: "Title font",
       pageDescription: "Description font",
       questionTitle: "Title font",
@@ -937,10 +985,11 @@ export var enStrings = {
     firstExpanded: "First panel is expanded",
     off: "Hide question numbers",
     list: "List",
+    carousel: "Carousel",
+    tab: "Tabs",
     progressTop: "Panel navigator + Progress bar at the top",
     progressBottom: "Panel navigator + Progress bar at the bottom",
     progressTopBottom: "Panel navigator + Progress bar at the top and bottom",
-    tab: "Tabs",
     horizontal: "Horizontal",
     vertical: "Vertical",
     top: "Top",
@@ -998,6 +1047,73 @@ export var enStrings = {
       url: "URL",
       week: "Week"
     },
+    autocomplete: {
+      "name": "Full Name",
+      "honorific-prefix": "Prefix",
+      "given-name": "First Name",
+      "additional-name": "Middle Name",
+      "family-name": "Last Name",
+      "honorific-suffix": "Suffix",
+      "nickname": "Nickname",
+      "organization-title": "Job Title",
+      "username": "User Name",
+      "new-password": "New Password",
+      "current-password": "Current Password",
+      "organization": "Organization Name",
+      "street-address": "Full Street Address",
+      "address-line1": "Address Line 1",
+      "address-line2": "Address Line 2",
+      "address-line3": "Address Line 3",
+      "address-level4": "Level 4 Address",
+      "address-level3": "Level 3 Address",
+      "address-level2": "Level 2 Address",
+      "address-level1": "Level 1 Address",
+      "country": "Country Code",
+      "country-name": "Country Name",
+      "postal-code": "Postal Code",
+      "cc-name": "Cardholder Name",
+      "cc-given-name": "Cardholder First Name",
+      "cc-additional-name": "Cardholder Middle Name",
+      "cc-family-name": "Cardholder Last Name",
+      "cc-number": "Credit Card Number",
+      "cc-exp": "Expiration Date",
+      "cc-exp-month": "Expiration Month",
+      "cc-exp-year": "Expiration Year",
+      "cc-csc": "Card Security Code",
+      "cc-type": "Credit Card Type",
+      "transaction-currency": "Transaction Currency",
+      "transaction-amount": "Transaction Amount",
+      "language": "Preferred Language",
+      "bday": "Birthday",
+      "bday-day": "Birthday Day",
+      "bday-month": "Birthday Month",
+      "bday-year": "Birthday Year",
+      "sex": "Gender",
+      "url": "Website URL",
+      "photo": "Profile Photo",
+      "tel": "Telephone Number",
+      "tel-country-code": "Country Code for Phone",
+      "tel-national": "National Telephone Number",
+      "tel-area-code": "Area Code",
+      "tel-local": "Local Phone Number",
+      "tel-local-prefix": "Local Phone Prefix",
+      "tel-local-suffix": "Local Phone Suffix",
+      "tel-extension": "Phone Extension",
+      "email": "Email Address",
+      "impp": "Instant Messaging Protocol"
+    },
+    maskType: {
+      none: "None",
+      pattern: "Pattern",
+      numeric: "Numeric",
+      datetime: "Date and Time",
+      currency: "Currency"
+    },
+    inputTextAlignment: {
+      auto: "Auto",
+      left: "Left",
+      right: "Right"
+    },
     all: "All",
     page: "Page",
     survey: "Survey",
@@ -1012,6 +1128,8 @@ export var enStrings = {
     noPreview: "No preview",
     showAllQuestions: "Show all questions",
     showAnsweredQuestions: "Show answered questions only",
+    allQuestions: "Show all questions",
+    answeredQuestions: "Show answered questions only",
     pages: "Completed pages",
     questions: "Answered questions",
     requiredQuestions: "Answered required questions",
@@ -1027,13 +1145,10 @@ export var enStrings = {
     showNavigationButtons: {
       none: "Hidden"
     },
-    showTimerPanel: {
-      none: "Hidden"
+    timerInfoMode: {
+      combined: "Both"
     },
-    showTimerPanelMode: {
-      all: "Both"
-    },
-    addRowLocation: {
+    addRowButtonLocation: {
       default: "Based on matrix layout"
     },
     panelsState: {
@@ -1081,6 +1196,7 @@ export var enStrings = {
       onPage: "Reset on each page",
       onpanel: "Reset on each panel",
       onPanel: "Reset on each panel",
+      recursive: "Recursive numbering",
       onSurvey: "Continue across the survey",
       off: "No numbering"
     },
@@ -1104,17 +1220,19 @@ export var enStrings = {
       percent: "Percentage",
       date: "Date"
     },
-    rowsOrder: {
+    rowOrder: {
       initial: "Original"
     },
-    questionsOrder: {
+    questionOrder: {
       initial: "Original"
     },
-    showProgressBar: {
-      off: "Hidden",
+    progressBarLocation: {
+      top: "Top",
+      bottom: "Bottom",
       topbottom: "Top and bottom",
       aboveheader: "Above the header",
-      belowheader: "Below the header"
+      belowheader: "Below the header",
+      off: "Hidden"
     },
     sum: "Sum",
     count: "Count",
@@ -1157,6 +1275,10 @@ export var enStrings = {
       false: "Default",
       true: "Without Panels",
     },
+    progressBarInheritWidthFrom: {
+      survey: "Same as survey",
+      container: "Same as container"
+    }
   },
   // Operators
   op: {
@@ -1202,7 +1324,9 @@ export var enStrings = {
   ts: {
     selectPage: "Select the page to test it",
     showInvisibleElements: "Show invisible elements",
-    hideInvisibleElements: "Hide invisible elements"
+    hideInvisibleElements: "Hide invisible elements",
+    prevPage: "Previous",
+    nextPage: "Next",
   },
   validators: {
     answercountvalidator: "Answer count",
@@ -1250,12 +1374,15 @@ export var enStrings = {
       questionTitleLocation: "Applies to all questions within this panel. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default). ",
       questionTitleWidth: "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.).",
       questionErrorLocation: "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting.",
-      questionsOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting.",
+      questionOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting.",
       page: "Repositions the panel to the end of a selected page.",
       innerIndent: "Adds space or margin between the panel content and the left border of the panel box.",
       startWithNewLine: "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form.",
       state: "Choose from: \"Expanded\" - the panel is displayed in full and can be collapsed; \"Collapsed\" - the panel displays only the title and description and can be expanded; \"Locked\" - the panel is displayed in full and cannot be collapsed.",
-      width: "Sets the width of the panel in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
+      width: "Sets the width of the panel in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.).",
+      showQuestionNumbers: "Assigns numbers to questions nested within this panel.",
+      effectiveColSpan: "Specifies how many columns this panel spans within the grid layout.",
+      gridLayoutColumns: "This table lets you configure each grid column within the panel. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column.",
     },
     paneldynamic: {
       name: "A panel ID that is not visible to respondents.",
@@ -1264,10 +1391,11 @@ export var enStrings = {
       visibleIf: "Use the magic wand icon to set a conditional rule that determines panel visibility.",
       enableIf: "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panel.",
       requiredIf: "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer.",
-      templateTitleLocation: "Applies to all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default).",
+      templateQuestionTitleLocation: "Applies to all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default).",
+      templateQuestionTitleWidth: "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.).",
       templateErrorLocation: "Sets the location of an error message in relation to a question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default).",
       errorLocation: "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting.",
-      // questionsOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting.",
+      // questionOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting.",
       page: "Repositions the panel to the end of a selected page.",
       innerIndent: "Adds space or margin between the panel content and the left border of the panel box.",
       startWithNewLine: "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form.",
@@ -1280,13 +1408,15 @@ export var enStrings = {
       titleLocation: "This setting is automatically inherited by all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default).",
       descriptionLocation: "The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Under the panel title\" by default).",
       newPanelPosition: "Defines the position of a newly added panel. By default, new panels are added to the end. Select \"Next\" to insert a new panel after the current one.",
-      defaultValueFromLastPanel: "Duplicates answers from the last panel and assigns them to the next added dynamic panel.",
+      copyDefaultValueFromLastEntry: "Duplicates answers from the last panel and assigns them to the next added dynamic panel.",
       keyName: "Reference a question name to require a user to provide a unique response for this question in each panel."
     },
+    copyDefaultValueFromLastEntry: "Duplicates answers from the last row and assigns them to the next added dynamic row.",
     defaultValueExpression: "This setting allows you to assign a default answer value based on an expression. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression serves as the initial default value that can be overridden by a respondent's manual input.",
     resetValueIf: "Use the magic wand icon to set a conditional rule that determines when a respondent's input is reset to the value based on the \"Default value expression\" or \"Set value expression\" or to the \"Default answer\" value (if either is set).",
     setValueIf: "Use the magic wand icon to set a conditional rule that determines when to run the \"Set value expression\" and dynamically assign the resulting value as a response.",
     setValueExpression: "Specify an expression that defines the value to be set when the conditions in the \"Set value if\" rule are met. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression can be overridden by a respondent's manual input.",
+    gridLayoutEnabled: "Survey Creator allows you to manually adjust the inline widths of form elements to control the layout. If this doesn't produce the desired outcome, you can enable the grid layout, which structures form elements using a column-based system. To configure layout columns, select a page or panel and use the \"Question Settings\" → \"Grid columns\" table. To adjust how many columns a question spans, select it and set the desired value in the \"Layout\" → \"Column span\" field.",
     question: {
       name: "A question ID that is not visible to respondents.",
       description: "Type a question subtitle.",
@@ -1307,7 +1437,8 @@ export var enStrings = {
       textUpdateMode: "Choose from: \"On lost focus\" - the value is updated when the input field loses focus; \"While typing\" - the value is updated in real-time, as users are typing. The \"Inherit\" option applies the survey-level setting (\"On lost focus\" by default).",
       url: "You can use any web service as a data source for multiple-choice questions. To populate choice values, enter the URL of the service providing the data.",
       searchMode: "A comparison operation used to filter the drop-down list.",
-      textWrapEnabled: "Long texts in choice options will automatically generate line breaks to fit within the drop-down menu. Unselect if you want the texts to clip."
+      textWrapEnabled: "Long texts in choice options will automatically generate line breaks to fit within the drop-down menu. Unselect if you want the texts to clip.",
+      effectiveColSpan: "Specifies how many columns this question spans within the grid layout."
     },
     signaturepad: {
       signatureWidth: "Sets the width of the displayed signature area and the resulting image.",
@@ -1316,7 +1447,8 @@ export var enStrings = {
     },
     file: {
       imageHeight: "Adjusts the height of the image in the survey results.",
-      imageWidth: "Adjusts the width of the image in the survey results."
+      imageWidth: "Adjusts the width of the image in the survey results.",
+      allowImagesPreview: "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead.",
     },
     image: {
       contentMode: "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -1328,14 +1460,15 @@ export var enStrings = {
       contentMode: "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
     },
     text: {
-      size: "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to <b>Validation → Maximum character limit</b>."
+      size: "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
     },
     comment: {
       rows: "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
     },
     // survey templates
     survey: {
-      mode: "Choose between: \"Editable\" - enables respondents to fill out your survey; \"Read-only\" - disables form editing."
+      readOnly: "Select if you want to prevent respondents from filling out your survey.",
+      progressBarLocation: "Sets the location of the progress bar. The \"Auto\" value displays the progress bar above or below the survey header."
     },
     matrixdropdowncolumn: {
       name: "A column ID that is not visible to respondents.",
@@ -1344,28 +1477,30 @@ export var enStrings = {
       visibleIf: "Use the magic wand icon to set a conditional rule that determines column visibility.",
       enableIf: "Use the magic wand icon to set a conditional rule that disables the read-only mode for the column.",
       requiredIf: "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer.",
-      showInMultipleColumns: "When selected, creates an individual column for each choice option."
+      showInMultipleColumns: "When selected, creates an individual column for each choice option.",
+      colCount: "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. When set to -1, the actual value is inherited from the \"Nested column count\" property of the parent matrix.",
     },
+    caseInsensitive: "Select if uppercase and lowercase letters in the regular expression must be treated as equivalent.",
     widthMode: "Choose from: \"Static\" - sets a fixed width; \"Responsive\" - makes the survey occupy the full width of the screen; \"Auto\" - applies either of the two depending on the question types used.",
     cookieName: "Assign a unique cookie value for your survey. The cookie will be set in a respondent's browser upon survey completion to prevent repetitive survey submissions.",
     logo: "Paste an image link (no size limits) or click the folder icon to browse a file from your computer (up to 64KB).",
     logoWidth: "Sets a logo width in CSS units (px, %, in, pt, etc.).",
     logoHeight: "Sets a logo height in CSS units (px, %, in, pt, etc.).",
     logoFit: "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio.",
-    goNextPageAutomatic: "Select if you want the survey to advance to the next page automatically after a respondent answers all questions on the current page.",
-    allowCompleteSurveyAutomatic: "Select if you want the survey to complete automatically after a respondent answers all questions.",
-    showNavigationButtons: "Sets the visibility and location of navigation buttons on a page.",
-    showProgressBar: "Sets the visibility and location of a progress bar. The \"Auto\" value displays the progress bar above or below the survey header.",
+    autoAdvanceEnabled: "Select if you want the survey to auto-advance to the next page once a respondent has answered all questions on the current page. This feature won't apply if the last question on the page is open-ended or allows multiple answers.",
+    autoAdvanceAllowComplete: "Select if you want the survey to complete automatically after a respondent answers all questions.",
+    showNavigationButtons: "Sets the visibility of navigation buttons on a page.",
+    navigationButtonsLocation: "Sets the location of navigation buttons on a page.",
     showPreviewBeforeComplete: "Enable the preview page with all or answered questions only.",
     questionTitleLocation: "Applies to all questions within the survey. This setting can be overridden by title alignment rules at lower levels: panel, page, or question. A lower-level setting will override those on a higher level.",
-    requiredText: "A symbol or a sequence of symbols indicating that an answer is required.",
+    requiredMark: "A symbol or a sequence of symbols indicating that an answer is required.",
     questionStartIndex: "Enter a number or letter with which you want to start numbering.",
     questionErrorLocation: "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box.",
-    focusFirstQuestionAutomatic: "Select if you want the first input field on each page ready for text entry.",
-    questionsOrder: "Keeps the original order of questions or randomizes them. The effect of this setting is only visible in the Preview tab.",
+    autoFocusFirstQuestion: "Select if you want the first input field on each page ready for text entry.",
+    questionOrder: "Keeps the original order of questions or randomizes them. The effect of this setting is only visible in the Preview tab.",
     maxTextLength: "For text entry questions only.",
-    maxOthersLength: "For question comments only.",
-    commentAreaRows: "Sets the number of displayed lines in text areas for question comments. In the input takes up more lines, the scroll bar appears.",
+    maxCommentLength: "For question comments only.",
+    commentAreaRows: "Sets the number of displayed lines in text areas for question comments. If the input takes up more lines, the scroll bar appears.",
     autoGrowComment: "Select if you want question comments and Long Text questions to auto-grow in height based on the entered text length.",
     allowResizeComment: "For question comments and Long Text questions only.",
     calculatedValues: "Custom variables serve as intermediate or auxiliary variables used in form calculations. They take respondent inputs as source values. Each custom variable has a unique name and an expression it's based on.",
@@ -1379,22 +1514,25 @@ export var enStrings = {
     rowTitleWidth: "Accepts CSS values (px, %, in, pt, etc.).",
     totalText: "Visible only if at least one column displays total values set with \"Aggregation method\" or \"Total value expression\".",
     cellErrorLocation: "Sets the location of an error message in relation to a cell with invalid input. The \"Inherit\" option applies the setting from the \"Error message alignment\" property.",
+    detailErrorLocation: "Sets the location of error messages for questions nested in detail sections. The \"Inherit\" option applies the setting from the \"Error message alignment\" property.",
     keyDuplicationError: "When the \"Prevent duplicate responses\" property is enabled, a respondent attempting to submit a duplicate entry will receive the following error message.",
     totalExpression: "Allows you to calculate total values based on an expression. The expression can include basic calculations (`{q1_id} + {q2_id}`), Boolean expressions (`{age} > 60`) and functions ('iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc.).",
     confirmDelete: "Triggers a prompt asking to confirm the row deletion.",
-    defaultValueFromLastRow: "Duplicates answers from the last row and assigns them to the next added dynamic row.",
     keyName: "Reference a column ID to require a user to provide a unique response for each question within the specified column.",
     description: "Type a subtitle.",
     locale: "Choose a language to begin creating your survey. To add a translation, switch to a new language and translate the original text here or in the Translations tab.",
-    detailPanelMode: "Sets the location of a details section in relation to a row. Choose from: \"None\" - no expansion is added; \"Under the row\" - a row expansion is placed under each row of the matrix; \"Under the row, display one row expansion only\" - an expansion is displayed under a single row only, the remaining row expansions are collapsed.",
+    detailPanelMode: "Sets the location of a detail section in relation to a row. Choose from: \"None\" - no expansion is added; \"Under the row\" - a row expansion is placed under each row of the matrix; \"Under the row, display one row expansion only\" - an expansion is displayed under a single row only, the remaining row expansions are collapsed.",
     imageFit: "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio.",
     autoGrow: "The \"Inherit\" option applies a survey-level setting (\"Disabled\" by default).",
     allowResize: "The \"Inherit\" option applies a survey-level setting (\"Enabled\" by default).",
-    maxTimeToFinish: "A time interval in seconds after which the survey auto-advances to the \"Thank You\" page.",
-    maxTimeToFinishPage: "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button.",
+    timeLimit: "A time interval in seconds after which the survey auto-advances to the \"Thank You\" page. When set to 0, counts the time spent on the survey.",
+    timeLimitPerPage: "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button. When set to 0, counts the time spent on the current page.",
     validateVisitedEmptyFields: "Enable this option to trigger validation when a user focuses on an empty input field and then leaves it without making any changes.",
     page: {
-      maxTimeToFinish: "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button.",
+      name: "A page ID that is not visible to respondents.",
+      description: "Type a page subtitle.",
+      navigationTitle: "A caption displayed on a navigation button in the progress bar or table of contents (TOC). If you leave this field empty, the navigation button will use the page title or page name. To enable the progress bar or TOC, go to \"Survey\" → \"Navigation\".",
+      timeLimit: "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button. When set to 0, counts the time spent on the current page.",
       // isRequired: "Prevents survey submission unless at least one nested question has an answer.",
       visibleIf: "Use the magic wand icon to set a conditional rule that determines page visibility.",
       enableIf: "Use the magic wand icon to set a conditional rule that disables the read-only mode for the page.",
@@ -1402,10 +1540,11 @@ export var enStrings = {
       questionTitleLocation: "Applies to all questions within this page. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions or panels. The \"Inherit\" option applies the survey-level setting (\"Top\" by default).",
       questionTitleWidth: "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.).",
       questionErrorLocation: "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the survey-level setting (\"Top\" by default).",
-      questionsOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab.",
-      navigationButtonsVisibility: "Sets the visibility of navigation buttons on the page. The \"Inherit\" option applies the survey-level setting, which defaults to \"Visible\"."
+      questionOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab.",
+      showNavigationButtons: "Sets the visibility of navigation buttons on the page. The \"Inherit\" option applies the survey-level setting, which defaults to \"Visible\".",
+      gridLayoutColumns: "This table lets you configure each grid column on the page. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column.",
     },
-    showTimerPanel: "Sets the visibility and location of a timer on a page.",
+    timerLocation: "Sets the location of a timer on a page.",
     panelsState: "Choose from: \"Locked\" - users cannot expand or collapse panels; \"Collapse all\" - all panels start in a collapsed state; \"Expand all\" - all panels start in an expanded state; \"First expanded\" - only the first panel is initially expanded. Applies if \"Panel display mode\" is set to \"List\" and the \"Panel title pattern\" property is specified.",
     imageLinkName: "Enter a shared property name within the array of objects that contains the image or video file URLs you want to display in the choice list.",
     choices: "The left value serves as an item ID used in conditional rules, the right value is displayed to respondents.",
@@ -1415,9 +1554,13 @@ export var enStrings = {
     maxWidth: "Accepts CSS values (px, %, in, pt, etc.).",
     width: "Accepts CSS values (px, %, in, pt, etc.).",
     valueName: "A join identifier is a custom key that you can assign to several questions to link them together and sync their values. These values will be merged into a single array or object and stored in survey results using the key as the property name.",
+    defaultDisplayValue: "A value displayed in HTML questions and in the dynamic titles and descriptions of survey elements when the question value is empty.",
     useDisplayValuesInDynamicTexts: "In single- and multiple-selection question types, each choice option has an ID and display value. When selected, this setting shows a display value instead of an ID value in HTML questions and dynamic titles and descriptions of survey elements.",
     clearIfInvisible: "Choose whether or not to clear question values hidden by conditional logic and when to do it. The \"Inherit\" option applies the survey-level setting (\"Upon survey completion\" by default).",
     choicesFromQuestionMode: "Choose from: \"All\" - copies all choice options from the selected question; \"Selected\" - dynamically copies only selected choice options; \"Unselected\" - dynamically copies only unselected choice options. The \"None\" and \"Other\" options are copied by default if enabled in the source question.",
+    choiceValuesFromQuestion: "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the IDs.",
+    choiceTextsFromQuestion: "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the display texts.",
+    allowCustomChoices: "Select to let respondents add their own choices if the desired option isn't available in the dropdown. Custom choices will only be stored temporarily for the duration of the current browser session.",
     showOtherItem: "When selected, users can include additional input in a separate comment box.",
     separateSpecialChoices: "Displays each special choice option (\"None\", \"Other\", \"Select All\") on a new line, even when using a multiple-column layout.",
     path: "Specify the location within the service dataset where the target array of objects is located. Leave empty if the URL already points to the array.",
@@ -1439,8 +1582,9 @@ export var enStrings = {
     needConfirmRemoveFile: "Triggers a prompt asking to confirm the file deletion.",
     selectToRankEnabled: "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area.",
     dataList: "Enter a list of choices that will be suggested to the respondent during input.",
-    itemSize: "The setting only resizes the input fields and doesn't affect the width of the question box.",
-    itemTitleWidth: "Sets consistent width for all item labels in pixels",
+    inputSize: "The setting only resizes the input fields and doesn't affect the width of the question box.",
+    itemTitleWidth: "Sets consistent width for all item labels. Accepts CSS values (px, %, in, pt, etc.).",
+    inputTextAlignment: "Select how to align input value within the field. The default setting \"Auto\" aligns the input value to the right if currency or numeric masking is applied and to the left if not.",
     altText: "Serves as a substitute when the image cannot be displayed on a user's device and for accessibility purposes.",
     rateColorMode: "Defines the color of the selected emoji when the Rating icon type is set to \"Smileys\". Choose between: \"Default\" - the selected emoji appears in default survey color; \"Scale\" - the selected emoji inherits color from the rating scale.",
     expression: {
@@ -1451,7 +1595,7 @@ export var enStrings = {
     storeOthersAsComment: "Select to store the \"Other\" option value as a separate property in survey results.",
     format: "Use {0} as a placeholder for the actual value.",
     acceptedTypes: "Refer to the [accept](https://www.w3schools.com/tags/att_input_accept.asp) attribute description for more information.",
-    columnColCount: "Applies only if \"Cell input type\" is set to Radio Button Group or Checkboxes.",
+    columnColCount: "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. Applies only to columns with \"Cell input type\" set to Radio Button Group or Checkboxes.",
     autocomplete: "Select the data type that the user's browser can retrieve. This data is sourced either from past values entered by the user or from pre-configured values if any have been saved by the user for autocompletion.",
     filePlaceholder: "Applies when \"File source type\" is \"Local file\" or when camera is unavailable",
     photoPlaceholder: "Applies when \"File source type\" is \"Camera\".",
@@ -1486,12 +1630,10 @@ export var enStrings = {
     header: {
       inheritWidthFrom: "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in.",
       textAreaWidth: "The width of the header area that contains the survey title and description, measured in pixels.",
-      overlapEnabled: "Makes the bottom of the header overlaid with the top of the survey.",
+      overlapEnabled: "When enabled, the top of the survey overlays the bottom of the header.",
+      mobileHeight: "When set to 0, the height is calculated automatically to accommodate the header's content.",
     },
-    panellayoutcolumn: {
-      effectiveWidth: "Accepts values %.",
-      questionTitleWidth: "Accepts values px."
-    },
+    progressBarInheritWidthFrom: "The \"Same as container\" option auto-adjusts the progress bar area width to fit into the HTML element the survey is placed in."
   },
   // Properties
   p: {
@@ -1554,11 +1696,11 @@ export var enStrings = {
     maxValueExpression: "Max value expression", // Auto-generated string
     step: "Step", // Auto-generated string
     dataList: "Items for auto-suggest",
-    itemSize: "Input field width (in characters)",
-    itemTitleWidth: "Item label width (in px)",
+    inputSize: "Input field width (in characters)",
+    itemTitleWidth: "Item label width",
+    inputTextAlignment: "Input value alignment",
     elements: "Elements", // Auto-generated string
     content: "Content", // Auto-generated string
-    navigationButtonsVisibility: "Show/hide navigation buttons",
     navigationTitle: "Navigation title", // Auto-generated string
     navigationDescription: "Navigation description", // Auto-generated string
     longTap: "Long tap", // Auto-generated string
@@ -1572,6 +1714,7 @@ export var enStrings = {
     imageFit: "Image and thumbnail fit",
     altText: "Alt text",
     height: "Height", // Auto-generated string
+    mobileHeight: "Height on smartphones",
     penColor: "Pen color", // Auto-generated string
     backgroundColor: "Background color",
     templateElements: "Template elements", // Auto-generated string
@@ -1596,6 +1739,7 @@ export var enStrings = {
     rateColorMode: "Smileys color scheme",
     copyDisplayValue: "Copy display value", // Auto-generated string
     effectiveColSpan: "Column span",
+    progressBarInheritWidthFrom: "Progress bar area width",
   },
   theme: {
     advancedMode: "Advanced mode",
@@ -1660,12 +1804,28 @@ export var enStrings = {
       orchid: "Orchid",
       tulip: "Tulip",
       brown: "Brown",
-      green: "Green"
-    }
+      green: "Green",
+      gray: "Gray"
+    },
+  },
+  creatortheme: {
+    "--sjs-special-background": "Surface background",
+    "--sjs-primary-background-500": "Primary",
+    "--sjs-secondary-background-500": "Secondary",
+    "surfaceScale": "Surface",
+    "userInterfaceBaseUnit": "UI elements",
+    "fontScale": "Font",
+
+    names: {
+      "sc2020": "Survey Creator 2020",
+      "default-light": "Light",
+      "default-dark": "Dark",
+      "default-contrast": "Contrast"
+    },
   }
 };
 
 // Uncomment the line below if you create a custom dictionary.
 // Replace "en" with a custom locale code (for example, "fr" or "de"),
 // Replace `enStrings` with the name of the variable that contains the custom dictionary.
-// editorLocalization.locales["en"] = enStrings;
+// setupLocale({ localeCode: "en", strings: enStrings });

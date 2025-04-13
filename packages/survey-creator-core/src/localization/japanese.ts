@@ -1,10 +1,10 @@
-import { editorLocalization } from "survey-creator-core";
+import { setupLocale } from "survey-creator-core";
 
 export var jaStrings = {
   // survey templates
   survey: {
     edit: "編集",
-    externalHelpLink: "アンケートの作成方法を見て学ぶ",
+    externalHelpLink: "アンケート作成方法の動画を見る",
     externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
     dropQuestion: "ツールボックスからここに質問をドロップしてください。",
     addLogicItem: "アンケートの流れをカスタマイズするルールを作成します。",
@@ -18,11 +18,11 @@ export var jaStrings = {
   },
   // Creator tabs
   tabs: {
-    preview: "アンケートをテストする",
+    preview: "プレビュー",
     theme: "テーマ",
     translation: "翻訳",
-    designer: "アンケートの設計者",
-    editor: "JSONエディタ",
+    designer: "編集",
+    json: "JSONエディタ",
     logic: "アンケートのロジック"
   },
   // Question types
@@ -30,7 +30,7 @@ export var jaStrings = {
     default: "デフォルト",
     checkbox: "チェックボックス",
     comment: "コメント",
-    imagepicker: "画像ピッカー",
+    imagepicker: "画像選択",
     ranking: "ランキング",
     image: "画像",
     dropdown: "ドロップダウン",
@@ -46,18 +46,18 @@ export var jaStrings = {
     radiogroup: "ラジオグループ",
     rating: "評価",
     text: "単一入力",
-    boolean: "ブール",
+    boolean: "二者択一",
     expression: "式（読み取り専用）",
     signaturepad: "署名パッド",
     buttongroup: "ボタングループ"
   },
   toolboxCategories: {
-    general: "一般",
+    general: "全体の設定",
     choice: "選択の質問",
     text: "テキスト入力の質問",
     containers: "コンテナー",
     matrix: "マトリックスの質問",
-    misc: "雑貨"
+    misc: "その他"
   },
   // Strings in SurveyJS Creator
   ed: {
@@ -69,12 +69,13 @@ export var jaStrings = {
     surveySettingsTooltip: "アンケート設定",
     themeSettings: "テーマ設定",
     themeSettingsTooltip: "テーマ設定",
+    creatorSettingTitle: "クリエイター設定",
     showPanel: "パネルを表示する",
     hidePanel: "パネルを非表示にする",
     prevSelected: "前を選択",
     nextSelected: "[次へ] を選択します。",
-    prevFocus: "前に焦点を合わせる",
-    nextFocus: "次の焦点",
+    prevFocus: "前にフォーカス",
+    nextFocus: "次にフォーカス",
     surveyTypeName: "アンケート",
     pageTypeName: "ページ",
     panelTypeName: "パネル",
@@ -106,6 +107,14 @@ export var jaStrings = {
     redo: "やり直す",
     undoTooltip: "最後の変更を元に戻す",
     redoTooltip: "変更をやり直す",
+    expandTooltip: "膨らむ",
+    collapseTooltip: "倒れる",
+    expandAllTooltip: "すべて展開",
+    collapseAllTooltip: "すべて折りたたむ",
+    zoomInTooltip: "ズームインする",
+    zoom100Tooltip: "100%にズーム",
+    zoomOutTooltip: "ズームアウト",
+    lockQuestionsTooltip: "質問の展開/折りたたみ状態のロック",
     showMoreChoices: "さらに表示",
     showLessChoices: "表示を減らす",
     copy: "コピー",
@@ -123,6 +132,8 @@ export var jaStrings = {
     toolboxNoResultsFound: "結果が見つかりませんでした",
     propertyGridFilteredTextPlaceholder: "検索するタイプ...",
     propertyGridNoResultsFound: "結果が見つかりませんでした",
+    propertyGridPlaceholderTitle: "フォームの設定を開始する",
+    propertyGridPlaceholderDescription: "任意のカテゴリアイコンをクリックして、アンケート設定を探索します。追加の設定は、デザイン画面にアンケート要素を追加すると使用可能になります。",
     correctJSON: "JSONを修正してください。",
     surveyResults: "アンケート結果： ",
     surveyResultsTable: "表として",
@@ -138,6 +149,7 @@ export var jaStrings = {
     saveError: "エラー！ エディタのコンテンツは保存されません。",
     translationPropertyGridTitle: "言語設定",
     themePropertyGridTitle: "テーマ設定",
+    addLanguageTooltip: "言語を追加",
     translationLanguages: "言語",
     translationDeleteLanguage: "この言語のすべての文字列を削除してもよろしいですか?",
     translationAddLanguage: "翻訳する言語を選択する",
@@ -154,6 +166,7 @@ export var jaStrings = {
     translationPlaceHolder: "翻訳。。。",
     translationSource: "源：",
     translationTarget: "ターゲット：",
+    translationYouTubeNotSupported: "YouTube リンクはサポートされていません。",
     themeExportButton: "輸出",
     themeImportButton: "輸入",
     surveyJsonExportButton: "輸出",
@@ -177,6 +190,18 @@ export var jaStrings = {
     pagePlaceHolder: "ページは空です。ツールボックスから要素をドラッグするか、下のボタンをクリックします。",
     imagePlaceHolder: "ここに画像をドラッグ&ドロップするか、下のボタンをクリックしてアップロードする画像を選択してください",
     surveyPlaceHolderMobile: "下の「質問を追加」ボタンをクリックして、フォームの作成を開始してください。",
+    surveyPlaceholderTitle: "フォームが空です",
+    surveyPlaceholderTitleMobile: "フォームが空です",
+    surveyPlaceholderDescription: "ツールボックスから要素をドラッグするか、下のボタンをクリックします。",
+    surveyPlaceholderDescriptionMobile: "ツールボックスから要素をドラッグするか、下のボタンをクリックします。",
+    previewPlaceholderTitle: "プレビューなし",
+    previewPlaceholderTitleMobile: "プレビューなし",
+    previewPlaceholderDescription: "調査には、表示されている要素は含まれていません。",
+    previewPlaceholderDescriptionMobile: "調査には、表示されている要素は含まれていません。",
+    translationsPlaceholderTitle: "翻訳する文字列はありません",
+    translationsPlaceholderTitleMobile: "翻訳する文字列はありません",
+    translationsPlaceholderDescription: "フォームに要素を追加するか、ツールバーの文字列フィルターを変更します。",
+    translationsPlaceholderDescriptionMobile: "フォームに要素を追加するか、ツールバーの文字列フィルターを変更します。",
     pagePlaceHolderMobile: "下の「質問を追加」ボタンをクリックして、ページに新しい要素を追加します。",
     panelPlaceHolderMobile: "下の「質問を追加」ボタンをクリックして、パネルに新しい要素を追加します。",
     imagePlaceHolderMobile: "下のボタンをクリックして、アップロードする画像を選択してください",
@@ -189,6 +214,10 @@ export var jaStrings = {
     lg: {
       addNewItem: "新しいルールを追加",
       empty_tab: "調査のフローをカスタマイズするルールを作成します。",
+      logicPlaceholderTitle: "論理的なルールはありません",
+      logicPlaceholderTitleMobile: "論理的なルールはありません",
+      logicPlaceholderDescription: "調査のフローをカスタマイズするルールを作成します。",
+      logicPlaceholderDescriptionMobile: "調査のフローをカスタマイズするルールを作成します。",
       page_visibilityName: "ページの可視性",
       page_enableName: "有効 (無効) ページ",
       page_requireName: "ページを必須にする",
@@ -273,14 +302,18 @@ export var jaStrings = {
       description: "パネルの説明",
       visibleIf: "パネルを表示するのは、次の場合です",
       requiredIf: "次の場合は、パネルを必須にします",
-      questionsOrder: "パネル内の質問の順序",
+      questionOrder: "パネル内の質問の順序",
       page: "親ページ",
       startWithNewLine: "パネルを新しい行に表示する",
       state: "パネル折りたたみ状態",
       width: "インラインパネルの幅",
       minWidth: "最小パネル幅",
       maxWidth: "最大パネル幅",
-      showNumber: "番号パネル"
+      showNumber: "このパネルに番号を付ける"
+    },
+    panellayoutcolumn: {
+      effectiveWidth: "有効幅、%",
+      questionTitleWidth: "質問タイトルの幅、px"
     },
     paneldynamic: {
       name: "パネル名",
@@ -301,12 +334,14 @@ export var jaStrings = {
       templateTabTitle: "タブ タイトルのパターン",
       tabTitlePlaceholder: "タブ タイトルのプレースホルダー",
       templateVisibleIf: "個々のパネルを表示するのは、次の場合です",
-      hideNumber: "パネル番号を隠す",
+      showNumber: "パネルに番号を付ける",
       titleLocation: "パネルタイトルの配置",
       descriptionLocation: "パネル記述の位置合わせ",
-      templateTitleLocation: "質問タイトルの配置",
+      templateQuestionTitleLocation: "質問タイトルの配置",
+      templateQuestionTitleWidth: "質問タイトルの幅",
       templateErrorLocation: "エラー・メッセージのアライメント",
       newPanelPosition: "新しいパネルの位置",
+      showRangeInProgress: "進行状況バーを表示する",
       keyName: "次の質問で回答の重複を防ぐ"
     },
     question: {
@@ -317,7 +352,7 @@ export var jaStrings = {
       requiredIf: "次の場合は質問を必須にします",
       page: "親ページ",
       state: "質問ボックスの折りたたみ状態",
-      hideNumber: "質問番号を非表示にする",
+      showNumber: "この質問に番号を付ける",
       titleLocation: "質問タイトルの配置",
       descriptionLocation: "質問の説明の配置",
       errorLocation: "エラー・メッセージのアライメント",
@@ -359,7 +394,8 @@ export var jaStrings = {
     // survey templates
     survey: {
       title: "タイトル",
-      description: "調査内容"
+      description: "調査内容",
+      readOnly: "調査を読み取り専用にする"
     },
     page: {
       name: "ページ名",
@@ -367,8 +403,8 @@ export var jaStrings = {
       description: "ページの説明",
       visibleIf: "次の場合にページを表示します",
       requiredIf: "次の場合は、ページを必須にします",
-      maxTimeToFinish: "ページを終了するための制限時間 (秒単位)",
-      questionsOrder: "ページ上の質問の順序"
+      timeLimit: "ページを終了するための制限時間 (秒単位)",
+      questionOrder: "ページ上の質問の順序"
     },
     matrixdropdowncolumn: {
       name: "列名",
@@ -410,8 +446,9 @@ export var jaStrings = {
     imageHeight: "イメージの高さ",
     imageWidth: "イメージの幅",
     valueName: "値名",
+    defaultDisplayValue: "ダイナミックテキストのデフォルトの表示値",
     rateDescriptionLocation: "ラベルの配置",
-    size: "入力フィールドのサイズ (文字数)",
+    size: "入力フィールドの幅 (文字単位)",
     cellErrorLocation: "セル・エラー・メッセージの配置",
     enabled: "有効",
     disabled: "無効",
@@ -477,11 +514,13 @@ export var jaStrings = {
     listIsEmpty: "新しいアイテムを追加",
     "listIsEmpty@choices": "選択肢はまだ追加されていません",
     "listIsEmpty@columns": "まだ列がありません",
+    "listIsEmpty@gridLayoutColumns": "レイアウト列がまだありません",
     "listIsEmpty@rows": "まだ行がありません",
     "listIsEmpty@validators": "入力規則はまだありません",
     "listIsEmpty@calculatedValues": "カスタム変数はまだありません",
     "listIsEmpty@triggers": "トリガーはまだありません",
     "listIsEmpty@navigateToUrlOnCondition": "リンクはまだありません",
+    "listIsEmpty@pages": "まだページがありません",
     "addNew@choices": "選択肢を追加する",
     "addNew@columns": "新しい列を追加",
     "addNew@rows": "新しい行を追加",
@@ -489,6 +528,7 @@ export var jaStrings = {
     "addNew@calculatedValues": "新しい変数を追加",
     "addNew@triggers": "新しいトリガーを追加する",
     "addNew@navigateToUrlOnCondition": "新しい URL を追加",
+    "addNew@pages": "新しいページを追加",
     expressionIsEmpty: "表現が空白です",
     value: "値",
     text: "テキスト",
@@ -508,6 +548,7 @@ export var jaStrings = {
     titlePlaceholder: "タイトルを入力",
     surveyTitlePlaceholder: "調査タイトルを入力",
     pageTitlePlaceholder: "ページタイトルを入力",
+    startPageTitlePlaceholder: "スタートページ",
     descriptionPlaceholder: "詳細を入力",
     surveyDescriptionPlaceholder: "調査の詳細を入力",
     pageDescriptionPlaceholder: "ページの詳細を入力",
@@ -528,11 +569,12 @@ export var jaStrings = {
     cellType: "セルタイプ",
     colCount: "行の数",
     choicesOrder: "選択順",
+    allowCustomChoices: "カスタム選択を許可する",
     visible: "表示",
     isRequired: "必須",
     markRequired: "必須としてマーク",
     removeRequiredMark: "必要なマークを削除する",
-    isAllRowRequired: "全ての列で回答必須",
+    eachRowRequired: "全ての列で回答必須",
     eachRowUnique: "行での回答の重複を防ぐ",
     requiredErrorText: "必要なエラーテキスト",
     startWithNewLine: "ニューラインで開始",
@@ -544,7 +586,7 @@ export var jaStrings = {
     maxSize: "ファイルの最大サイズ（byte）",
     rowCount: "列数",
     columnLayout: "行のレイアウト",
-    addRowLocation: "列ボタンのロケーションを追加",
+    addRowButtonLocation: "列ボタンのロケーションを追加",
     transposeData: "行を列に転置する",
     addRowText: "行ボタンのテキストを追加",
     removeRowText: "行ボタンのテキストを削除",
@@ -580,10 +622,9 @@ export var jaStrings = {
     simulator: "デバイスを選択する",
     landscapeOrientation: "横向き",
     portraitOrientation: "縦向きに切り替える",
-    mode: "モード（編集/読み取り専用）",
     clearInvisibleValues: "非表示の値をクリアする",
     cookieName: "Cookie名（ローカルで2回アンケートを実行しないようにするため）",
-    sendResultOnPageNext: "次のページにアンケート結果を送信する",
+    partialSendEnabled: "次のページにアンケート結果を送信する",
     storeOthersAsComment: "「その他」の値を別のフィールドに保存する",
     showPageTitles: "ページタイトルを表示する",
     showPageNumbers: "ページ番号を表示する",
@@ -594,35 +635,38 @@ export var jaStrings = {
     editText: "「編集」ボタンのテキスト",
     startSurveyText: "「開始」ボタンのテキスト",
     showNavigationButtons: "ナビゲーションボタンを表示する（デフォルトのナビゲーション）",
+    navigationButtonsLocation: "ナビゲーション ボタンの配置",
     showPrevButton: "「前へ」ボタンを表示する（ユーザーは前のページに戻ることができます）",
-    firstPageIsStarted: "アンケートの最初のページは、開始ページです。",
-    showCompletedPage: "完了したページを最後に表示する（completedHtml）",
-    goNextPageAutomatic: "すべての質問に回答すると、自動的に次のページに移動します",
-    allowCompleteSurveyAutomatic: "調査に自動的に回答する",
+    firstPageIsStartPage: "アンケートの最初のページは、開始ページです。",
+    showCompletePage: "完了したページを最後に表示する（completedHtml）",
+    autoAdvanceEnabled: "すべての質問に回答すると、自動的に次のページに移動します",
+    autoAdvanceAllowComplete: "調査に自動的に回答する",
     showProgressBar: "プログレスバーを表示する",
+    progressBarLocation: "プログレスバーの配置",
     questionTitleLocation: "質問のタイトルの場所",
     questionTitleWidth: "質問タイトルの幅",
-    requiredText: "質問には記号が必要",
+    requiredMark: "質問には記号が必要",
     questionTitleTemplate: "質問タイトルのテンプレート、デフォルトは「{no}. {require} {title}」です",
     questionErrorLocation: "質問エラーの場所",
-    focusFirstQuestionAutomatic: "ページを変える際に最初の質問に焦点を合わせる",
-    questionsOrder: "ページ上の要素の順序",
-    maxTimeToFinish: "アンケート終了までの最長時間",
-    maxTimeToFinishPage: "アンケートの1ページを終了するまでの最長時間",
-    showTimerPanel: "タイマーパネルを表示する",
-    showTimerPanelMode: "タイマーパネルモードを表示",
+    autoFocusFirstQuestion: "ページを変える際に最初の質問に焦点を合わせる",
+    questionOrder: "ページ上の要素の順序",
+    timeLimit: "アンケート終了までの最長時間",
+    timeLimitPerPage: "アンケートの1ページを終了するまでの最長時間",
+    showTimer: "タイマーを使用する",
+    timerLocation: "タイマーパネルを表示する",
+    timerInfoMode: "タイマーパネルモードを表示",
     renderMode: "レンダーモード",
     allowAddPanel: "パネルの追加を許可",
     allowRemovePanel: "パネルの削除を許可",
-    panelAddText: "パネルテキストを追加しています",
-    panelRemoveText: "パネルテキストを削除しています",
+    addPanelText: "パネルテキストを追加しています",
+    removePanelText: "パネルテキストを削除しています",
     isSinglePage: "1ページ上にすべてのエレメントを表示",
     html: "HTML",
     setValue: "答える",
     dataFormat: "画像フォーマット",
     allowAddRows: "行の追加を許可する",
     allowRemoveRows: "行の削除を許可する",
-    allowRowsDragAndDrop: "行のドラッグ アンド ドロップを許可する",
+    allowRowReorder: "行のドラッグ アンド ドロップを許可する",
     responsiveImageSizeHelp: "正確な画像の幅または高さを指定した場合には適用されません。",
     minImageWidth: "最小画像幅",
     maxImageWidth: "最大画像幅",
@@ -630,6 +674,7 @@ export var jaStrings = {
     maxImageHeight: "最大画像の高さ",
     minValue: "最小値",
     maxValue: "最大値",
+    caseInsensitive: "大文字と小文字を区別しない",
     minLength: "最小長",
     allowDigits: "数字を許可",
     minCount: "最小数",
@@ -648,20 +693,13 @@ export var jaStrings = {
     logo: "ロゴ (URL または base64 でエンコードされた文字列)",
     questionsOnPageMode: "調査体制",
     maxTextLength: "回答の最大長 (文字数)",
-    maxOthersLength: "コメントの最大長 (文字数)",
+    maxCommentLength: "コメントの最大長 (文字数)",
     commentAreaRows: "コメント領域の高さ (行単位)",
     autoGrowComment: "必要に応じてコメント領域を自動展開する",
     allowResizeComment: "ユーザーがテキスト領域のサイズを変更できるようにする",
     textUpdateMode: "テキストの質問値を更新する",
     maskType: "定型入力の種類",
-    maskTypes: {
-      none: "何一つ",
-      patternmask: "パターン",
-      numericmask: "数値",
-      datetimemask: "日付と時刻",
-      currencymask: "通貨"
-    },
-    focusOnFirstError: "最初の無効な回答にフォーカスを設定する",
+    autoFocusFirstError: "最初の無効な回答にフォーカスを設定する",
     checkErrorsMode: "検証の実行",
     validateVisitedEmptyFields: "フォーカスを失った空のフィールドの検証",
     navigateToUrl: "URL に移動します。",
@@ -695,10 +733,9 @@ export var jaStrings = {
     minPanelCount: "最小パネル数",
     maxPanelCount: "最大パネル数",
     panelsState: "内側パネルの展開状態",
-    panelPrevText: "前のパネルボタンのツールチップ",
-    panelNextText: "[次へ] パネル ボタンのツールチップ",
-    showRangeInProgress: "進行状況バーを表示する",
-    panelRemoveButtonLocation: "[パネルを削除] ボタンの位置",
+    prevPanelText: "前のパネルボタンのツールチップ",
+    nextPanelText: "[次へ] パネル ボタンのツールチップ",
+    removePanelButtonLocation: "[パネルを削除] ボタンの位置",
     hideIfRowsEmpty: "行がない場合は質問を非表示にする",
     hideColumnsIfEmpty: "行がない場合は列を非表示にする",
     rateValues: "カスタムレート値",
@@ -720,21 +757,22 @@ export var jaStrings = {
     keyDuplicationError: "\"一意でないキー値\" エラー メッセージ",
     minSelectedChoices: "選択される最小選択肢",
     maxSelectedChoices: "最大選択選択肢数",
-    showClearButton: "[クリア] ボタンを表示する",
     logoWidth: "ロゴの幅 (CSS で受け入れられる値)",
     logoHeight: "ロゴの高さ (CSS で受け入れられる値)",
     readOnly: "読み取り専用",
     enableIf: "次の場合に編集可能",
-    emptyRowsText: "\"行なし\" メッセージ",
+    noRowsText: "\"行なし\" メッセージ",
     separateSpecialChoices: "個別の特別な選択肢 (なし、その他、すべて選択)",
     choicesFromQuestion: "次の質問から選択肢をコピーする",
     choicesFromQuestionMode: "どの選択肢をコピーするか?",
+    choiceValuesFromQuestion: "次の行列列またはパネルの質問の値を選択肢IDとして使用します",
+    choiceTextsFromQuestion: "次の行列の列またはパネルの質問の値を選択テキストとして使用します",
     progressBarShowPageTitles: "プログレスバーにページタイトルを表示する",
     progressBarShowPageNumbers: "プログレスバーにページ番号を表示する",
     showCommentArea: "コメント領域を表示する",
     commentPlaceholder: "コメント領域のプレースホルダー",
     displayRateDescriptionsAsExtremeItems: "レートの説明を極値として表示する",
-    rowsOrder: "行の順序",
+    rowOrder: "行の順序",
     columnsLayout: "列のレイアウト",
     columnColCount: "ネストされた列数",
     correctAnswer: "正解",
@@ -763,6 +801,11 @@ export var jaStrings = {
       top: "上に",
       bottom: "下に"
     },
+    previewMode: "プレビューモード",
+    gridLayoutEnabled: "グリッド レイアウトの有効化",
+    gridLayoutColumns: "グリッド レイアウト列",
+    maskSettings: "マスク設定",
+    detailErrorLocation: "行拡張エラーメッセージの配置",
     // Creator tabs
     tabs: {
       panel: {
@@ -810,6 +853,9 @@ export var jaStrings = {
       header: "ヘッダ",
       background: "バックグラウンド",
       appearance: "様子",
+      accentColors: "アクセントカラー",
+      surfaceBackground: "サーフェスの背景",
+      scaling: "スケーリング",
       others: "その他"
     },
     editProperty: "プロパティ'{0}'を編集",
@@ -819,8 +865,7 @@ export var jaStrings = {
     columnsEnableIf: "列は次の場合に表示されます。",
     rowsEnableIf: "行は次の場合に表示されます。",
     innerIndent: "内側のインデントを追加する",
-    defaultValueFromLastRow: "最後の行からデフォルト値を取得する",
-    defaultValueFromLastPanel: "最後のパネルからデフォルト値を取得する",
+    copyDefaultValueFromLastEntry: "最後のエントリの回答をデフォルトとして使用する",
     enterNewValue: "値を入力してください。",
     noquestions: "アンケートに質問はありません。",
     createtrigger: "トリガーを作成してください。",
@@ -863,6 +908,7 @@ export var jaStrings = {
     maxWidth_placeholder: "例:50%",
     imageHeight_placeholder: "自動",
     imageWidth_placeholder: "自動",
+    itemTitleWidth_placeholder: "例:100px",
     theme: {
       themeName: "テーマ",
       isPanelless: "質問の表示設定",
@@ -874,6 +920,7 @@ export var jaStrings = {
       fontSize: "フォントサイズ",
       scale: "規模",
       cornerRadius: "コーナR(Corner Radius)",
+      advancedMode: "詳細モード",
       pageTitle: "タイトルのフォント",
       pageDescription: "説明フォント",
       questionTitle: "タイトルのフォント",
@@ -934,10 +981,11 @@ export var jaStrings = {
     firstExpanded: "firstExpanded",
     off: "オフ",
     list: "リスト",
+    carousel: "回転木馬",
+    tab: "タブ",
     progressTop: "progressTop",
     progressBottom: "progressBottom",
     progressTopBottom: "progressTopBottom",
-    tab: "タブ",
     horizontal: "水平",
     vertical: "垂直",
     top: "上",
@@ -995,6 +1043,73 @@ export var jaStrings = {
       url: "リンク",
       week: "週"
     },
+    autocomplete: {
+      name: "フルネーム",
+      "honorific-prefix": "接頭辞",
+      "given-name": "名前",
+      "additional-name": "ミドルネーム",
+      "family-name": "名字",
+      "honorific-suffix": "接尾辞",
+      nickname: "ニックネーム",
+      "organization-title": "役職",
+      username: "ユーザー名",
+      "new-password": "新しいパスワード",
+      "current-password": "現在のパスワード",
+      organization: "組織名",
+      "street-address": "フルストリートアドレス",
+      "address-line1": "住所1",
+      "address-line2": "住所2",
+      "address-line3": "住所3",
+      "address-level4": "レベル4アドレス",
+      "address-level3": "レベル3アドレス",
+      "address-level2": "レベル2アドレス",
+      "address-level1": "レベル1アドレス",
+      country: "国コード",
+      "country-name": "国名",
+      "postal-code": "郵便番号",
+      "cc-name": "カード名義人氏名",
+      "cc-given-name": "カード所有者の名",
+      "cc-additional-name": "カード名義人のミドルネーム",
+      "cc-family-name": "カード名義人の姓",
+      "cc-number": "クレジットカード番号",
+      "cc-exp": "有効期限",
+      "cc-exp-month": "有効期限月",
+      "cc-exp-year": "有効期限",
+      "cc-csc": "カードセキュリティコード",
+      "cc-type": "クレジットカードの種類",
+      "transaction-currency": "取引通貨",
+      "transaction-amount": "取引金額",
+      language: "優先言語",
+      bday: "誕生日",
+      "bday-day": "誕生日",
+      "bday-month": "誕生日月",
+      "bday-year": "誕生日の年",
+      sex: "ジェンダー",
+      url: "ウェブサイトURL",
+      photo: "プロフィール写真",
+      tel: "電話番号",
+      "tel-country-code": "電話の国番号",
+      "tel-national": "国内電話番号",
+      "tel-area-code": "市外局番",
+      "tel-local": "市内電話番号",
+      "tel-local-prefix": "ローカル電話プレフィックス",
+      "tel-local-suffix": "ローカル電話サフィックス",
+      "tel-extension": "内線",
+      email: "アドレス",
+      impp: "インスタントメッセージングプロトコル"
+    },
+    maskType: {
+      none: "何一つ",
+      pattern: "パターン",
+      numeric: "数値",
+      datetime: "日付と時刻",
+      currency: "通貨"
+    },
+    inputTextAlignment: {
+      auto: "自動",
+      left: "左",
+      right: "右"
+    },
     all: "すべて",
     page: "ページ",
     survey: "アンケート",
@@ -1009,6 +1124,8 @@ export var jaStrings = {
     noPreview: "プレビューなし",
     showAllQuestions: "すべての質問を含むプレビューを表示",
     showAnsweredQuestions: "回答された質問を含むプレビューを表示",
+    allQuestions: "すべての質問を表示",
+    answeredQuestions: "回答済みの質問のみを表示する",
     pages: "ページ",
     questions: "質問",
     requiredQuestions: "必須の質問",
@@ -1024,13 +1141,10 @@ export var jaStrings = {
     showNavigationButtons: {
       none: "隠れた"
     },
-    showTimerPanel: {
-      none: "隠れた"
+    timerInfoMode: {
+      combined: "両方とも"
     },
-    showTimerPanelMode: {
-      all: "両方とも"
-    },
-    addRowLocation: {
+    addRowButtonLocation: {
       default: "マトリックスレイアウトに依存"
     },
     panelsState: {
@@ -1078,6 +1192,7 @@ export var jaStrings = {
       onPage: "各ページでリセット",
       onpanel: "各パネルでリセット",
       onPanel: "各パネルでリセット",
+      recursive: "再帰的なナンバリング",
       onSurvey: "調査を続ける",
       off: "ナンバリングなし"
     },
@@ -1101,17 +1216,19 @@ export var jaStrings = {
       percent: "百分率",
       date: "日付"
     },
-    rowsOrder: {
+    rowOrder: {
       initial: "翻訳元"
     },
-    questionsOrder: {
+    questionOrder: {
       initial: "翻訳元"
     },
-    showProgressBar: {
-      off: "隠れた",
-      topbottom: "上と下",
+    progressBarLocation: {
+      top: "ページのトップへ",
+      bottom: "底",
+      topbottom: "上部と下部",
       aboveheader: "ヘッダーの上",
-      belowheader: "ヘッダーの下"
+      belowheader: "ヘッダーの下",
+      off: "隠れた"
     },
     sum: "和",
     count: "数える",
@@ -1153,6 +1270,10 @@ export var jaStrings = {
     isPanelless: {
       "false": "デフォルト",
       "true": "パネルなし"
+    },
+    progressBarInheritWidthFrom: {
+      survey: "調査と同じ",
+      container: "コンテナと同じ"
     }
   },
   // Operators
@@ -1246,12 +1367,15 @@ export var jaStrings = {
       questionTitleLocation: "このパネル内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。",
       questionTitleWidth: "質問タイトルが質問ボックスの左側に配置されている場合に、質問タイトルの幅を一定に設定します。CSS 値 (px、%、in、pt など) を受け入れます。",
       questionErrorLocation: "パネル内のすべての質問に関連するエラーメッセージの位置を設定します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。",
-      questionsOrder: "質問の元の順序を維持するか、ランダム化します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。",
+      questionOrder: "質問の元の順序を維持するか、ランダム化します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。",
       page: "パネルを選択したページの末尾に再配置します。",
       innerIndent: "パネルの内容とパネルボックスの左の境界線の間にスペースまたは余白を追加します。",
       startWithNewLine: "選択を解除すると、前の質問またはパネルと 1 行でパネルが表示されます。パネルがフォームの最初の要素である場合、この設定は適用されません。",
       state: "次から選択します: 「展開」 - パネルは完全に表示され、折りたたむことができます。「折りたたまれた」 - パネルにはタイトルと説明のみが表示され、展開できます。「ロック」 - パネルは完全に表示され、折りたたむことはできません。",
-      width: "パネルの幅を、同じ行内の他の調査要素に比例して設定します。CSS 値 (px、%、in、pt など) を受け入れます。"
+      width: "パネルの幅を、同じ行内の他の調査要素に比例して設定します。CSS 値 (px、%、in、pt など) を受け入れます。",
+      showQuestionNumbers: "このパネル内にネストされた質問に番号を割り当てます。",
+      effectiveColSpan: "このパネルがグリッドレイアウト内で何列にまたがっているかを指定します。",
+      gridLayoutColumns: "このテーブルでは、パネル内の各グリッド列を構成できます。行内の要素の最大数に基づいて、各列の幅の割合が自動的に設定されます。グリッドレイアウトをカスタマイズするには、これらの値を手動で調整し、各列のすべての質問のタイトル幅を定義します。"
     },
     paneldynamic: {
       name: "回答者には表示されないパネルID。",
@@ -1259,7 +1383,8 @@ export var jaStrings = {
       visibleIf: "魔法の杖アイコンを使用して、パネルの表示を決定する条件付きルールを設定します。",
       enableIf: "魔法の杖アイコンを使用して、パネルの読み取り専用モードを無効にする条件付きルールを設定します。",
       requiredIf: "魔法の杖アイコンを使用して、ネストされた質問に回答が少なくとも1つない限り、調査の送信を禁止する条件付きルールを設定します。",
-      templateTitleLocation: "このパネル内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。",
+      templateQuestionTitleLocation: "このパネル内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。",
+      templateQuestionTitleWidth: "質問タイトルが問題ボックスの左側に配置されている場合に、質問タイトルの一貫した幅を設定します。CSS 値 (px、%、in、pt など) を受け入れます。",
       templateErrorLocation: "無効な入力を含む質問に関連するエラーメッセージの場所を設定します。次から選択します: \"Top\" - 質問ボックスの上部にエラーテキストが配置されます。\"Bottom\" - 質問ボックスの下部にエラーテキストが配置されます。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。",
       errorLocation: "パネル内のすべての質問に関連するエラーメッセージの位置を設定します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。",
       page: "パネルを選択したページの末尾に再配置します。",
@@ -1274,13 +1399,15 @@ export var jaStrings = {
       titleLocation: "この設定は、このパネル内のすべての質問に自動的に継承されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。",
       descriptionLocation: "「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「パネルタイトルの下」)を適用します。",
       newPanelPosition: "新しく追加されたパネルの位置を定義します。デフォルトでは、新しいパネルが最後に追加されます。「次へ」を選択して、現在のパネルの後に新しいパネルを挿入します。",
-      defaultValueFromLastPanel: "最後のパネルから回答を複製し、次に追加された動的パネルに割り当てます。",
+      copyDefaultValueFromLastEntry: "最後のパネルから回答を複製し、次に追加された動的パネルに割り当てます。",
       keyName: "質問名を参照して、各パネルでこの質問に対して一意の回答を提供するようユーザーに要求します。"
     },
+    copyDefaultValueFromLastEntry: "最後の行から回答を複製し、次に追加された動的行に割り当てます。",
     defaultValueExpression: "この設定では、式に基づいてデフォルトの回答値を割り当てることができます。式には、基本的な計算 - '{q1_id} + {q2_id}'、'{age} > 60' などのブール式、関数 'iif()'、'today()'、'age()'、'min()'、'max()'、'avg()' などを含めることができます。この式によって決定される値は、回答者の手動入力で上書きできる初期デフォルト値として機能します。",
     resetValueIf: "魔法の杖アイコンを使用して、回答者の入力を「デフォルト値式」または「値式の設定」に基づく値、または「デフォルト回答」値(どちらかが設定されている場合)にリセットするタイミングを決定する条件付きルールを設定します。",
     setValueIf: "魔法の杖アイコンを使用して、「値の設定式」をいつ実行するかを決定し、結果の値を応答として動的に割り当てる条件付きルールを設定します。",
     setValueExpression: "「値を設定する条件」ルールの条件が満たされた場合に設定される値を定義する式を指定します。式には、基本的な計算 - '{q1_id} + {q2_id}'、'{age} > 60' などのブール式、関数 'iif()'、'today()'、'age()'、'min()'、'max()'、'avg()' などを含めることができます。この式によって決定される値は、回答者の手動入力によって上書きできます。",
+    gridLayoutEnabled: "Survey Creator では、フォーム要素のインライン幅を手動で調整して、レイアウトを制御できます。これで目的の結果が得られない場合は、列ベースのシステムを使用してフォーム要素を構成するグリッドレイアウトを有効にすることができます。レイアウト列を設定するには、ページまたはパネルを選択し、「質問設定」→「グリッド列」テーブルを使用します。質問の列数を調整するには、質問を選択し、「レイアウト」→「列範囲」フィールドで目的の値を設定します。",
     question: {
       name: "回答者に表示されない質問ID。",
       description: "質問のサブタイトルを入力します。",
@@ -1301,7 +1428,8 @@ export var jaStrings = {
       textUpdateMode: "次から選択します: \"On lost focus\" - 入力フィールドがフォーカスを失ったときに値が更新されます。「入力中」 - ユーザーが入力しているときに、値がリアルタイムで更新されます。「継承」オプションは、アンケートレベルの設定(デフォルトでは「フォーカスを失ったとき」)を適用します。",
       url: "任意の Web サービスを多肢選択式の質問のデータ ソースとして使用できます。選択肢の値を入力するには、データを提供するサービスの URL を入力します。",
       searchMode: "ドロップダウン リストをフィルター処理するために使用される比較演算。",
-      textWrapEnabled: "選択肢オプションのテキスト(長い)は、ドロップダウンメニュー内に収まるように改行を自動的に生成します。テキストをクリップする場合は、選択を解除します。"
+      textWrapEnabled: "選択肢オプションのテキスト(長い)は、ドロップダウンメニュー内に収まるように改行を自動的に生成します。テキストをクリップする場合は、選択を解除します。",
+      effectiveColSpan: "この質問がグリッドレイアウト内で何列にまたがっているかを指定します。"
     },
     signaturepad: {
       signatureWidth: "表示される署名領域と結果の画像の幅を設定します。",
@@ -1310,7 +1438,8 @@ export var jaStrings = {
     },
     file: {
       imageHeight: "アンケート結果の画像の高さを調整します。",
-      imageWidth: "アンケート結果の画像の幅を調整します。"
+      imageWidth: "アンケート結果の画像の幅を調整します。",
+      allowImagesPreview: "可能な場合は、アップロードされたファイルのサムネイル プレビューを表示します。代わりにファイルアイコンを表示する場合は、選択を解除します。"
     },
     image: {
       contentMode: "「自動」オプションでは、指定されたソースURLに基づいて、表示に適したモード(画像、動画、YouTube)が自動的に決定されます。"
@@ -1329,7 +1458,8 @@ export var jaStrings = {
     },
     // survey templates
     survey: {
-      mode: "次から選択します。 「編集可能」 - 回答者がアンケートに回答できるようにします。「読み取り専用」 - フォームの編集を無効にします。"
+      readOnly: "回答者がアンケートに回答できないようにする場合に選択します。",
+      progressBarLocation: "プログレスバーの位置を設定します。「自動」の値は、調査ヘッダーの上または下に進行状況バーを表示します。"
     },
     matrixdropdowncolumn: {
       name: "回答者に表示されない列 ID。",
@@ -1338,28 +1468,30 @@ export var jaStrings = {
       visibleIf: "魔法の杖アイコンを使用して、列の表示を決定する条件付きルールを設定します。",
       enableIf: "魔法の杖アイコンを使用して、列の読み取り専用モードを無効にする条件付きルールを設定します。",
       requiredIf: "魔法の杖アイコンを使用して、ネストされた質問に回答が少なくとも1つない限り、調査の送信を禁止する条件付きルールを設定します。",
-      showInMultipleColumns: "選択すると、選択肢オプションごとに個別の列が作成されます。"
+      showInMultipleColumns: "選択すると、選択肢オプションごとに個別の列が作成されます。",
+      colCount: "選択オプションを複数列のレイアウトで配置します。0 に設定すると、オプションは 1 行で表示されます。-1 に設定すると、実際の値は親行列の \"Nested column count\" プロパティから継承されます。"
     },
+    caseInsensitive: "正規表現の大文字と小文字を同等に扱う必要がある場合に選択します。",
     widthMode: "次から選択します: \"Static\" - 固定幅を設定します。「レスポンシブ」 - アンケートを画面の全幅に表示します。「自動」 - 使用する質問タイプに応じて、2つのいずれかを適用します。",
     cookieName: "Cookieは、ユーザーが同じアンケートに2回記入するのを防ぎます。",
     logo: "画像リンクを貼り付けるか(サイズ制限なし)、フォルダアイコンをクリックして、コンピューターからファイルを参照します(最大64KB)。",
     logoWidth: "ロゴの幅をCSS単位(px、%、in、ptなど)で設定します。",
     logoHeight: "ロゴの高さを CSS 単位 (px、%、in、pt など) で設定します。",
     logoFit: "次から選択: 「なし」 - 画像は元のサイズを維持します。\"Contain\" - 画像はアスペクト比を維持しながらサイズ変更されます。「表紙」-画像は縦横比を維持しながらボックス全体を埋めます。\"Fill\" - 画像は、アスペクト比を維持せずにボックスを埋めるように引き伸ばされます。",
-    goNextPageAutomatic: "回答者が現在のページのすべての質問に回答した後、アンケートを自動的に次のページに進めるかどうかを選択します。",
-    allowCompleteSurveyAutomatic: "回答者がすべての質問に回答した後にアンケートを自動的に完了する場合に選択します。",
+    autoAdvanceEnabled: "回答者が現在のページのすべての質問に答えると、アンケートが自動的に次のページに進むようにする場合に選択します。この機能は、ページの最後の質問が自由回答形式の場合、または複数の回答が許可されている場合には適用されません。",
+    autoAdvanceAllowComplete: "回答者がすべての質問に回答した後にアンケートを自動的に完了する場合に選択します。",
     showNavigationButtons: "ページ上のナビゲーションボタンの表示と位置を設定します。",
-    showProgressBar: "プログレスバーの表示と位置を設定します。「自動」の値は、アンケートヘッダーの上または下に進行状況バーを表示します。",
+    navigationButtonsLocation: "ページ上のナビゲーション ボタンの位置を設定します。",
     showPreviewBeforeComplete: "すべての質問または回答済みの質問のみを含むプレビューページを有効にします。",
     questionTitleLocation: "アンケート内のすべての質問に適用されます。この設定は、下位レベル(パネル、ページ、または質問)のタイトル配置ルールによって上書きできます。下位レベルの設定は、上位レベルの設定よりも優先されます。",
-    requiredText: "回答が必要であることを示す記号または記号のシーケンス。",
+    requiredMark: "回答が必要であることを示す記号または記号のシーケンス。",
     questionStartIndex: "番号付けを開始する番号または文字を入力します。",
     questionErrorLocation: "無効な入力を含む質問に関連するエラーメッセージの場所を設定します。次から選択します: \"Top\" - 質問ボックスの上部にエラーテキストが配置されます。\"Bottom\" - 質問ボックスの下部にエラーテキストが配置されます。",
-    focusFirstQuestionAutomatic: "各ページの最初の入力フィールドをテキスト入力可能にするかどうかを選択します。",
-    questionsOrder: "質問の元の順序を維持するか、ランダム化します。この設定の効果は、「プレビュー」タブにのみ表示されます。",
+    autoFocusFirstQuestion: "各ページの最初の入力フィールドをテキスト入力可能にするかどうかを選択します。",
+    questionOrder: "質問の元の順序を維持するか、ランダム化します。この設定の効果は、「プレビュー」タブにのみ表示されます。",
     maxTextLength: "テキスト入力の質問専用です。",
-    maxOthersLength: "質問コメント専用です。",
-    commentAreaRows: "質問コメントのテキスト領域に表示される行数を設定します。入力がより多くの行を占めると、スクロールバーが表示されます。",
+    maxCommentLength: "質問コメント専用です。",
+    commentAreaRows: "質問コメントのテキストエリアに表示される行数を設定します。入力がより多くの行を占める場合は、スクロールバーが表示されます。",
     autoGrowComment: "質問のコメントと長いテキストの質問の高さを、入力したテキストの長さに基づいて自動的に拡大する場合に選択します。",
     allowResizeComment: "質問コメントとテキスト(長文)の質問のみ。",
     calculatedValues: "カスタム変数は、フォーム計算で使用される中間変数または補助変数として機能します。回答者の入力をソース値として受け取ります。各カスタム変数には、一意の名前と基になる式があります。",
@@ -1373,10 +1505,10 @@ export var jaStrings = {
     rowTitleWidth: "CSS 値 (px、%、in、pt など) を受け入れます。",
     totalText: "少なくとも 1 つの列に [合計型] または [合計式] がある場合にのみ表示されます。",
     cellErrorLocation: "無効な入力があるセルに関連するエラーメッセージの位置を設定します。「継承」オプションは、「エラーメッセージの配置」プロパティの設定を適用します。",
+    detailErrorLocation: "詳細セクションにネストされた質問のエラーメッセージの場所を設定します。「継承」オプションは、「エラーメッセージの配置」プロパティの設定を適用します。",
     keyDuplicationError: "「重複回答の防止」プロパティが有効な場合、重複したエントリを送信しようとする回答者は、次のエラーメッセージを受け取ります。",
     totalExpression: "式に基づいて合計値を計算できます。式には、基本的な計算 ('{q1_id} + {q2_id}')、ブール式 ('{age} > 60')、関数 ('iif()'、'today()'、'age()'、'min()'、'max()'、'avg()' など) を含めることができます。",
     confirmDelete: "行の削除を確認するプロンプトをトリガーします。",
-    defaultValueFromLastRow: "最後の行から回答を複製し、次に追加された動的行に割り当てます。",
     keyName: "指定した列に同じ値が含まれている場合、調査は「一意でないキー値」エラーをスローします。",
     description: "字幕を入力します。",
     locale: "言語を選択してアンケートの作成を開始します。翻訳を追加するには、新しい言語に切り替えて、ここまたは [翻訳] タブで元のテキストを翻訳します。",
@@ -1384,21 +1516,25 @@ export var jaStrings = {
     imageFit: "次から選択: 「なし」 - 画像は元のサイズを維持します。\"Contain\" - 画像はアスペクト比を維持しながらサイズ変更されます。「表紙」-画像は縦横比を維持しながらボックス全体を埋めます。\"Fill\" - 画像は、アスペクト比を維持せずにボックスを埋めるように引き伸ばされます。",
     autoGrow: "データの入力中に入力フィールドの高さを徐々に増やします。「入力フィールドの高さ(行単位)」の設定を上書きします。",
     allowResize: "サイズ変更ハンドル(またはグリップ)が隅に表示され、ドラッグして入力フィールドのサイズを変更できます。",
-    maxTimeToFinish: "アンケートが [ありがとうございます] ページに自動移動するまでの時間間隔 (秒単位)。",
-    maxTimeToFinishPage: "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。",
+    timeLimit: "アンケートが [ありがとうございます] ページに自動移動するまでの時間間隔 (秒単位)。",
+    timeLimitPerPage: "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。",
     validateVisitedEmptyFields: "このオプションを有効にすると、ユーザーが空の入力フィールドに注目し、変更を加えずにそのフィールドを離れたときに検証がトリガーされます。",
     page: {
-      maxTimeToFinish: "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。",
+      name: "回答者に表示されないページID。",
+      description: "ページのサブタイトルを入力します。",
+      navigationTitle: "進行状況バーまたは目次 (TOC) のナビゲーション ボタンに表示されるキャプション。このフィールドを空のままにすると、ナビゲーション ボタンはページ タイトルまたはページ名を使用します。プログレスバーまたは目次を有効にするには、「アンケート」→「ナビゲーション」に移動します。",
+      timeLimit: "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。",
       visibleIf: "魔法の杖アイコンを使用して、ページの表示を決定する条件付きルールを設定します。",
       enableIf: "魔法の杖アイコンを使用して、ページの読み取り専用モードを無効にする条件付きルールを設定します。",
       requiredIf: "魔法の杖アイコンを使用して、ネストされた質問に回答が少なくとも1つない限り、調査の送信を禁止する条件付きルールを設定します。",
       questionTitleLocation: "このページ内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問またはパネルのタイトル配置ルールを定義します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「トップ」)を適用します。",
       questionTitleWidth: "質問タイトルが質問ボックスの左側に配置されている場合に、質問タイトルの幅を一定に設定します。CSS 値 (px、%、in、pt など) を受け入れます。",
       questionErrorLocation: "無効な入力を含む質問に関連するエラーメッセージの場所を設定します。次から選択します: \"Top\" - 質問ボックスの上部にエラーテキストが配置されます。\"Bottom\" - 質問ボックスの下部にエラーテキストが配置されます。「継承」オプションは、アンケートレベルの設定(デフォルトでは「トップ」)を適用します。",
-      questionsOrder: "質問の元の順序を維持するか、ランダム化します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「オリジナル」)を適用します。この設定の効果は、「プレビュー」タブにのみ表示されます。",
-      navigationButtonsVisibility: "ページ上のナビゲーションボタンの表示を設定します。「継承」オプションは、アンケートレベルの設定を適用し、デフォルトは「表示」です。"
+      questionOrder: "質問の元の順序を維持するか、ランダム化します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「オリジナル」)を適用します。この設定の効果は、「プレビュー」タブにのみ表示されます。",
+      showNavigationButtons: "ページ上のナビゲーションボタンの表示を設定します。「継承」オプションは、アンケートレベルの設定を適用し、デフォルトは「表示」です。",
+      gridLayoutColumns: "このテーブルでは、ページ上の各グリッド列を構成できます。行内の要素の最大数に基づいて、各列の幅の割合が自動的に設定されます。グリッドレイアウトをカスタマイズするには、これらの値を手動で調整し、各列のすべての質問のタイトル幅を定義します。"
     },
-    showTimerPanel: "ページ上のタイマーの表示と位置を設定します。",
+    timerLocation: "ページ上のタイマーの位置を設定します。",
     panelsState: "次から選択します: 「ロック」 - ユーザーはパネルを展開または折りたたむことはできません。\"Collapse all\" - すべてのパネルが折りたたまれた状態で開始されます。\"Expand all\" - すべてのパネルが展開された状態で開始されます。\"First expanded\" - 最初のパネルのみが最初に展開されます。",
     imageLinkName: "選択リストに表示する画像またはビデオ ファイルの URL を含むオブジェクトの配列内に共有プロパティ名を入力します。",
     choices: "左の値は条件付きルールで使用される項目IDとして機能し、右の値は回答者に表示されます。",
@@ -1408,9 +1544,13 @@ export var jaStrings = {
     maxWidth: "CSS 値 (px、%、in、pt など) を受け入れます。",
     width: "CSS 値 (px、%、in、pt など) を受け入れます。",
     valueName: "このプロパティを設定しない場合、回答は Name プロパティで指定されたフィールドに格納されます。",
+    defaultDisplayValue: "HTML の質問、および質問の値が空の場合にアンケート要素の動的なタイトルと説明に表示される値。",
     useDisplayValuesInDynamicTexts: "単一選択および複数選択の質問タイプでは、各選択肢にIDと表示値があります。この設定を選択すると、HTML の質問やアンケート エレメントの動的なタイトルと説明に ID 値ではなく表示値が表示されます。",
     clearIfInvisible: "条件付きロジックで非表示にした質問値をクリアするかどうか、およびいつクリアするかを選択します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「アンケート完了時」)を適用します。",
     choicesFromQuestionMode: "選択元: 「すべて」 - 選択した質問からすべての選択肢をコピーします。\"Selected\" - 選択した選択肢オプションのみを動的にコピーします。「未選択」 - 選択されていない選択肢オプションのみを動的にコピーします。「なし」と「その他」のオプションは、ソースの質問で有効になっている場合、デフォルトでコピーされます。",
+    choiceValuesFromQuestion: "単一選択問題タイプと複数選択問題タイプでは、各選択肢オプションにIDと表示値があります。この設定では、どの行列列またはパネルの質問がIDを提供するかを指定します。",
+    choiceTextsFromQuestion: "単一選択問題タイプと複数選択問題タイプでは、各選択肢オプションにIDと表示値があります。この設定では、表示テキストを提供する行列列またはパネルの質問を指定します。",
+    allowCustomChoices: "選択すると、回答者は、目的のオプションがドロップダウンにない場合に、独自の選択肢を追加できます。カスタム選択は、現在のブラウザセッションの期間中のみ一時的に保存されます。",
     showOtherItem: "選択すると、ユーザーは別のコメント ボックスに追加の入力を含めることができます。",
     separateSpecialChoices: "各特殊選択オプション(「なし」、「その他」、「すべて選択」)を、複数列のレイアウトを使用している場合でも、新しい行に表示します。",
     path: "サービス データセット内で、オブジェクトのターゲット配列が配置されている場所を指定します。URL が既に配列を指している場合は、空のままにします。",
@@ -1432,8 +1572,9 @@ export var jaStrings = {
     needConfirmRemoveFile: "ファイルの削除を確認するプロンプトを表示します。",
     selectToRankEnabled: "選択した選択肢のみをランク付けできるようにします。ユーザーは、選択した項目を選択リストからドラッグして、ランキング領域内で並べ替えます。",
     dataList: "入力時に回答者に提案される選択肢のリストを入力します。",
-    itemSize: "この設定では、入力フィールドのサイズが変更されるだけで、質問ボックスの幅には影響しません。",
-    itemTitleWidth: "すべてのアイテムラベルの幅をピクセル単位で統一します。",
+    inputSize: "この設定では、入力フィールドのサイズが変更されるだけで、質問ボックスの幅には影響しません。",
+    itemTitleWidth: "すべてのアイテム ラベルに一貫した幅を設定します。CSS 値 (px、%、in、pt など) を受け入れます。",
+    inputTextAlignment: "フィールド内で入力値を揃える方法を選択します。デフォルト設定の「自動」では、通貨または数値のマスキングが適用されている場合は入力値が右に、適用されていない場合は左に揃えられます。",
     altText: "ユーザーのデバイスに画像を表示できない場合や、アクセシビリティの目的で代用します。",
     rateColorMode: "レーティングアイコンの種類が「スマイリー」に設定されている場合に選択した絵文字の色を定義します。以下から選択します: \"デフォルト\" - 選択した絵文字はデフォルトのアンケートカラーで表示されます。「スケール」 - 選択した絵文字は、評価スケールから色を継承します。",
     expression: {
@@ -1479,12 +1620,10 @@ export var jaStrings = {
     header: {
       inheritWidthFrom: "「コンテナと同じ」オプションは、アンケートが配置されるHTML要素に収まるようにヘッダーコンテンツ領域の幅を自動調整します。",
       textAreaWidth: "調査のタイトルと説明を含むヘッダー領域の幅 (ピクセル単位)。",
-      overlapEnabled: "ヘッダーの下部を調査の上部にオーバーレイします。"
+      overlapEnabled: "有効にすると、調査の上部がヘッダーの下部に重なります。",
+      mobileHeight: "0 に設定すると、ヘッダーのコンテンツに合わせて高さが自動的に計算されます。"
     },
-    panellayoutcolumn: {
-      effectiveWidth: "値 % を受け入れます。",
-      questionTitleWidth: "値 px を受け入れます。"
-    }
+    progressBarInheritWidthFrom: "「コンテナと同じ」オプションは、調査が配置されているHTML要素に収まるようにプログレスバーの領域幅を自動調整します。"
   },
   // Properties
   p: {
@@ -1547,11 +1686,11 @@ export var jaStrings = {
     maxValueExpression: "最大値式",
     step: "歩",
     dataList: "データ一覧",
-    itemSize: "アイテムサイズ",
+    inputSize: "アイテムサイズ",
     itemTitleWidth: "アイテムラベルの幅 (px)",
+    inputTextAlignment: "入力値の配置",
     elements: "元素",
     content: "コンテンツ",
-    navigationButtonsVisibility: "ナビゲーションボタンの可視性",
     navigationTitle: "ナビゲーション タイトル",
     navigationDescription: "ナビゲーションの説明",
     longTap: "ロングタップ",
@@ -1565,6 +1704,7 @@ export var jaStrings = {
     imageFit: "画像のフィット",
     altText: "代替テキスト",
     height: "高さ",
+    mobileHeight: "スマートフォンでの高さ",
     penColor: "ペンの色",
     backgroundColor: "背景色",
     templateElements: "テンプレート要素",
@@ -1588,7 +1728,8 @@ export var jaStrings = {
     scaleColorMode: "スケールカラーモード",
     rateColorMode: "レートカラーモード",
     copyDisplayValue: "表示値をコピー",
-    effectiveColSpan: "列スパン"
+    effectiveColSpan: "列スパン",
+    progressBarInheritWidthFrom: "プログレスバー領域の幅"
   },
   theme: {
     advancedMode: "詳細モード",
@@ -1646,12 +1787,27 @@ export var jaStrings = {
       orchid: "蘭",
       tulip: "チューリップ",
       brown: "褐色",
-      green: "緑"
+      green: "緑",
+      gray: "灰色"
+    }
+  },
+  creatortheme: {
+    "--sjs-special-background": "サーフェスの背景",
+    "--sjs-primary-background-500": "原発",
+    "--sjs-secondary-background-500": "付帯",
+    surfaceScale: "表面",
+    userInterfaceBaseUnit: "ユーザーインターフェース",
+    fontScale: "フォント",
+    names: {
+      sc2020: "サーベイクリエーター2020",
+      "default-light": "光",
+      "default-dark": "暗い",
+      "default-contrast": "対照"
     }
   }
 };
 
-editorLocalization.locales["ja"] = jaStrings;
+setupLocale({ localeCode: "ja", strings: jaStrings });
 
 // The following strings have been translated by a machine translation service
 // Remove those strings that you have corrected manually
@@ -1745,14 +1901,14 @@ editorLocalization.locales["ja"] = jaStrings;
 // pe.portraitOrientation: "Switch to portrait orientation" => "縦向きに切り替える"
 // image.imageHeight: "Image height (in CSS-accepted values)" => "画像の高さ (CSS で受け入れられる値)"
 // image.imageWidth: "Image width (in CSS-accepted values)" => "画像の幅 (CSS で受け入れられる値)"
-// page.maxTimeToFinish: "Time limit to finish the page (in seconds)" => "ページを終了するための制限時間 (秒単位)"
+// page.timeLimit: "Time limit to finish the page (in seconds)" => "ページを終了するための制限時間 (秒単位)"
 // question.page: "Parent page" => "親ページ"
 // pe.noEntriesText: "Empty entries text" => "空のエントリのテキスト"
 // pe.setValue: "Answer" => "答える"
 // pe.dataFormat: "Image format" => "画像フォーマット"
 // pe.allowAddRows: "Allow adding rows" => "行の追加を許可する"
 // pe.allowRemoveRows: "Allow removing rows" => "行の削除を許可する"
-// pe.allowRowsDragAndDrop: "Allow row drag and drop" => "行のドラッグ アンド ドロップを許可する"
+// pe.allowRowReorder: "Allow row drag and drop" => "行のドラッグ アンド ドロップを許可する"
 // pe.responsiveImageSizeHelp: "Does not apply if you specify the exact image width or height." => "正確な画像の幅または高さを指定した場合には適用されません。"
 // pe.minImageWidth: "Minimum image width" => "最小画像幅"
 // pe.maxImageWidth: "Maximum image width" => "最大画像幅"
@@ -1763,11 +1919,11 @@ editorLocalization.locales["ja"] = jaStrings;
 // pe.logo: "Logo (URL or base64-encoded string)" => "ロゴ (URL または base64 でエンコードされた文字列)"
 // pe.questionsOnPageMode: "Survey structure" => "調査体制"
 // pe.maxTextLength: "Maximum answer length (in characters)" => "回答の最大長 (文字数)"
-// pe.maxOthersLength: "Maximum comment length (in characters)" => "コメントの最大長 (文字数)"
+// pe.maxCommentLength: "Maximum comment length (in characters)" => "コメントの最大長 (文字数)"
 // pe.autoGrowComment: "Auto-expand comment area if necessary" => "必要に応じてコメント領域を自動展開する"
 // pe.allowResizeComment: "Allow users to resize text areas" => "ユーザーがテキスト領域のサイズを変更できるようにする"
 // pe.textUpdateMode: "Update text question value" => "テキストの質問値を更新する"
-// pe.focusOnFirstError: "Set focus on the first invalid answer" => "最初の無効な回答にフォーカスを設定する"
+// pe.autoFocusFirstError: "Set focus on the first invalid answer" => "最初の無効な回答にフォーカスを設定する"
 // pe.checkErrorsMode: "Run validation" => "検証の実行"
 // pe.navigateToUrl: "Navigate to URL" => "URL に移動します。"
 // pe.navigateToUrlOnCondition: "Dynamic URL" => "ダイナミック URL"
@@ -1801,11 +1957,11 @@ editorLocalization.locales["ja"] = jaStrings;
 // pe.panelsState: "Inner panel expand state" => "内側パネルの展開状態"
 // pe.templateDescription: "Description template" => "説明テンプレート"
 // pe.templateTitle: "Title template" => "タイトルテンプレート"
-// pe.panelPrevText: "Previous Panel button tooltip" => "前のパネルボタンのツールチップ"
-// pe.panelNextText: "Next Panel button tooltip" => "[次へ] パネル ボタンのツールチップ"
+// pe.prevPanelText: "Previous Panel button tooltip" => "前のパネルボタンのツールチップ"
+// pe.nextPanelText: "Next Panel button tooltip" => "[次へ] パネル ボタンのツールチップ"
 // pe.showRangeInProgress: "Show progress bar" => "進行状況バーを表示する"
-// pe.templateTitleLocation: "Question title location" => "質問タイトルの場所"
-// pe.panelRemoveButtonLocation: "Remove Panel button location" => "[パネルを削除] ボタンの位置"
+// pe.templateQuestionTitleLocation: "Question title location" => "質問タイトルの場所"
+// pe.removePanelButtonLocation: "Remove Panel button location" => "[パネルを削除] ボタンの位置"
 // pe.hideIfRowsEmpty: "Hide the question if there are no rows" => "行がない場合は質問を非表示にする"
 // pe.hideColumnsIfEmpty: "Hide columns if there are no rows" => "行がない場合は列を非表示にする"
 // pe.rateValues: "Custom rate values" => "カスタムレート値"
@@ -1828,13 +1984,13 @@ editorLocalization.locales["ja"] = jaStrings;
 // pe.keyDuplicationError: "\"Non-unique key value\" error message" => "\"一意でないキー値\" エラー メッセージ"
 // pe.minSelectedChoices: "Minimum selected choices" => "選択される最小選択肢"
 // pe.maxSelectedChoices: "Maximum selected choices" => "最大選択選択肢数"
-// pe.showClearButton: "Show the Clear button" => "[クリア] ボタンを表示する"
+// pe.allowClear: "Show the Clear button" => "[クリア] ボタンを表示する"
 // pe.showNumber: "Show panel number" => "パネル番号を表示"
 // pe.logoWidth: "Logo width (in CSS-accepted values)" => "ロゴの幅 (CSS で受け入れられる値)"
 // pe.logoHeight: "Logo height (in CSS-accepted values)" => "ロゴの高さ (CSS で受け入れられる値)"
 // pe.readOnly: "Read-only" => "読み取り専用"
 // pe.enableIf: "Editable if" => "次の場合に編集可能"
-// pe.emptyRowsText: "\"No rows\" message" => "\"行なし\" メッセージ"
+// pe.noRowsText: "\"No rows\" message" => "\"行なし\" メッセージ"
 // pe.size: "Input field size (in characters)" => "入力フィールドのサイズ (文字数)"
 // pe.separateSpecialChoices: "Separate special choices (None, Other, Select All)" => "個別の特別な選択肢 (なし、その他、すべて選択)"
 // pe.choicesFromQuestion: "Copy choices from the following question" => "次の質問から選択肢をコピーする"
@@ -1842,7 +1998,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // pe.showCommentArea: "Show the comment area" => "コメント領域を表示する"
 // pe.commentPlaceholder: "Comment area placeholder" => "コメント領域のプレースホルダー"
 // pe.displayRateDescriptionsAsExtremeItems: "Display rate descriptions as extreme values" => "レートの説明を極値として表示する"
-// pe.rowsOrder: "Row order" => "行の順序"
+// pe.rowOrder: "Row order" => "行の順序"
 // pe.columnsLayout: "Column layout" => "列のレイアウト"
 // pe.columnColCount: "Nested column count" => "ネストされた列数"
 // pe.state: "Panel expand state" => "パネル展開状態"
@@ -1859,8 +2015,6 @@ editorLocalization.locales["ja"] = jaStrings;
 // pe.indent: "Add indents" => "インデントを追加する"
 // panel.indent: "Add outer indents" => "外側のインデントを追加する"
 // pe.innerIndent: "Add inner indents" => "内側のインデントを追加する"
-// pe.defaultValueFromLastRow: "Take default values from the last row" => "最後の行からデフォルト値を取得する"
-// pe.defaultValueFromLastPanel: "Take default values from the last panel" => "最後のパネルからデフォルト値を取得する"
 // pe.emptyExpressionPlaceHolder: "Type expression here..." => "ここに式を入力してください..."
 // pe.clearIfInvisible: "Clear the value if the question becomes hidden" => "質問が非表示になった場合は値をクリアする"
 // pe.valuePropertyName: "Value property name" => "値プロパティ名"
@@ -1922,7 +2076,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // showTimerPanel.none: "Hidden" => "隠れた"
 // showTimerPanelMode.all: "Both" => "両方とも"
 // detailPanelMode.none: "Hidden" => "隠れた"
-// addRowLocation.default: "Depends on matrix layout" => "マトリックスレイアウトに依存"
+// addRowButtonLocation.default: "Depends on matrix layout" => "マトリックスレイアウトに依存"
 // panelsState.default: "Users cannot expand or collapse panels" => "ユーザーはパネルを展開または折りたたむことはできません"
 // panelsState.collapsed: "All panels are collapsed" => "すべてのパネルが折りたたまれている"
 // panelsState.expanded: "All panels are expanded" => "すべてのパネルが展開されます"
@@ -2013,10 +2167,9 @@ editorLocalization.locales["ja"] = jaStrings;
 // p.maxValueExpression: "Max value expression" => "最大値式"
 // p.step: "Step" => "歩"
 // p.dataList: "Data list" => "データ一覧"
-// p.itemSize: "Item size" => "アイテムサイズ"
+// p.inputSize: "Item size" => "アイテムサイズ"
 // p.elements: "Elements" => "元素"
 // p.content: "Content" => "コンテンツ"
-// p.navigationButtonsVisibility: "Navigation buttons visibility" => "ナビゲーションボタンの可視性"
 // p.navigationTitle: "Navigation title" => "ナビゲーション タイトル"
 // p.navigationDescription: "Navigation description" => "ナビゲーションの説明"
 // p.longTap: "Long tap" => "ロングタップ"
@@ -2255,13 +2408,12 @@ editorLocalization.locales["ja"] = jaStrings;
 // panel.description: "Panel description" => "パネルの説明"
 // panel.visibleIf: "Make the panel visible if" => "パネルを表示するのは、次の場合です"
 // panel.requiredIf: "Make the panel required if" => "次の場合は、パネルを必須にします"
-// panel.questionsOrder: "Question order within the panel" => "パネル内の質問の順序"
+// panel.questionOrder: "Question order within the panel" => "パネル内の質問の順序"
 // panel.startWithNewLine: "Display the panel on a new line" => "パネルを新しい行に表示する"
 // panel.state: "Panel collapse state" => "パネル折りたたみ状態"
 // panel.width: "Inline panel width" => "インラインパネルの幅"
 // panel.minWidth: "Minimum panel width" => "最小パネル幅"
 // panel.maxWidth: "Maximum panel width" => "最大パネル幅"
-// panel.showNumber: "Number panels" => "番号パネル"
 // paneldynamic.name: "Panel name" => "パネル名"
 // paneldynamic.title: "Panel title" => "パネルタイトル"
 // paneldynamic.description: "Panel description" => "パネルの説明"
@@ -2281,7 +2433,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // paneldynamic.hideNumber: "Hide the panel number" => "パネル番号を隠す"
 // paneldynamic.titleLocation: "Panel title alignment" => "パネルタイトルの配置"
 // paneldynamic.descriptionLocation: "Panel description alignment" => "パネル記述の位置合わせ"
-// paneldynamic.templateTitleLocation: "Question title alignment" => "質問タイトルの配置"
+// paneldynamic.templateQuestionTitleLocation: "Question title alignment" => "質問タイトルの配置"
 // paneldynamic.templateErrorLocation: "Error message alignment" => "エラー・メッセージのアライメント"
 // paneldynamic.newPanelPosition: "New panel location" => "新しいパネルの位置"
 // paneldynamic.keyName: "Prevent duplicate responses in the following question" => "次の質問で回答の重複を防ぐ"
@@ -2314,7 +2466,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // page.description: "Page description" => "ページの説明"
 // page.visibleIf: "Make the page visible if" => "次の場合にページを表示します"
 // page.requiredIf: "Make the page required if" => "次の場合は、ページを必須にします"
-// page.questionsOrder: "Question order on the page" => "ページ上の質問の順序"
+// page.questionOrder: "Question order on the page" => "ページ上の質問の順序"
 // matrixdropdowncolumn.name: "Column name" => "列名"
 // matrixdropdowncolumn.title: "Column title" => "列のタイトル"
 // matrixdropdowncolumn.isUnique: "Prevent duplicate responses" => "回答の重複を防ぐ"
@@ -2388,8 +2540,8 @@ editorLocalization.locales["ja"] = jaStrings;
 // totalDisplayStyle.currency: "Currency" => "通貨"
 // totalDisplayStyle.percent: "Percentage" => "百分率"
 // totalDisplayStyle.date: "Date" => "日付"
-// rowsOrder.initial: "Original" => "翻訳元"
-// questionsOrder.initial: "Original" => "翻訳元"
+// rowOrder.initial: "Original" => "翻訳元"
+// questionOrder.initial: "Original" => "翻訳元"
 // showProgressBar.aboveheader: "Above the header" => "ヘッダーの上"
 // showProgressBar.belowheader: "Below the header" => "ヘッダーの下"
 // pv.sum: "Sum" => "和"
@@ -2406,7 +2558,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // panel.requiredIf: "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer." => "魔法の杖アイコンを使用して、ネストされた質問に回答が少なくとも1つない限り、調査の送信を禁止する条件付きルールを設定します。"
 // panel.questionTitleLocation: "Applies to all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)." => "このパネル内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。"
 // panel.questionErrorLocation: "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting." => "パネル内のすべての質問に関連するエラーメッセージの位置を設定します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。"
-// panel.questionsOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting." => "質問の元の順序を維持するか、ランダム化します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。"
+// panel.questionOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting." => "質問の元の順序を維持するか、ランダム化します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。"
 // panel.page: "Repositions the panel to the end of a selected page." => "パネルを選択したページの末尾に再配置します。"
 // panel.innerIndent: "Adds space or margin between the panel content and the left border of the panel box." => "パネルの内容とパネルボックスの左の境界線の間にスペースまたは余白を追加します。"
 // panel.startWithNewLine: "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form." => "選択を解除すると、前の質問またはパネルと 1 行でパネルが表示されます。パネルがフォームの最初の要素である場合、この設定は適用されません。"
@@ -2417,7 +2569,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // paneldynamic.visibleIf: "Use the magic wand icon to set a conditional rule that determines panel visibility." => "魔法の杖アイコンを使用して、パネルの表示を決定する条件付きルールを設定します。"
 // paneldynamic.enableIf: "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panel." => "魔法の杖アイコンを使用して、パネルの読み取り専用モードを無効にする条件付きルールを設定します。"
 // paneldynamic.requiredIf: "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer." => "魔法の杖アイコンを使用して、ネストされた質問に回答が少なくとも1つない限り、調査の送信を禁止する条件付きルールを設定します。"
-// paneldynamic.templateTitleLocation: "Applies to all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)." => "このパネル内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。"
+// paneldynamic.templateQuestionTitleLocation: "Applies to all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)." => "このパネル内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。"
 // paneldynamic.templateErrorLocation: "Sets the location of an error message in relation to a question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)." => "無効な入力を含む質問に関連するエラーメッセージの場所を設定します。次から選択します: \"Top\" - 質問ボックスの上部にエラーテキストが配置されます。\"Bottom\" - 質問ボックスの下部にエラーテキストが配置されます。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。"
 // paneldynamic.errorLocation: "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting." => "パネル内のすべての質問に関連するエラーメッセージの位置を設定します。[継承] オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定を適用します。"
 // paneldynamic.page: "Repositions the panel to the end of a selected page." => "パネルを選択したページの末尾に再配置します。"
@@ -2431,7 +2583,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // paneldynamic.titleLocation: "This setting is automatically inherited by all questions within this panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)." => "この設定は、このパネル内のすべての質問に自動的に継承されます。この設定を上書きする場合は、個々の質問のタイトル配置ルールを定義します。「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「上」)を適用します。"
 // paneldynamic.descriptionLocation: "The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Under the panel title\" by default)." => "「継承」オプションは、ページレベル(設定されている場合)またはアンケートレベルの設定(デフォルトでは「パネルタイトルの下」)を適用します。"
 // paneldynamic.newPanelPosition: "Defines the position of a newly added panel. By default, new panels are added to the end. Select \"Next\" to insert a new panel after the current one." => "新しく追加されたパネルの位置を定義します。デフォルトでは、新しいパネルが最後に追加されます。「次へ」を選択して、現在のパネルの後に新しいパネルを挿入します。"
-// paneldynamic.defaultValueFromLastPanel: "Duplicates answers from the last panel and assigns them to the next added dynamic panel." => "最後のパネルから回答を複製し、次に追加された動的パネルに割り当てます。"
+// paneldynamic.copyDefaultValueFromLastEntry: "Duplicates answers from the last panel and assigns them to the next added dynamic panel." => "最後のパネルから回答を複製し、次に追加された動的パネルに割り当てます。"
 // paneldynamic.keyName: "Reference a question name to require a user to provide a unique response for this question in each panel." => "質問名を参照して、各パネルでこの質問に対して一意の回答を提供するようユーザーに要求します。"
 // pehelp.defaultValueExpression: "This setting allows you to assign a default answer value based on an expression. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression serves as the initial default value that can be overridden by a respondent's manual input." => "この設定では、式に基づいてデフォルトの回答値を割り当てることができます。式には、基本的な計算 - '{q1_id} + {q2_id}'、'{age} > 60' などのブール式、関数 'iif()'、'today()'、'age()'、'min()'、'max()'、'avg()' などを含めることができます。この式によって決定される値は、回答者の手動入力で上書きできる初期デフォルト値として機能します。"
 // pehelp.resetValueIf: "Use the magic wand icon to set a conditional rule that determines when a respondent's input is reset to the value based on the \"Default value expression\" or \"Set value expression\" or to the \"Default answer\" value (if either is set)." => "魔法の杖アイコンを使用して、回答者の入力を「デフォルト値式」または「値式の設定」に基づく値、または「デフォルト回答」値(どちらかが設定されている場合)にリセットするタイミングを決定する条件付きルールを設定します。"
@@ -2477,18 +2629,17 @@ editorLocalization.locales["ja"] = jaStrings;
 // pehelp.logoWidth: "Sets a logo width in CSS units (px, %, in, pt, etc.)." => "ロゴの幅をCSS単位(px、%、in、ptなど)で設定します。"
 // pehelp.logoHeight: "Sets a logo height in CSS units (px, %, in, pt, etc.)." => "ロゴの高さを CSS 単位 (px、%、in、pt など) で設定します。"
 // pehelp.logoFit: "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio." => "次から選択: 「なし」 - 画像は元のサイズを維持します。\"Contain\" - 画像はアスペクト比を維持しながらサイズ変更されます。「表紙」-画像は縦横比を維持しながらボックス全体を埋めます。\"Fill\" - 画像は、アスペクト比を維持せずにボックスを埋めるように引き伸ばされます。"
-// pehelp.goNextPageAutomatic: "Select if you want the survey to advance to the next page automatically after a respondent answers all questions on the current page." => "回答者が現在のページのすべての質問に回答した後、アンケートを自動的に次のページに進めるかどうかを選択します。"
 // pehelp.showNavigationButtons: "Sets the visibility and location of navigation buttons on a page." => "ページ上のナビゲーションボタンの表示と位置を設定します。"
 // pehelp.showProgressBar: "Sets the visibility and location of a progress bar. The \"Auto\" value displays the progress bar above or below the survey header." => "プログレスバーの表示と位置を設定します。「自動」の値は、アンケートヘッダーの上または下に進行状況バーを表示します。"
 // pehelp.showPreviewBeforeComplete: "Enable the preview page with all or answered questions only." => "すべての質問または回答済みの質問のみを含むプレビューページを有効にします。"
 // pehelp.questionTitleLocation: "Applies to all questions within the survey. This setting can be overridden by title alignment rules at lower levels: panel, page, or question. A lower-level setting will override those on a higher level." => "アンケート内のすべての質問に適用されます。この設定は、下位レベル(パネル、ページ、または質問)のタイトル配置ルールによって上書きできます。下位レベルの設定は、上位レベルの設定よりも優先されます。"
-// pehelp.requiredText: "A symbol or a sequence of symbols indicating that an answer is required." => "回答が必要であることを示す記号または記号のシーケンス。"
+// pehelp.requiredMark: "A symbol or a sequence of symbols indicating that an answer is required." => "回答が必要であることを示す記号または記号のシーケンス。"
 // pehelp.questionStartIndex: "Enter a number or letter with which you want to start numbering." => "番号付けを開始する番号または文字を入力します。"
 // pehelp.questionErrorLocation: "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box." => "無効な入力を含む質問に関連するエラーメッセージの場所を設定します。次から選択します: \"Top\" - 質問ボックスの上部にエラーテキストが配置されます。\"Bottom\" - 質問ボックスの下部にエラーテキストが配置されます。"
-// pehelp.focusFirstQuestionAutomatic: "Select if you want the first input field on each page ready for text entry." => "各ページの最初の入力フィールドをテキスト入力可能にするかどうかを選択します。"
-// pehelp.questionsOrder: "Keeps the original order of questions or randomizes them. The effect of this setting is only visible in the Preview tab." => "質問の元の順序を維持するか、ランダム化します。この設定の効果は、「プレビュー」タブにのみ表示されます。"
+// pehelp.autoFocusFirstQuestion: "Select if you want the first input field on each page ready for text entry." => "各ページの最初の入力フィールドをテキスト入力可能にするかどうかを選択します。"
+// pehelp.questionOrder: "Keeps the original order of questions or randomizes them. The effect of this setting is only visible in the Preview tab." => "質問の元の順序を維持するか、ランダム化します。この設定の効果は、「プレビュー」タブにのみ表示されます。"
 // pehelp.maxTextLength: "For text entry questions only." => "テキスト入力の質問専用です。"
-// pehelp.maxOthersLength: "For question comments only." => "質問コメント専用です。"
+// pehelp.maxCommentLength: "For question comments only." => "質問コメント専用です。"
 // pehelp.autoGrowComment: "Select if you want question comments and Long Text questions to auto-grow in height based on the entered text length." => "質問のコメントと長いテキストの質問の高さを、入力したテキストの長さに基づいて自動的に拡大する場合に選択します。"
 // pehelp.allowResizeComment: "For question comments and Long Text questions only." => "質問コメントとテキスト(長文)の質問のみ。"
 // pehelp.calculatedValues: "Custom variables serve as intermediate or auxiliary variables used in form calculations. They take respondent inputs as source values. Each custom variable has a unique name and an expression it's based on." => "カスタム変数は、フォーム計算で使用される中間変数または補助変数として機能します。回答者の入力をソース値として受け取ります。各カスタム変数には、一意の名前と基になる式があります。"
@@ -2504,24 +2655,23 @@ editorLocalization.locales["ja"] = jaStrings;
 // pehelp.keyDuplicationError: "When the \"Prevent duplicate responses\" property is enabled, a respondent attempting to submit a duplicate entry will receive the following error message." => "「重複回答の防止」プロパティが有効な場合、重複したエントリを送信しようとする回答者は、次のエラーメッセージを受け取ります。"
 // pehelp.totalExpression: "Allows you to calculate total values based on an expression. The expression can include basic calculations (`{q1_id} + {q2_id}`), Boolean expressions (`{age} > 60`) and functions ('iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc.)." => "式に基づいて合計値を計算できます。式には、基本的な計算 ('{q1_id} + {q2_id}')、ブール式 ('{age} > 60')、関数 ('iif()'、'today()'、'age()'、'min()'、'max()'、'avg()' など) を含めることができます。"
 // pehelp.confirmDelete: "Triggers a prompt asking to confirm the row deletion." => "行の削除を確認するプロンプトをトリガーします。"
-// pehelp.defaultValueFromLastRow: "Duplicates answers from the last row and assigns them to the next added dynamic row." => "最後の行から回答を複製し、次に追加された動的行に割り当てます。"
+// pehelp.copyDefaultValueFromLastEntry: "Duplicates answers from the last row and assigns them to the next added dynamic row." => "最後の行から回答を複製し、次に追加された動的行に割り当てます。"
 // pehelp.description: "Type a subtitle." => "字幕を入力します。"
 // pehelp.locale: "Choose a language to begin creating your survey. To add a translation, switch to a new language and translate the original text here or in the Translations tab." => "言語を選択してアンケートの作成を開始します。翻訳を追加するには、新しい言語に切り替えて、ここまたは [翻訳] タブで元のテキストを翻訳します。"
 // pehelp.detailPanelMode: "Sets the location of a details section in relation to a row. Choose from: \"None\" - no expansion is added; \"Under the row\" - a row expansion is placed under each row of the matrix; \"Under the row, display one row expansion only\" - an expansion is displayed under a single row only, the remaining row expansions are collapsed." => "行を基準にした詳細セクションの位置を設定します。次から選択します: \"None\" - 展開は追加されません。\"Under the row\" - 行列の各行の下に行展開が配置されます。\"Under the row, display one row expansion only\" - 展開は 1 行の下にのみ表示され、残りの行展開は折りたたまれます。"
 // pehelp.imageFit: "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio." => "次から選択: 「なし」 - 画像は元のサイズを維持します。\"Contain\" - 画像はアスペクト比を維持しながらサイズ変更されます。「表紙」-画像は縦横比を維持しながらボックス全体を埋めます。\"Fill\" - 画像は、アスペクト比を維持せずにボックスを埋めるように引き伸ばされます。"
 // pehelp.autoGrow: "Gradually increases the height of the input field as data is being entered. Overrides the \"Input field height (in lines)\" setting." => "データの入力中に入力フィールドの高さを徐々に増やします。「入力フィールドの高さ(行単位)」の設定を上書きします。"
 // pehelp.allowResize: "The resize handle (or grip) appears in the corner and can be dragged to alter the size of the input field." => "サイズ変更ハンドル(またはグリップ)が隅に表示され、ドラッグして入力フィールドのサイズを変更できます。"
-// pehelp.maxTimeToFinish: "A time interval in seconds after which the survey auto-advances to the Thank You page." => "アンケートが [ありがとうございます] ページに自動移動するまでの時間間隔 (秒単位)。"
-// pehelp.maxTimeToFinishPage: "A time interval in seconds after which the survey auto-advances to the next page." => "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。"
-// page.maxTimeToFinish: "A time interval in seconds after which the survey auto-advances to the next page." => "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。"
+// pehelp.timeLimit: "A time interval in seconds after which the survey auto-advances to the Thank You page." => "アンケートが [ありがとうございます] ページに自動移動するまでの時間間隔 (秒単位)。"
+// pehelp.timeLimitPerPage: "A time interval in seconds after which the survey auto-advances to the next page." => "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。"
+// page.timeLimit: "A time interval in seconds after which the survey auto-advances to the next page." => "アンケートが次のページに自動進むまでの時間間隔 (秒単位)。"
 // page.visibleIf: "Use the magic wand icon to set a conditional rule that determines page visibility." => "魔法の杖アイコンを使用して、ページの表示を決定する条件付きルールを設定します。"
 // page.enableIf: "Use the magic wand icon to set a conditional rule that disables the read-only mode for the page." => "魔法の杖アイコンを使用して、ページの読み取り専用モードを無効にする条件付きルールを設定します。"
 // page.requiredIf: "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer." => "魔法の杖アイコンを使用して、ネストされた質問に回答が少なくとも1つない限り、調査の送信を禁止する条件付きルールを設定します。"
 // page.questionTitleLocation: "Applies to all questions within this page. If you want to override this setting, define title alignment rules for individual questions or panels. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)." => "このページ内のすべての質問に適用されます。この設定を上書きする場合は、個々の質問またはパネルのタイトル配置ルールを定義します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「トップ」)を適用します。"
 // page.questionErrorLocation: "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)." => "無効な入力を含む質問に関連するエラーメッセージの場所を設定します。次から選択します: \"Top\" - 質問ボックスの上部にエラーテキストが配置されます。\"Bottom\" - 質問ボックスの下部にエラーテキストが配置されます。「継承」オプションは、アンケートレベルの設定(デフォルトでは「トップ」)を適用します。"
-// page.questionsOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab." => "質問の元の順序を維持するか、ランダム化します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「オリジナル」)を適用します。この設定の効果は、「プレビュー」タブにのみ表示されます。"
-// page.navigationButtonsVisibility: "Sets the visibility of navigation buttons on the page. The \"Inherit\" option applies the survey-level setting, which defaults to \"Visible\"." => "ページ上のナビゲーションボタンの表示を設定します。「継承」オプションは、アンケートレベルの設定を適用し、デフォルトは「表示」です。"
-// pehelp.showTimerPanel: "Sets the visibility and location of a timer on a page." => "ページ上のタイマーの表示と位置を設定します。"
+// page.questionOrder: "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab." => "質問の元の順序を維持するか、ランダム化します。「継承」オプションは、アンケートレベルの設定(デフォルトでは「オリジナル」)を適用します。この設定の効果は、「プレビュー」タブにのみ表示されます。"
+// page.showNavigationButtons: "Sets the visibility of navigation buttons on the page. The \"Inherit\" option applies the survey-level setting, which defaults to \"Visible\"." => "ページ上のナビゲーションボタンの表示を設定します。「継承」オプションは、アンケートレベルの設定を適用し、デフォルトは「表示」です。"
 // pehelp.panelsState: "Choose from: \"Locked\" - users cannot expand or collapse panels; \"Collapse all\" - all panels start in a collapsed state; \"Expand all\" - all panels start in an expanded state; \"First expanded\" - only the first panel is initially expanded." => "次から選択します: 「ロック」 - ユーザーはパネルを展開または折りたたむことはできません。\"Collapse all\" - すべてのパネルが折りたたまれた状態で開始されます。\"Expand all\" - すべてのパネルが展開された状態で開始されます。\"First expanded\" - 最初のパネルのみが最初に展開されます。"
 // pehelp.imageLinkName: "Enter a shared property name within the array of objects that contains the image or video file URLs you want to display in the choice list." => "選択リストに表示する画像またはビデオ ファイルの URL を含むオブジェクトの配列内に共有プロパティ名を入力します。"
 // pehelp.choices: "The left value serves as an item ID used in conditional rules, the right value is displayed to respondents." => "左の値は条件付きルールで使用される項目IDとして機能し、右の値は回答者に表示されます。"
@@ -2549,7 +2699,7 @@ editorLocalization.locales["ja"] = jaStrings;
 // pehelp.needConfirmRemoveFile: "Triggers a prompt asking to confirm the file deletion." => "ファイルの削除を確認するプロンプトを表示します。"
 // pehelp.selectToRankEnabled: "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area." => "選択した選択肢のみをランク付けできるようにします。ユーザーは、選択した項目を選択リストからドラッグして、ランキング領域内で並べ替えます。"
 // pehelp.dataList: "Enter a list of choices that will be suggested to the respondent during input." => "入力時に回答者に提案される選択肢のリストを入力します。"
-// pehelp.itemSize: "The setting only resizes the input fields and doesn't affect the width of the question box." => "この設定では、入力フィールドのサイズが変更されるだけで、質問ボックスの幅には影響しません。"
+// pehelp.inputSize: "The setting only resizes the input fields and doesn't affect the width of the question box." => "この設定では、入力フィールドのサイズが変更されるだけで、質問ボックスの幅には影響しません。"
 // pehelp.itemTitleWidth: "Sets consistent width for all item labels in pixels" => "すべてのアイテムラベルの幅をピクセル単位で統一します。"
 // pehelp.contentMode: "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided." => "「自動」オプションでは、指定されたソースURLに基づいて、表示に適したモード(画像、動画、YouTube)が自動的に決定されます。"
 // pehelp.altText: "Serves as a substitute when the image cannot be displayed on a user's device and for accessibility purposes." => "ユーザーのデバイスに画像を表示できない場合や、アクセシビリティの目的で代用します。"
@@ -2562,8 +2712,8 @@ editorLocalization.locales["ja"] = jaStrings;
 // p.itemTitleWidth: "Item label width (in px)" => "アイテムラベルの幅 (px)"
 // p.selectToRankEmptyRankedAreaText: "Text to show if all options are selected" => "すべてのオプションが選択されている場合に表示されるテキスト"
 // p.selectToRankEmptyUnrankedAreaText: "Placeholder text for the ranking area" => "ランキングエリアのプレースホルダーテキスト"
-// pe.allowCompleteSurveyAutomatic: "Complete the survey automatically" => "調査に自動的に回答する"
-// pehelp.allowCompleteSurveyAutomatic: "Select if you want the survey to complete automatically after a respondent answers all questions." => "回答者がすべての質問に回答した後にアンケートを自動的に完了する場合に選択します。"
+// pe.autoAdvanceAllowComplete: "Complete the survey automatically" => "調査に自動的に回答する"
+// pehelp.autoAdvanceAllowComplete: "Select if you want the survey to complete automatically after a respondent answers all questions." => "回答者がすべての質問に回答した後にアンケートを自動的に完了する場合に選択します。"
 // masksettings.saveMaskedValue: "Save masked value in survey results" => "アンケート結果にマスクされた値を保存する"
 // patternmask.pattern: "Value pattern" => "値パターン"
 // datetimemask.min: "Minimum value" => "最小値"
@@ -2718,7 +2868,187 @@ editorLocalization.locales["ja"] = jaStrings;
 // theme.--sjs-general-backcolor-dim: "Sets the main background color of the survey." => "調査のメインの背景色を設定します。"
 // header.inheritWidthFrom: "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in." => "「コンテナと同じ」オプションは、アンケートが配置されるHTML要素に収まるようにヘッダーコンテンツ領域の幅を自動調整します。"
 // header.textAreaWidth: "The width of the header area that contains the survey title and description, measured in pixels." => "調査のタイトルと説明を含むヘッダー領域の幅 (ピクセル単位)。"
-// header.overlapEnabled: "Makes the bottom of the header overlaid with the top of the survey." => "ヘッダーの下部を調査の上部にオーバーレイします。"
 // panellayoutcolumn.effectiveWidth: "Accepts values %." => "値 % を受け入れます。"
 // panellayoutcolumn.questionTitleWidth: "Accepts values px." => "値 px を受け入れます。"
 // p.effectiveColSpan: "Column span" => "列スパン"
+// progressBarInheritWidthFrom.survey: "Same as survey" => "調査と同じ"
+// progressBarInheritWidthFrom.container: "Same as container" => "コンテナと同じ"
+// file.allowImagesPreview: "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead." => "可能な場合は、アップロードされたファイルのサムネイル プレビューを表示します。代わりにファイルアイコンを表示する場合は、選択を解除します。"
+// pehelp.progressBarInheritWidthFrom: "The \"Same as container\" option auto-adjusts the progress bar area width to fit into the HTML element the survey is placed in." => "「コンテナと同じ」オプションは、調査が配置されているHTML要素に収まるようにプログレスバーの領域幅を自動調整します。"
+// p.progressBarInheritWidthFrom: "Progress bar area width" => "プログレスバー領域の幅"
+// maskType.none: "None" => "何一つ"
+// maskType.pattern: "Pattern" => "パターン"
+// maskType.numeric: "Numeric" => "数値"
+// maskType.datetime: "Date and Time" => "日付と時刻"
+// maskType.currency: "Currency" => "通貨"
+
+// inputTextAlignment.auto: "Auto" => "自動"
+// inputTextAlignment.left: "Left" => "左"
+// inputTextAlignment.right: "Right" => "右"
+// pehelp.inputTextAlignment: "Select how to align input value within the field. The default setting \"Auto\" aligns the input value to the right if currency or numeric masking is applied and to the left if not." => "フィールド内で入力値を揃える方法を選択します。デフォルト設定の「自動」では、通貨または数値のマスキングが適用されている場合は入力値が右に、適用されていない場合は左に揃えられます。"
+// p.inputTextAlignment: "Input value alignment" => "入力値の配置"
+// paneldynamic.showRangeInProgress: "Show the progress bar" => "進行状況バーを表示する"
+// paneldynamic.showProgressBar: "Show the progress bar" => "進行状況バーを表示する"
+// paneldynamic.progressBarLocation: "Progress bar alignment" => "プログレスバーの配置"
+// pv.carousel: "Carousel" => "回転木馬"
+// progressBarLocation.top: "Top" => "ページのトップへ"
+// progressBarLocation.bottom: "Bottom" => "底"
+// progressBarLocation.topBottom: "Top and bottom" => "上部と下部"
+// matrixdropdowncolumn.colCount: "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. When set to -1, the actual value is inherited from the \"Nested column count\" property of the parent matrix." => "選択オプションを複数列のレイアウトで配置します。0 に設定すると、オプションは 1 行で表示されます。-1 に設定すると、実際の値は親行列の \"Nested column count\" プロパティから継承されます。"
+// ed.translationYouTubeNotSupported: "YouTube links are not supported." => "YouTube リンクはサポートされていません。"
+// ed.propertyGridPlaceholderTitle: "Start configuring your form" => "フォームの設定を開始する"
+// ed.propertyGridPlaceholderDescription: "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface." => "任意のカテゴリアイコンをクリックして、アンケート設定を探索します。追加の設定は、デザイン画面にアンケート要素を追加すると使用可能になります。"
+// pe.caseInsensitive: "Case insensitive" => "大文字と小文字を区別しない"
+// pehelp.caseInsensitive: "Select if uppercase and lowercase letters in the regular expression must be treated as equivalent." => "正規表現の大文字と小文字を同等に扱う必要がある場合に選択します。"
+
+// ed.surveyPlaceholderTitle: "Your form is empty" => "フォームが空です"
+// ed.surveyPlaceholderTitleMobile: "Your form is empty" => "フォームが空です"
+// ed.surveyPlaceholderDescription: "Drag an element from the toolbox or click the button below." => "ツールボックスから要素をドラッグするか、下のボタンをクリックします。"
+// ed.surveyPlaceholderDescriptionMobile: "Drag an element from the toolbox or click the button below." => "ツールボックスから要素をドラッグするか、下のボタンをクリックします。"
+// ed.previewPlaceholderTitle: "No preview" => "プレビューなし"
+// ed.previewPlaceholderTitleMobile: "No preview" => "プレビューなし"
+// ed.previewPlaceholderDescription: "The survey doesn't contain any visible elements." => "調査には、表示されている要素は含まれていません。"
+// ed.previewPlaceholderDescriptionMobile: "The survey doesn't contain any visible elements." => "調査には、表示されている要素は含まれていません。"
+// ed.translationsPlaceholderTitle: "No strings to translate" => "翻訳する文字列はありません"
+// ed.translationsPlaceholderTitleMobile: "No strings to translate" => "翻訳する文字列はありません"
+// ed.translationsPlaceholderDescription: "Add elements to your form or change the strings filter in the toolbar." => "フォームに要素を追加するか、ツールバーの文字列フィルターを変更します。"
+// ed.translationsPlaceholderDescriptionMobile: "Add elements to your form or change the strings filter in the toolbar." => "フォームに要素を追加するか、ツールバーの文字列フィルターを変更します。"
+// lg.logicPlaceholderTitle: "No logical rules" => "論理的なルールはありません"
+// lg.logicPlaceholderTitleMobile: "No logical rules" => "論理的なルールはありません"
+// lg.logicPlaceholderDescription: "Create a rule to customize the flow of the survey." => "調査のフローをカスタマイズするルールを作成します。"
+// lg.logicPlaceholderDescriptionMobile: "Create a rule to customize the flow of the survey." => "調査のフローをカスタマイズするルールを作成します。"
+// pe.showTimer: "Use a timer" => "タイマーを使用する"
+// theme.advancedMode: "Advanced mode" => "詳細モード"
+// pehelp.timerLocation: "Sets the location of a timer on a page." => "ページ上のタイマーの位置を設定します。"
+// header.mobileHeight: "When set to 0, the height is calculated automatically to accommodate the header's content." => "0 に設定すると、ヘッダーのコンテンツに合わせて高さが自動的に計算されます。"
+// p.mobileHeight: "Height on smartphones" => "スマートフォンでの高さ"
+// header.overlapEnabled: "When enabled, the top of the survey overlays the bottom of the header." => "有効にすると、調査の上部がヘッダーの下部に重なります。"
+// ed.creatorSettingTitle: "Creator Settings" => "クリエイター設定"
+// tabs.accentColors: "Accent colors" => "アクセントカラー"
+// tabs.scaling: "Scaling" => "スケーリング"
+// panel.showQuestionNumbers: "Assigns numbers to questions nested within this panel." => "このパネル内にネストされた質問に番号を割り当てます。"
+// creatortheme.--sjs-special-background: "Surface background" => "サーフェスの背景"
+// creatortheme.--sjs-primary-background-500: "Primary" => "原発"
+// creatortheme.--sjs-secondary-background-500: "Secondary" => "付帯"
+// creatortheme.surfaceScale: "Surface" => "表面"
+// creatortheme.userInterfaceBaseUnit: "User interface" => "ユーザーインターフェース"
+// creatortheme.fontScale: "Font" => "フォント"
+// names.sc2020: "Survey Creator 2020" => "サーベイクリエーター2020"
+// names.default-light: "Light" => "光"
+// names.default-dark: "Dark" => "暗い"
+// names.default-contrast: "Contrast" => "対照"
+// panel.showNumber: "Number this panel" => "このパネルに番号を付ける"
+// pehelp.autoAdvanceEnabled: "Select if you want the survey to auto-advance to the next page once a respondent has answered all questions on the current page. This feature won't apply if the last question on the page is open-ended or allows multiple answers." => "回答者が現在のページのすべての質問に答えると、アンケートが自動的に次のページに進むようにする場合に選択します。この機能は、ページの最後の質問が自由回答形式の場合、または複数の回答が許可されている場合には適用されません。"
+// autocomplete.name: "Full Name" => "フルネーム"
+// autocomplete.honorific-prefix: "Prefix" => "接頭辞"
+// autocomplete.given-name: "First Name" => "名前"
+// autocomplete.additional-name: "Middle Name" => "ミドルネーム"
+// autocomplete.family-name: "Last Name" => "名字"
+// autocomplete.honorific-suffix: "Suffix" => "接尾辞"
+// autocomplete.nickname: "Nickname" => "ニックネーム"
+// autocomplete.organization-title: "Job Title" => "役職"
+// autocomplete.username: "User Name" => "ユーザー名"
+// autocomplete.new-password: "New Password" => "新しいパスワード"
+// autocomplete.current-password: "Current Password" => "現在のパスワード"
+// autocomplete.organization: "Organization Name" => "組織名"
+// autocomplete.street-address: "Full Street Address" => "フルストリートアドレス"
+// autocomplete.address-line1: "Address Line 1" => "住所1"
+// autocomplete.address-line2: "Address Line 2" => "住所2"
+// autocomplete.address-line3: "Address Line 3" => "住所3"
+// autocomplete.address-level4: "Level 4 Address" => "レベル4アドレス"
+// autocomplete.address-level3: "Level 3 Address" => "レベル3アドレス"
+// autocomplete.address-level2: "Level 2 Address" => "レベル2アドレス"
+// autocomplete.address-level1: "Level 1 Address" => "レベル1アドレス"
+// autocomplete.country: "Country Code" => "国コード"
+// autocomplete.country-name: "Country Name" => "国名"
+// autocomplete.postal-code: "Postal Code" => "郵便番号"
+// autocomplete.cc-name: "Cardholder Name" => "カード名義人氏名"
+// autocomplete.cc-given-name: "Cardholder First Name" => "カード所有者の名"
+// autocomplete.cc-additional-name: "Cardholder Middle Name" => "カード名義人のミドルネーム"
+// autocomplete.cc-family-name: "Cardholder Last Name" => "カード名義人の姓"
+// autocomplete.cc-number: "Credit Card Number" => "クレジットカード番号"
+// autocomplete.cc-exp: "Expiration Date" => "有効期限"
+// autocomplete.cc-exp-month: "Expiration Month" => "有効期限月"
+// autocomplete.cc-exp-year: "Expiration Year" => "有効期限"
+// autocomplete.cc-csc: "Card Security Code" => "カードセキュリティコード"
+// autocomplete.cc-type: "Credit Card Type" => "クレジットカードの種類"
+// autocomplete.transaction-currency: "Transaction Currency" => "取引通貨"
+// autocomplete.transaction-amount: "Transaction Amount" => "取引金額"
+// autocomplete.language: "Preferred Language" => "優先言語"
+// autocomplete.bday: "Birthday" => "誕生日"
+// autocomplete.bday-day: "Birthday Day" => "誕生日"
+// autocomplete.bday-month: "Birthday Month" => "誕生日月"
+// autocomplete.bday-year: "Birthday Year" => "誕生日の年"
+// autocomplete.sex: "Gender" => "ジェンダー"
+// autocomplete.url: "Website URL" => "ウェブサイトURL"
+// autocomplete.photo: "Profile Photo" => "プロフィール写真"
+// autocomplete.tel: "Telephone Number" => "電話番号"
+// autocomplete.tel-country-code: "Country Code for Phone" => "電話の国番号"
+// autocomplete.tel-national: "National Telephone Number" => "国内電話番号"
+// autocomplete.tel-area-code: "Area Code" => "市外局番"
+// autocomplete.tel-local: "Local Phone Number" => "市内電話番号"
+// autocomplete.tel-local-prefix: "Local Phone Prefix" => "ローカル電話プレフィックス"
+// autocomplete.tel-local-suffix: "Local Phone Suffix" => "ローカル電話サフィックス"
+// autocomplete.tel-extension: "Phone Extension" => "内線"
+// autocomplete.email: "Email Address" => "アドレス"
+// autocomplete.impp: "Instant Messaging Protocol" => "インスタントメッセージングプロトコル"
+// ed.lockQuestionsTooltip: "Lock expand/collapse state for questions" => "質問の展開/折りたたみ状態のロック"
+// pe.listIsEmpty@pages: "You don't have any pages yet" => "まだページがありません"
+// pe.addNew@pages: "Add new page" => "新しいページを追加"
+// ed.zoomInTooltip: "Zoom In" => "ズームインする"
+// ed.zoomOutTooltip: "Zoom Out" => "ズームアウト"
+// tabs.surfaceBackground: "Surface Background" => "サーフェスの背景"
+// pe.copyDefaultValueFromLastEntry: "Use answers from the last entry as default" => "最後のエントリの回答をデフォルトとして使用する"
+// colors.gray: "Gray" => "灰色"
+// pe.navigationButtonsLocation: "Navigation buttons alignment" => "ナビゲーション ボタンの配置"
+// pv.allQuestions: "Show all questions" => "すべての質問を表示"
+// pv.answeredQuestions: "Show answered questions only" => "回答済みの質問のみを表示する"
+// pehelp.navigationButtonsLocation: "Sets the location of navigation buttons on a page." => "ページ上のナビゲーション ボタンの位置を設定します。"
+// pe.size: "Input field width (in characters)" => "入力フィールドの幅 (文字単位)"
+// pe.choiceValuesFromQuestion: "Use values from the following matrix column or panel question as choice IDs" => "次の行列列またはパネルの質問の値を選択肢IDとして使用します"
+// pe.choiceTextsFromQuestion: "Use values from the following matrix column or panel question as choice texts" => "次の行列の列またはパネルの質問の値を選択テキストとして使用します"
+// pehelp.choiceValuesFromQuestion: "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the IDs." => "単一選択問題タイプと複数選択問題タイプでは、各選択肢オプションにIDと表示値があります。この設定では、どの行列列またはパネルの質問がIDを提供するかを指定します。"
+// pehelp.choiceTextsFromQuestion: "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the display texts." => "単一選択問題タイプと複数選択問題タイプでは、各選択肢オプションにIDと表示値があります。この設定では、表示テキストを提供する行列列またはパネルの質問を指定します。"
+// pe.progressBarLocation: "Progress bar alignment" => "プログレスバーの配置"
+// progressBarLocation.topbottom: "Top and bottom" => "上部と下部"
+// progressBarLocation.aboveheader: "Above the header" => "ヘッダーの上"
+// progressBarLocation.belowheader: "Below the header" => "ヘッダーの下"
+// progressBarLocation.off: "Hidden" => "隠れた"
+// survey.progressBarLocation: "Sets the location of the progress bar. The \"Auto\" value displays the progress bar above or below the survey header." => "プログレスバーの位置を設定します。「自動」の値は、調査ヘッダーの上または下に進行状況バーを表示します。"
+// survey.readOnly: "Make the survey read-only" => "調査を読み取り専用にする"
+// survey.readOnly: "Select if you want to prevent respondents from filling out your survey." => "回答者がアンケートに回答できないようにする場合に選択します。"
+// paneldynamic.showNumber: "Number the panel" => "パネルに番号を付ける"
+// question.showNumber: "Number this question" => "この質問に番号を付ける"
+// pe.previewMode: "Preview mode" => "プレビューモード"
+// pe.gridLayoutEnabled: "Enable the grid layout" => "グリッド レイアウトの有効化"
+// pe.maskSettings: "Mask settings" => "マスク設定"
+// pe.detailErrorLocation: "Row expansion error message alignment" => "行拡張エラーメッセージの配置"
+// pehelp.detailErrorLocation: "Sets the location of error messages for questions nested in detail sections. The \"Inherit\" option applies the setting from the \"Error message alignment\" property." => "詳細セクションにネストされた質問のエラーメッセージの場所を設定します。「継承」オプションは、「エラーメッセージの配置」プロパティの設定を適用します。"
+// pe.gridLayoutColumns: "Grid layout columns" => "グリッド レイアウト列"
+// pe.startPageTitlePlaceholder: "Start Page" => "スタートページ"
+// panellayoutcolumn.effectiveWidth: "Effective width, %" => "有効幅、%"
+// panellayoutcolumn.questionTitleWidth: "Question title width, px" => "質問タイトルの幅、px"
+// pe.listIsEmpty@gridLayoutColumns: "You don't have layout columns yet" => "レイアウト列がまだありません"
+// panel.effectiveColSpan: "Specifies how many columns this panel spans within the grid layout." => "このパネルがグリッドレイアウト内で何列にまたがっているかを指定します。"
+// panel.gridLayoutColumns: "This table lets you configure each grid column within the panel. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column." => "このテーブルでは、パネル内の各グリッド列を構成できます。行内の要素の最大数に基づいて、各列の幅の割合が自動的に設定されます。グリッドレイアウトをカスタマイズするには、これらの値を手動で調整し、各列のすべての質問のタイトル幅を定義します。"
+// pehelp.gridLayoutEnabled: "Survey Creator allows you to manually adjust the inline widths of form elements to control the layout. If this doesn't produce the desired outcome, you can enable the grid layout, which structures form elements using a column-based system. To configure layout columns, select a page or panel and use the \"Question Settings\" → \"Grid columns\" table. To adjust how many columns a question spans, select it and set the desired value in the \"Layout\" → \"Column span\" field." => "Survey Creator では、フォーム要素のインライン幅を手動で調整して、レイアウトを制御できます。これで目的の結果が得られない場合は、列ベースのシステムを使用してフォーム要素を構成するグリッドレイアウトを有効にすることができます。レイアウト列を設定するには、ページまたはパネルを選択し、「質問設定」→「グリッド列」テーブルを使用します。質問の列数を調整するには、質問を選択し、「レイアウト」→「列範囲」フィールドで目的の値を設定します。"
+// question.effectiveColSpan: "Specifies how many columns this question spans within the grid layout." => "この質問がグリッドレイアウト内で何列にまたがっているかを指定します。"
+// page.gridLayoutColumns: "This table lets you configure each grid column on the page. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column." => "このテーブルでは、ページ上の各グリッド列を構成できます。行内の要素の最大数に基づいて、各列の幅の割合が自動的に設定されます。グリッドレイアウトをカスタマイズするには、これらの値を手動で調整し、各列のすべての質問のタイトル幅を定義します。"
+
+// ed.expandTooltip: "Expand" => "膨らむ"
+// ed.collapseTooltip: "Collapse" => "倒れる"
+// pe.itemTitleWidth_placeholder: "Ex.: 100px" => "例:100px"
+// pehelp.itemTitleWidth: "Sets consistent width for all item labels. Accepts CSS values (px, %, in, pt, etc.)." => "すべてのアイテム ラベルに一貫した幅を設定します。CSS 値 (px、%、in、pt など) を受け入れます。"
+// ed.zoom100Tooltip: "Zoom to 100%" => "100%にズーム"
+// ed.addLanguageTooltip: "Add Language" => "言語を追加"
+// pehelp.commentAreaRows: "Sets the number of displayed lines in text areas for question comments. If the input takes up more lines, the scroll bar appears." => "質問コメントのテキストエリアに表示される行数を設定します。入力がより多くの行を占める場合は、スクロールバーが表示されます。"
+// pe.defaultDisplayValue: "Default display value for dynamic texts" => "ダイナミックテキストのデフォルトの表示値"
+// pehelp.defaultDisplayValue: "A value displayed in HTML questions and in the dynamic titles and descriptions of survey elements when the question value is empty." => "HTML の質問、および質問の値が空の場合にアンケート要素の動的なタイトルと説明に表示される値。"
+// showQuestionNumbers.recursive: "Recursive numbering" => "再帰的なナンバリング"
+// paneldynamic.templateQuestionTitleWidth: "Question title width" => "質問タイトルの幅"
+// pe.allowCustomChoices: "Allow custom choices" => "カスタム選択を許可する"
+// paneldynamic.templateQuestionTitleWidth: "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)." => "質問タイトルが問題ボックスの左側に配置されている場合に、質問タイトルの一貫した幅を設定します。CSS 値 (px、%、in、pt など) を受け入れます。"
+// page.name: "A page ID that is not visible to respondents." => "回答者に表示されないページID。"
+// page.description: "Type a page subtitle." => "ページのサブタイトルを入力します。"
+// page.navigationTitle: "A caption displayed on a navigation button in the progress bar or table of contents (TOC). If you leave this field empty, the navigation button will use the page title or page name. To enable the progress bar or TOC, go to \"Survey\" → \"Navigation\"." => "進行状況バーまたは目次 (TOC) のナビゲーション ボタンに表示されるキャプション。このフィールドを空のままにすると、ナビゲーション ボタンはページ タイトルまたはページ名を使用します。プログレスバーまたは目次を有効にするには、「アンケート」→「ナビゲーション」に移動します。"
+// pehelp.allowCustomChoices: "Select to let respondents add their own choices if the desired option isn't available in the dropdown. Custom choices will only be stored temporarily for the duration of the current browser session." => "選択すると、回答者は、目的のオプションがドロップダウンにない場合に、独自の選択肢を追加できます。カスタム選択は、現在のブラウザセッションの期間中のみ一時的に保存されます。"

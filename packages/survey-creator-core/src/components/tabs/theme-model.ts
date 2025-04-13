@@ -1,28 +1,34 @@
 import { Base, ITheme, JsonObjectProperty, Question, Serializer, property, ILoadFromJSONOptions, ISaveToJSONOptions, IHeader, EventBase, SurveyModel, ArrayChanges } from "survey-core";
 import { getLocString } from "../../editorLocalization";
-import { PredefinedThemes, Themes } from "./themes";
+import { defaultThemesOrder, PredefinedThemes, Themes } from "./themes";
 import { settings } from "../../creator-settings";
 
 import { DefaultFonts, fontsettingsFromCssVariable, fontsettingsToCssVariable } from "./theme-custom-questions/font-settings";
 import { backgroundCornerRadiusFromCssVariable, backgroundCornerRadiusToCssVariable } from "./theme-custom-questions/background-corner-radius";
-import { createBoxShadowReset } from "./theme-custom-questions/shadow-effects";
+import { createBoxShadowReset, trimBoxShadowValue } from "./theme-custom-questions/shadow-effects";
 import { HeaderModel } from "./header-model";
-import * as LibraryThemes from "survey-core/themes";
-import { ColorCalculator, assign, ingectAlpha, parseColor, roundTo2Decimals } from "../../utils/utils";
+import { registerTheme, ThemesHash, sortDefaultThemes } from "../../utils/themes";
+import { assign, roundTo2Decimals } from "../../utils/utils";
+import { ColorCalculator, ingectAlpha, parseColor } from "../../utils/color-utils";
 import { UndoRedoManager } from "../../plugins/undo-redo/undo-redo-manager";
 import { updateCustomQuestionJSONs } from "./theme-custom-questions";
+import { SurveyCreatorModel } from "../../creator-base";
 
 export * from "./header-model";
 
-Object.keys(LibraryThemes).forEach(libraryThemeName => {
-  const libraryTheme: ITheme = LibraryThemes[libraryThemeName];
-  const creatorThemeVariables = {};
-  const creatorTheme = {};
-  assign(creatorThemeVariables, libraryTheme.cssVariables);
-  assign(creatorTheme, libraryTheme, { cssVariables: creatorThemeVariables });
-  const creatorThemeName = getThemeFullName(libraryTheme);
-  Themes[creatorThemeName] = creatorTheme;
-});
+export function registerSurveyTheme(...themes: Array<ThemesHash<ITheme> | ITheme>) {
+  const importedThemeNames = [];
+  registerTheme((theme: ITheme) => {
+    const creatorThemeVariables = {};
+    const creatorTheme = {};
+    assign(creatorThemeVariables, theme.cssVariables);
+    assign(creatorTheme, theme, { cssVariables: creatorThemeVariables });
+    const creatorThemeName = getThemeFullName(theme);
+    Themes[creatorThemeName] = creatorTheme;
+    importedThemeNames.push(theme.themeName);
+  }, ...themes);
+  sortDefaultThemes(defaultThemesOrder, importedThemeNames, PredefinedThemes);
+}
 
 export function getThemeFullName(theme: ITheme) {
   const themeName = theme.themeName || ThemeModel.DefaultTheme.themeName || "default";
@@ -31,6 +37,14 @@ export function getThemeFullName(theme: ITheme) {
     fullThemeName += "-panelless";
   }
   return fullThemeName;
+}
+
+export function isThemeEmpty(theme: ITheme) {
+  if (!theme) {
+    return true;
+  }
+  const themeProperties = Object.keys(theme);
+  return themeProperties.length == 0 || themeProperties.length == 1 && themeProperties[0] == "cssVariables" && Object.keys(theme.cssVariables).length == 0;
 }
 
 export function findSuitableTheme(themeName: string, colorPalette: string, isPanelless: boolean, probeThemeFullName: string) {
@@ -89,10 +103,21 @@ export function getThemeChanges(fullTheme: ITheme, baseTheme?: ITheme) {
 }
 
 export class ThemeModel extends Base implements ITheme {
-  public static DefaultTheme = Themes["default-light"];
+  private static defaultThemeValue: ITheme;
+  public static get DefaultTheme() {
+    if (!this.defaultThemeValue) {
+      return Themes["default-light"] || {};
+    } else {
+      return this.defaultThemeValue;
+    }
+  }
+  public static set DefaultTheme(val: ITheme) {
+    this.defaultThemeValue = val;
+  }
   public undoRedoManager: UndoRedoManager;
   private themeCssVariablesChanges: { [index: string]: string } = {};
   private colorCalculator = new ColorCalculator();
+  private dependentColorNames = ["--sjs-primary-backcolor-light", "--sjs-primary-backcolor-dark"];
 
   @property() backgroundImage: string;
   @property() backgroundImageFit: "auto" | "contain" | "cover";
@@ -188,74 +213,75 @@ export class ThemeModel extends Base implements ITheme {
   }
 
   private initializeColorCalculator(cssVariables: { [index: string]: string }) {
-    if (!cssVariables["--sjs-primary-backcolor"] ||
-      !cssVariables["--sjs-primary-backcolor-light"] ||
-      !cssVariables["--sjs-primary-backcolor-dark"]) {
+    const baseColorName = "--sjs-primary-backcolor";
+    const cssValuesExists = this.dependentColorNames.every(name => !!cssVariables[name]);
+    if (!cssVariables[baseColorName] || !cssValuesExists) {
       return;
     }
 
-    this.colorCalculator.initialize(
-      cssVariables["--sjs-primary-backcolor"],
-      cssVariables["--sjs-primary-backcolor-light"],
-      cssVariables["--sjs-primary-backcolor-dark"]
-    );
+    const dependentColorValues = this.dependentColorNames.map(name => { return cssVariables[name]; });
+    this.colorCalculator.initializeColorSettings(cssVariables[baseColorName], dependentColorValues);
   }
 
   private updatePropertiesDependentOnPrimaryColor(value: string) {
-    this.colorCalculator.calculateColors(value);
-    this.setPropertyValue("--sjs-primary-backcolor-light", this.colorCalculator.colorSettings.newColorLight);
-    this.setPropertyValue("--sjs-primary-backcolor-dark", this.colorCalculator.colorSettings.newColorDark);
-    this.setThemeCssVariablesChanges("--sjs-primary-backcolor-light", this.colorCalculator.colorSettings.newColorLight);
-    this.setThemeCssVariablesChanges("--sjs-primary-backcolor-dark", this.colorCalculator.colorSettings.newColorDark);
+    if (!this.colorCalculator.isInitialized) return;
+
+    const newDependentColors = this.colorCalculator.calculateDependentColorValues(value);
+    this.dependentColorNames.forEach((name, index) => {
+      this.setPropertyValue(name, newDependentColors[index]);
+      this.setThemeCssVariablesChanges(name, newDependentColors[index]);
+    });
   }
   private cssVariablePropertiesChanged(name: string, value: any, property: JsonObjectProperty) {
+    let nameProcessed = true;
     if (name === "primaryColor") {
       this.setPropertyValue("--sjs-primary-backcolor", value);
       this.setThemeCssVariablesChanges("--sjs-primary-backcolor", value);
       this.updatePropertiesDependentOnPrimaryColor(value);
-    }
-    if (name === "--sjs-primary-backcolor") {
+    } else if (name === "--sjs-primary-backcolor") {
       this["primaryColor"] = value;
       this.updatePropertiesDependentOnPrimaryColor(value);
-    }
-    if (name === "--sjs-shadow-inner" || name === "--sjs-shadow-small") {
+    } else if (name === "--sjs-shadow-inner" || name === "--sjs-shadow-small") {
       const newBoxShadowReset = createBoxShadowReset(value);
       this.setPropertyValue(name + "-reset", newBoxShadowReset);
       this.setThemeCssVariablesChanges(name + "-reset", newBoxShadowReset);
-    }
-
-    if (name == "scale") {
+    } else if (name == "scale") {
       this.setThemeCssVariablesChanges("--sjs-base-unit", (value * 8 / 100) + "px");
-    }
-    if (name == "fontSize") {
+    } else if (name == "fontSize") {
       this.setThemeCssVariablesChanges("--sjs-font-size", (value * 16 / 100) + "px");
-    }
-    if (name == "cornerRadius") {
+    } else if (name == "cornerRadius") {
       this.setThemeCssVariablesChanges("--sjs-corner-radius", value + "px");
-    }
-    if (name === "questionBackgroundTransparency" || name === "editorPanel") {
+    } else if (name === "questionBackgroundTransparency" || name === "editorPanel") {
       let baseColor = parseColor(this.getPropertyValue("--sjs-general-backcolor-dim-light")).color;
       let questionBackgroundTransparencyValue = this.getPropertyValue("questionBackgroundTransparency");
       this.setThemeCssVariablesChanges("--sjs-editor-background", ingectAlpha(baseColor, questionBackgroundTransparencyValue / 100));
-    }
-    if (name === "panelBackgroundTransparency" || name === "questionPanel") {
+    } else if (name === "panelBackgroundTransparency" || name === "questionPanel") {
       let baseColor = parseColor(this.getPropertyValue("--sjs-general-backcolor")).color;
       let panelBackgroundTransparencyValue = this.getPropertyValue("panelBackgroundTransparency");
       this.setThemeCssVariablesChanges("--sjs-question-background", ingectAlpha(baseColor, panelBackgroundTransparencyValue / 100));
+    } else {
+      nameProcessed = false;
     }
+
+    let typeProcessed = true;
     if (property.type === "font") {
       fontsettingsToCssVariable(value, property, this.themeCssVariablesChanges);
       this.onThemePropertyChanged.fire(this, { name, value });
-    }
-    if (property.type === "backgroundcornerradius") {
+    } else if (property.type === "backgroundcornerradius") {
       backgroundCornerRadiusToCssVariable(value, property, this.themeCssVariablesChanges);
       this.onThemePropertyChanged.fire(this, { name, value });
+    } else {
+      typeProcessed = false;
     }
+
+    return nameProcessed || typeProcessed;
   }
 
   private setThemeCssVariablesChanges(name: string, value: any) {
-    this.themeCssVariablesChanges[name] = value;
-    this.onThemePropertyChanged.fire(this, { name, value });
+    if (this.themeCssVariablesChanges[name] !== value) {
+      this.themeCssVariablesChanges[name] = value;
+      this.onThemePropertyChanged.fire(this, { name, value });
+    }
   }
 
   constructor() {
@@ -279,13 +305,13 @@ export class ThemeModel extends Base implements ITheme {
     };
   }
 
-  initialize(surveyTheme: ITheme = {}, survey?: SurveyModel) {
+  initialize(surveyTheme: ITheme = {}, survey?: SurveyModel, creator?: SurveyCreatorModel) {
     this._defaultSessionTheme = ThemeModel.DefaultTheme;
     this.backgroundImage = "backgroundImage" in surveyTheme ? surveyTheme.backgroundImage : survey?.backgroundImage;
     this.backgroundImageFit = surveyTheme.backgroundImageFit !== undefined ? surveyTheme.backgroundImageFit : survey?.backgroundImageFit;
     this.backgroundImageAttachment = surveyTheme.backgroundImageAttachment !== undefined ? surveyTheme.backgroundImageAttachment : survey?.backgroundImageAttachment;
     this.backgroundOpacity = ((surveyTheme.backgroundOpacity !== undefined ? surveyTheme.backgroundOpacity : survey?.backgroundOpacity) || 1) * 100;
-    this.loadTheme(surveyTheme);
+    this.loadTheme(surveyTheme, creator && creator.preferredColorPalette);
     this.header["logoPosition"] = survey?.logoPosition;
     this.undoRedoManager = new UndoRedoManager();
   }
@@ -323,11 +349,11 @@ export class ThemeModel extends Base implements ITheme {
   public onAllowModifyTheme = new EventBase<ThemeModel, { theme: ITheme, allow: boolean }>();
 
   private blockThemeChangedNotifications = 0;
-  public loadTheme(theme: ITheme) {
+  public loadTheme(theme: ITheme, preferredColorPalette?: string) {
     this.blockThemeChangedNotifications += 1;
     try {
-      let probeThemeFullName = getThemeFullName(theme);
-      const baseTheme = findSuitableTheme(theme.themeName, theme.colorPalette, theme.isPanelless, probeThemeFullName);
+      let probeThemeFullName = getThemeFullName({ themeName: theme.themeName, colorPalette: theme.colorPalette || preferredColorPalette, isPanelless: theme.isPanelless });
+      const baseTheme = findSuitableTheme(theme.themeName, theme.colorPalette || preferredColorPalette, theme.isPanelless, probeThemeFullName);
       const themeChanges = getThemeChanges(theme, baseTheme);
       this.themeName = themeChanges.themeName;
       this.colorPalette = themeChanges.colorPalette as any;
@@ -422,15 +448,18 @@ export class ThemeModel extends Base implements ITheme {
     }
 
     if (this.blockThemeChangedNotifications > 0) return;
+    let processedInternally = false;
     if (this !== sender) {
       const senderJSON = sender.toJSON();
       if (!!senderJSON.cssVariables) {
         Object.keys(senderJSON.cssVariables).forEach(key => this.setThemeCssVariablesChanges(key, senderJSON.cssVariables[key]));
       }
       this.onThemePropertyChanged.fire(this, { name, value: newValue });
+      processedInternally = true;
     }
     if (name.indexOf("--") === 0) {
       this.setThemeCssVariablesChanges(name, newValue);
+      processedInternally = true;
     }
 
     if (this.generalPropertiesChanged(name, newValue)) {
@@ -452,7 +481,13 @@ export class ThemeModel extends Base implements ITheme {
       return;
     }
 
-    this.cssVariablePropertiesChanged(name, newValue, sender.getPropertyByName(name));
+    if (this.cssVariablePropertiesChanged(name, newValue, sender.getPropertyByName(name))) {
+      processedInternally = true;
+    }
+
+    if (!processedInternally) {
+      this.onThemePropertyChanged.fire(this, { name, value: newValue });
+    }
 
     this.blockThemeChangedNotifications -= 1;
     if (!!this.undoRedoManager && this.blockThemeChangedNotifications == 0) {
@@ -506,7 +541,7 @@ export class ThemeModel extends Base implements ITheme {
     }
   }
 
-  toJSON(options?: ISaveToJSONOptions): ITheme {
+  toJSON(options: ISaveToJSONOptions = { storeDefaults: true }): ITheme {
     if (this.scale !== undefined) {
       this["--sjs-base-unit"] = (this.scale * 8 / 100) + "px";
     }
@@ -548,13 +583,15 @@ export class ThemeModel extends Base implements ITheme {
 
 }
 
+const themeNameValues = PredefinedThemes.map(theme => ({ value: theme, text: getLocString("theme.names." + theme) }));
+
 Serializer.addClass(
   "theme",
   [
     {
       type: "dropdown",
       name: "themeName",
-      choices: PredefinedThemes.map(theme => ({ value: theme, text: getLocString("theme.names." + theme) })),
+      choices: themeNameValues,
       category: "general",
     }, {
       type: "buttongroup",
@@ -601,8 +638,18 @@ Serializer.addClass(
           editor.min = 0;
         }
       }
-    },
-    {
+    }, {
+      name: "advancedMode",
+      type: "switchToggle",
+      isSerializable: false,
+      default: false,
+      onPropertyEditorUpdate: function (obj: any, editor: any) {
+        if (!!editor) {
+          editor.titleLocation = "hidden";
+          editor.renderAs = "switch";
+        }
+      }
+    }, {
       type: "spinedit",
       isSerializable: false,
       name: "fontSize",
@@ -768,6 +815,9 @@ Serializer.addProperties("theme",
   }, {
     type: "shadoweffects",
     name: "--sjs-shadow-small",
+    onSetValue: function (obj: any, value: any) {
+      obj.setPropertyValue("--sjs-shadow-small", trimBoxShadowValue(value));
+    },
   }, {
     type: "font",
     name: "questionTitle",
@@ -788,6 +838,9 @@ Serializer.addProperties("theme",
   {
     type: "shadoweffects",
     name: "--sjs-shadow-inner",
+    onSetValue: function (obj: any, value: any) {
+      obj.setPropertyValue("--sjs-shadow-inner", trimBoxShadowValue(value));
+    },
   }, {
     type: "font",
     name: "editorFont",
@@ -833,10 +886,34 @@ Serializer.addProperties("theme",
   { name: "--sjs-secondary-backcolor-semi-light", visible: false },
   { name: "--sjs-secondary-forecolor", visible: false },
   { name: "--sjs-secondary-forecolor-light", visible: false },
-  { name: "--sjs-shadow-small-reset", visible: false },
-  { name: "--sjs-shadow-medium", visible: false },
-  { name: "--sjs-shadow-large", visible: false },
-  { name: "--sjs-shadow-inner-reset", visible: false },
+  {
+    name: "--sjs-shadow-small-reset",
+    visible: false,
+    onSetValue: function (obj: any, value: any) {
+      obj.setPropertyValue("--sjs-shadow-small-reset", trimBoxShadowValue(value));
+    },
+  },
+  {
+    name: "--sjs-shadow-medium",
+    visible: false,
+    onSetValue: function (obj: any, value: any) {
+      obj.setPropertyValue("--sjs-shadow-medium", trimBoxShadowValue(value));
+    },
+  },
+  {
+    name: "--sjs-shadow-large",
+    visible: false,
+    onSetValue: function (obj: any, value: any) {
+      obj.setPropertyValue("--sjs-shadow-large", trimBoxShadowValue(value));
+    },
+  },
+  {
+    name: "--sjs-shadow-inner-reset",
+    visible: false,
+    onSetValue: function (obj: any, value: any) {
+      obj.setPropertyValue("--sjs-shadow-inner-reset", trimBoxShadowValue(value));
+    },
+  },
   { name: "--sjs-border-light", visible: false },
   { name: "--sjs-border-default", visible: false },
   { name: "--sjs-border-inside", visible: false },

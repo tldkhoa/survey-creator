@@ -6,14 +6,17 @@ export { createBoxShadow, parseBoxShadow } from "../../src/components/tabs/theme
 export * from "../../src/property-grid/theme-settings";
 export * from "../../src/property-grid/header-settings";
 
-import { ITheme, QuestionButtonGroupModel, QuestionCompositeModel, QuestionDropdownModel, QuestionFileModel, Serializer, SurveyElement, settings as surveySettings } from "survey-core";
+import { Action, ITheme, QuestionButtonGroupModel, QuestionCompositeModel, QuestionDropdownModel, QuestionFileModel, Serializer, SurveyElement, settings as surveySettings } from "survey-core";
 import { CreatorTester } from "../creator-tester";
 import { ThemeTabPlugin } from "../../src/components/tabs/theme-plugin";
 import { HeaderModel, ThemeModel } from "../../src/components/tabs/theme-model";
 import { ThemeTabViewModel } from "../../src/components/tabs/theme-builder";
 import { settings } from "../../src/creator-settings";
-import { assign, parseColor } from "../../src/utils/utils";
+import { assign } from "../../src/utils/utils";
 import { PredefinedThemes, Themes } from "../../src/components/tabs/themes";
+import { registerSurveyTheme } from "../../src/components/tabs/theme-model";
+import SurveyThemes from "survey-core/themes";
+registerSurveyTheme(SurveyThemes);
 
 test("Creator top action bar: only theme tab", (): any => {
   const themeBuilderButtonOrder = ["action-undo-theme", "action-redo-theme", "svc-reset-theme", "svc-theme-settings", "svc-theme-import", "svc-theme-export"].join("|");
@@ -26,7 +29,7 @@ test("Creator top action bar: only theme tab", (): any => {
     ]
   };
   expect(creator.activeTab).toEqual("theme");
-
+  creator.showOneCategoryInPropertyGrid = false;
   expect(creator.toolbar.visibleActions.length).toEqual(6);
   let receivedOrder = creator.toolbar.visibleActions.map(a => a.id).join("|");
   expect(receivedOrder).toEqual(themeBuilderButtonOrder);
@@ -58,6 +61,24 @@ test("Creator footer action bar: only theme tab", (): any => {
 
   creator.activeTab = "logic";
   expect(creator.footerToolbar.visibleActions.length).toEqual(0);
+});
+
+test("Theme invisibleToggleAction state change", (): any => {
+  const creator: CreatorTester = new CreatorTester({ showDesignerTab: false, showPreviewTab: false, showThemeTab: true, showLogicTab: true });
+  creator.JSON = {
+    questions: [
+      {
+        type: "text",
+        name: "q1"
+      }
+    ]
+  };
+  creator.showInvisibleElementsInTestSurveyTab = true;
+  creator.makeNewViewActive("theme");
+  const action = creator.footerToolbar.getActionById("showInvisible") as Action;
+  expect(action.active).toBeFalsy();
+  action.action();
+  expect(action.active).toBeTruthy();
 });
 
 test("Creator footer action bar: all tabs", (): any => {
@@ -160,11 +181,11 @@ test("Theme builder: composite question values are lost", (): any => {
 
   expect(themeModel.cssVariables["--sjs-font-questiontitle-family"]).toBeUndefined();
   expect(themeModel.cssVariables["--sjs-font-questiontitle-weight"]).toBeUndefined();
-  expect(themeModel.cssVariables["--sjs-font-questiontitle-color"]).toBeUndefined();
+  expect(themeModel.cssVariables["--sjs-font-questiontitle-color"]).toBe("rgba(0, 0, 0, 0.91)");
   expect(themeModel.cssVariables["--sjs-font-questiontitle-size"]).toBeUndefined();
   expect(themeModel.cssVariables["--sjs-font-pagetitle-family"]).toBeUndefined();
   expect(themeModel.cssVariables["--sjs-font-pagetitle-weight"]).toBeUndefined();
-  expect(themeModel.cssVariables["--sjs-font-pagetitle-color"]).toBeUndefined();
+  expect(themeModel.cssVariables["--sjs-font-pagetitle-color"]).toBe("rgba(0, 0, 0, 0.91)");
   expect(themeModel.cssVariables["--sjs-font-pagetitle-size"]).toBeUndefined();
 
   questionTitleFontSettings.value = { family: "Arial, sans-serif", weight: "semiBold", color: "#fefefe", size: 40 };
@@ -175,7 +196,7 @@ test("Theme builder: composite question values are lost", (): any => {
   expect(themeModel.cssVariables["--sjs-font-questiontitle-size"]).toEqual("40px");
   expect(themeModel.cssVariables["--sjs-font-pagetitle-family"]).toBeUndefined();
   expect(themeModel.cssVariables["--sjs-font-pagetitle-weight"]).toBeUndefined();
-  expect(themeModel.cssVariables["--sjs-font-pagetitle-color"]).toBeUndefined();
+  expect(themeModel.cssVariables["--sjs-font-pagetitle-color"]).toBe("rgba(0, 0, 0, 0.91)");
   expect(themeModel.cssVariables["--sjs-font-pagetitle-size"]).toBeUndefined();
 
   pageTitleFontSettings.value = { family: "Arial, sans-serif", weight: "semiBold", color: "#101010", size: 28 };
@@ -192,7 +213,7 @@ test("Theme builder: composite question values are lost", (): any => {
 
 test("import theme from file", (done) => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   creator.isAutoSave = true;
   creator.autoSaveDelay = 0;
   let saveThemeCount = 0;
@@ -235,11 +256,7 @@ test("export theme to file", (done): any => {
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
-
   themeModel["questionTitle"] = { family: settings.themeEditor.defaultFontFamily, color: "rgba(0, 0, 0, 0.91)", weight: "600", size: 19 };
-
-  const expectations = {};
-  assign(expectations, Themes["default-light"].cssVariables, { "--sjs-font-questiontitle-size": "19px" });
 
   themePlugin.saveToFileHandler = async (fileName: string, blob: Blob) => {
     let fileReader = new FileReader();
@@ -247,7 +264,9 @@ test("export theme to file", (done): any => {
       expect(fileName).toBe(settings.themeEditor.exportFileName);
       const theme: ITheme = JSON.parse(fileReader.result as string);
       expect(theme.themeName).toEqual("default");
-      expect(theme.cssVariables).toStrictEqual(expectations);
+      expect(Object.keys(theme.cssVariables).length).toBe(95);
+      expect(theme.cssVariables["--sjs-font-questiontitle-color"]).toBe("rgba(0, 0, 0, 0.91)");
+      expect(theme.cssVariables["--sjs-font-questiontitle-size"]).toBe("19px");
       done();
     };
     fileReader.readAsText(blob);
@@ -268,7 +287,7 @@ test("Theme onModified and saveThemeFunc", (): any => {
     saveThemeCount++;
     callback(saveNo, "success");
   };
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   let modificationsLog = "";
   themePlugin.onThemeSelected.add((s, o) => {
@@ -318,9 +337,9 @@ test("Theme onModified and saveThemeFunc", (): any => {
   expect(creator.hasPendingThemeChanges).toBeFalsy();
   expect(themePlugin.isModified).toBeTruthy();
 
-  themeModel.header["headerView"] = "advanced";
+  themeModel.header["headerView"] = "basic";
   expect(modificationsLog).toBe("->THEME_MODIFIED->THEME_SELECTED->THEME_MODIFIED->THEME_MODIFIED->THEME_MODIFIED");
-  expect(saveCount).toBe(0);
+  expect(saveCount).toBe(1);
   expect(saveThemeCount).toBe(5);
   expect(creator.hasPendingThemeChanges).toBeFalsy();
   expect(themePlugin.isModified).toBeTruthy();
@@ -346,7 +365,7 @@ test("loadTheme fill all theme parameters: name, mode and compactness", (): any 
 
 test("Get theme changes only", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
@@ -357,9 +376,10 @@ test("Get theme changes only", (): any => {
   expect(Object.keys(fullTheme.cssVariables).length).toBe(0);
 
   const themeChanges = themePlugin.getCurrentTheme(true) || {};
-  expect(Object.keys(themeChanges).length).toBe(4);
+  expect(Object.keys(themeChanges).length).toBe(5);
   expect(Object.keys(themeChanges)).toStrictEqual([
     "cssVariables",
+    "headerView",
     "themeName",
     "colorPalette",
     "isPanelless",
@@ -370,34 +390,38 @@ test("Get theme changes only", (): any => {
   expect(themeModel.cssVariables["--sjs-editorpanel-backcolor"]).toEqual("rgba(249, 249, 249, 0.6)");
 
   const fullModifiedTheme = themePlugin.getCurrentTheme() || {};
-  expect(Object.keys(fullModifiedTheme).length).toBe(9);
-  expect(Object.keys(fullModifiedTheme.cssVariables).length).toBe(83);
+  expect(Object.keys(fullModifiedTheme).length).toBe(10);
+  expect(Object.keys(fullModifiedTheme.cssVariables).length).toBe(94);
 
   const modifiedThemeChanges = themePlugin.getCurrentTheme(true) || {};
-  expect(Object.keys(modifiedThemeChanges).length).toBe(5);
+  expect(Object.keys(modifiedThemeChanges).length).toBe(6);
   expect(Object.keys(modifiedThemeChanges.cssVariables).length).toBe(1);
-  expect(Object.keys(modifiedThemeChanges.cssVariables)).toStrictEqual(["--sjs-editorpanel-backcolor"]);
+  expect(Object.keys(modifiedThemeChanges.cssVariables)).toStrictEqual([
+    "--sjs-editorpanel-backcolor",
+  ]);
 
   themeModel.resetTheme();
   const fullThemeReset = themePlugin.getCurrentTheme();
-  expect(Object.keys(fullThemeReset).length).toBe(9);
+  expect(Object.keys(fullThemeReset).length).toBe(10);
   expect(Object.keys(fullThemeReset)).toStrictEqual([
     "themeName",
     "colorPalette",
     "isPanelless",
     "backgroundImage",
-    "backgroundOpacity",
-    "backgroundImageAttachment",
     "backgroundImageFit",
+    "backgroundImageAttachment",
+    "backgroundOpacity",
     "cssVariables",
-    "headerView"
+    "header",
+    "headerView",
   ]);
-  expect(Object.keys(fullThemeReset.cssVariables).length).toBe(82);
+  expect(Object.keys(fullThemeReset.cssVariables).length).toBe(84);
 
   const themeChangesReset = themePlugin.getCurrentTheme(true);
-  expect(Object.keys(themeChangesReset).length).toBe(5);
+  expect(Object.keys(themeChangesReset).length).toBe(6);
   expect(Object.keys(themeChangesReset)).toStrictEqual([
     "cssVariables",
+    "header",
     "headerView",
     "themeName",
     "colorPalette",
@@ -411,6 +435,7 @@ test("Pass background image from survey to theme editor and back", (): any => {
   const lionImage = "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg";
   const camelImage = "https://surveyjs.io/Content/Images/examples/image-picker/camel.jpg";
   creator.JSON = {
+    headerView: "advanced",
     backgroundImage: lionImage,
     questions: [{ type: "text", name: "q1" }]
   };
@@ -455,6 +480,7 @@ test("Keep background image in theme modifications", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
   const lionImage = "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg";
   creator.JSON = {
+    headerView: "advanced",
     questions: [{ type: "text", name: "q1" }]
   };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
@@ -465,7 +491,7 @@ test("Keep background image in theme modifications", (): any => {
 
   expect(creator.theme.backgroundImage).toBe(undefined);
   expect(themeModel.backgroundImage).toBe("");
-  expect(themeTabViewModel.survey.backgroundImage).toBe("");
+  expect(themeTabViewModel.survey.backgroundImage).toBe(undefined);
 
   backgroundImageEditor.value = lionImage;
   expect(creator.theme.backgroundImage).toBe(lionImage);
@@ -529,7 +555,7 @@ test("Set and use custom default theme", (): any => {
   Serializer.addProperty("theme", { name: "--a-var", visible: false });
 
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   expect(ThemeModel.DefaultTheme).toEqual(Themes["default-light"]);
 
@@ -596,7 +622,7 @@ test("Reset theme action calls confitmation dialog", (): any => {
   let themeModel = themePlugin.themeModel as ThemeModel;
 
   expect(themeModel.questionBackgroundTransparency).toEqual(100);
-  expect(themeModel.cssVariables["--sjs-editorpanel-backcolor"]).toBeUndefined();
+  expect(themeModel.cssVariables["--sjs-editorpanel-backcolor"]).toBe("rgba(249, 249, 249, 1)");
   expect(themeModel.editorPanel).toStrictEqual({ "backcolor": "rgba(249, 249, 249, 1)", "cornerRadius": 4, "hovercolor": "rgba(243, 243, 243, 1)" });
 
   themeModel.editorPanel = { "backcolor": "#f7f7f7)", "cornerRadius": 4, "hovercolor": "rgba(243, 243, 243, 1)" };
@@ -676,7 +702,7 @@ test("Reset theme to default one", (): any => {
 
 test("Theme undo redo changes", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
@@ -713,7 +739,7 @@ test("Theme undo redo changes", (): any => {
 
 test("Theme undo redo general settings", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
@@ -747,7 +773,7 @@ test("Theme undo redo general settings", (): any => {
 
 test("Theme undo redo calculated questions", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
@@ -815,7 +841,7 @@ test("Theme undo redo calculated questions", (): any => {
 
 test("Theme undo redo expression questions", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
@@ -826,7 +852,7 @@ test("Theme undo redo expression questions", (): any => {
   expect(themeModel.undoRedoManager.canRedo()).toBe(false);
   expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
   expect(fontSizeQuestion.value).toBe(100);
-  expect(themeModel.cssVariables["--sjs-font-size"]).toBe(undefined);
+  expect(themeModel.cssVariables["--sjs-font-size"]).toBe("16px");
 
   fontSizeQuestion.value = 150;
 
@@ -841,7 +867,7 @@ test("Theme undo redo expression questions", (): any => {
   expect(themeModel.undoRedoManager.canRedo()).toBe(true);
   expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
   expect(fontSizeQuestion.value).toBe(100);
-  expect(themeModel.cssVariables["--sjs-font-size"]).toBe(undefined);
+  expect(themeModel.cssVariables["--sjs-font-size"]).toBe("16px");
 
   themePlugin.redo();
   expect(themeModel.undoRedoManager.canUndo()).toBe(true);
@@ -853,42 +879,42 @@ test("Theme undo redo expression questions", (): any => {
 
 test("Theme undo redo header settings", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
   const header = themeModel.header as HeaderModel;
-  const groupHeader = themePlugin.propertyGrid.survey.pages[0].getElementByName("header");
+  const groupHeader = themePlugin.propertyGrid.survey.pages[1];
   const headerViewContainer = groupHeader.elements[0].contentPanel;
   const inheritWidthFromQuestion = headerViewContainer.getElementByName("inheritWidthFrom");
 
-  expect(header.inheritWidthFrom).toBe("container");
-  expect(themeModel.undoRedoManager.canUndo()).toBe(false);
-  expect(themeModel.undoRedoManager.canRedo()).toBe(false);
-  expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
-  expect(inheritWidthFromQuestion.value).toBe("container");
-
-  inheritWidthFromQuestion.value = "survey";
-
   expect(header.inheritWidthFrom).toBe("survey");
-  expect(themeModel.undoRedoManager.canUndo()).toBe(true);
+  expect(themeModel.undoRedoManager.canUndo()).toBe(false);
   expect(themeModel.undoRedoManager.canRedo()).toBe(false);
   expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
   expect(inheritWidthFromQuestion.value).toBe("survey");
 
-  themePlugin.undo();
+  inheritWidthFromQuestion.value = "container";
+
   expect(header.inheritWidthFrom).toBe("container");
+  expect(themeModel.undoRedoManager.canUndo()).toBe(true);
+  expect(themeModel.undoRedoManager.canRedo()).toBe(false);
+  expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
+  expect(inheritWidthFromQuestion.value).toBe("container");
+
+  themePlugin.undo();
+  expect(header.inheritWidthFrom).toBe("survey");
   expect(themeModel.undoRedoManager.canUndo()).toBe(false);
   expect(themeModel.undoRedoManager.canRedo()).toBe(true);
   expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
-  expect(inheritWidthFromQuestion.value).toBe("container");
+  expect(inheritWidthFromQuestion.value).toBe("survey");
 
   themePlugin.redo();
-  expect(header.inheritWidthFrom).toBe("survey");
+  expect(header.inheritWidthFrom).toBe("container");
   expect(themeModel.undoRedoManager.canUndo()).toBe(true);
   expect(themeModel.undoRedoManager.canRedo()).toBe(false);
   expect(themeModel["blockThemeChangedNotifications"]).toBe(0);
-  expect(inheritWidthFromQuestion.value).toBe("survey");
+  expect(inheritWidthFromQuestion.value).toBe("container");
 });
 test("Set header settings properties, binding with a property grid", (): any => {
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
@@ -897,17 +923,17 @@ test("Set header settings properties, binding with a property grid", (): any => 
   themePlugin.activate();
   const themeModel = themePlugin.themeModel as ThemeModel;
   const header = themeModel.header as HeaderModel;
-  const groupHeader = themePlugin.propertyGrid.survey.pages[0].getElementByName("header");
+  const groupHeader = themePlugin.propertyGrid.survey.pages[1];
   const headerViewContainer = groupHeader.elements[0].contentPanel;
   const inheritWidthFromQuestion = headerViewContainer.getElementByName("inheritWidthFrom");
 
-  expect(header.inheritWidthFrom).toBe("container");
-  expect(inheritWidthFromQuestion.value).toBe("container");
-
-  header.inheritWidthFrom = "survey";
-
   expect(header.inheritWidthFrom).toBe("survey");
   expect(inheritWidthFromQuestion.value).toBe("survey");
+
+  header.inheritWidthFrom = "container";
+
+  expect(header.inheritWidthFrom).toBe("container");
+  expect(inheritWidthFromQuestion.value).toBe("container");
 });
 
 test("Theme builder: trigger responsiveness", (): any => {
@@ -986,7 +1012,7 @@ test("saveTheme action", (): any => {
     saveThemeCount++;
     callback(saveNo, "success");
   };
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   expect(saveCount).toBe(0);
   expect(saveThemeCount).toBe(0);
@@ -1042,7 +1068,7 @@ test("Reset theme action availability", (): any => {
     return true;
   };
   const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
   const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
   const resetThemeAction = themePlugin["resetTheme"];
   themePlugin.activate();
@@ -1145,7 +1171,7 @@ test("Check onOpenFileChooser is called and context is passed", (): any => {
   expect(lastUploadOptions.elementType).toBe("theme");
   expect(lastUploadOptions.propertyName).toBe("backgroundImage");
 
-  const groupHeader = themePlugin.propertyGrid.survey.pages[0].getElementByName("header");
+  const groupHeader = themePlugin.propertyGrid.survey.pages[1];
   const headerBackgroundImageEditor = groupHeader.elements[0].contentPanel.getElementByName("backgroundImage");
   testInput.id = headerBackgroundImageEditor.inputId;
   headerBackgroundImageEditor["rootElement"] = testContainer;
@@ -1200,7 +1226,7 @@ test("Modify property grid: add/hide properties", (): any => {
 
     expect(themeModel.cssVariables["--sjs-font-questiontitle-family"]).toBeUndefined();
     expect(themeModel.cssVariables["--sjs-font-questiontitle-weight"]).toBeUndefined();
-    expect(themeModel.cssVariables["--sjs-font-questiontitle-color"]).toBeUndefined();
+    expect(themeModel.cssVariables["--sjs-font-questiontitle-color"]).toBe("rgba(0, 0, 0, 0.91)");
     expect(themeModel.cssVariables["--sjs-font-questiontitle-size"]).toBeUndefined();
 
     expect(themeModel.cssVariables["--sjs-font-custom-question-title-family"]).toBe("Courier New");
@@ -1224,9 +1250,9 @@ test("Modify property grid & switch themeName", (): any => {
     Serializer.addProperty("theme", { name: "matrix-title", type: "font", category: "appearancequestion" });
 
     const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
-    creator.onShowingProperty.add(function (sender, options) {
-      if (options.obj.getType() == "theme") {
-        options.canShow = options.property.name == "themeName" || options.property.name == "matrix-title";
+    creator.onPropertyShowing.add(function (sender, options) {
+      if (options.element.getType() == "theme") {
+        options.show = options.property.name == "themeName" || options.property.name == "matrix-title";
       }
     });
 
@@ -1242,4 +1268,228 @@ test("Modify property grid & switch themeName", (): any => {
   } finally {
     Serializer.removeProperty("theme", "matrix-title");
   }
+});
+
+test("Theme builder switch themes with reset of previous values", (): any => {
+  const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
+  const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
+  themePlugin.activate();
+  const themeModel = themePlugin.themeModel as ThemeModel;
+  const propertyGridSurvey = themePlugin.propertyGrid.survey;
+  const themeChooser = propertyGridSurvey.getQuestionByName("themeName") as QuestionDropdownModel;
+
+  expect(themeChooser.value).toEqual("default");
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toEqual("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel.cssVariables["--sjs-shadow-inner-reset"]).toEqual("inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
+
+  themeChooser.value = "contrast";
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toEqual("0px 0px 0px 2px rgba(0, 0, 0, 1),0px -2px 0px 2px rgba(0, 0, 0, 1)");
+  expect(themeModel.cssVariables["--sjs-shadow-inner-reset"]).toEqual("0px 0px 0px 0px rgba(0, 0, 0, 1),0px 0px 0px 0px rgba(0, 0, 0, 1)");
+
+  themeChooser.value = "default";
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toEqual("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel.cssVariables["--sjs-shadow-inner-reset"]).toEqual("inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)");
+});
+
+test("Theme builder switch custom theme", (): any => {
+  const customTheme = {
+    "isPanelless": true,
+    "cssVariables": {
+      "--sjs-general-backcolor": "rgba(246, 248, 250, 1)",
+      "--sjs-general-backcolor-dark": "rgba(248, 248, 248, 1)",
+      "--sjs-general-backcolor-dim": "rgba(255, 255, 255, 1)",
+      "--sjs-general-backcolor-dim-light": "rgba(246, 248, 250, 1)",
+      "--sjs-general-backcolor-dim-dark": "rgba(243, 243, 243, 1)",
+      "--sjs-general-forecolor": "rgba(0, 0, 0, 0.91)",
+      "--sjs-general-forecolor-light": "rgba(0, 0, 0, 0.45)",
+      "--sjs-general-dim-forecolor": "rgba(0, 0, 0, 0.91)",
+      "--sjs-general-dim-forecolor-light": "rgba(0, 0, 0, 0.45)",
+      "--sjs-primary-backcolor": "rgba(9, 105, 218, 1)",
+      "--sjs-primary-backcolor-light": "rgba(9, 105, 218, 0.1)",
+      "--sjs-primary-backcolor-dark": "rgba(8, 98, 203, 1)",
+      "--sjs-primary-forecolor": "rgba(255, 255, 255, 1)",
+      "--sjs-primary-forecolor-light": "rgba(255, 255, 255, 0.25)",
+      "--sjs-base-unit": "6px",
+      "--sjs-corner-radius": "4px",
+      "--sjs-secondary-backcolor": "rgba(255, 152, 20, 1)",
+      "--sjs-secondary-backcolor-light": "rgba(255, 152, 20, 0.1)",
+      "--sjs-secondary-backcolor-semi-light": "rgba(255, 152, 20, 0.25)",
+      "--sjs-secondary-forecolor": "rgba(255, 255, 255, 1)",
+      "--sjs-secondary-forecolor-light": "rgba(255, 255, 255, 0.25)",
+      "--sjs-shadow-small": "0px 0px 0px 1px rgba(101, 109, 118, 0.25), 0px 2px 0px 0px rgba(101, 109, 118, 0.05), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.5)",
+      "--sjs-shadow-small-reset": "0px 0px 0px 0px rgba(0, 0, 0, 0.15)",
+      "--sjs-shadow-medium": "0px 2px 6px 0px rgba(0, 0, 0, 0.1)",
+      "--sjs-shadow-large": "0px 8px 16px 0px rgba(0, 0, 0, 0.1)",
+      "--sjs-shadow-inner": "inset 0px 0px 0px 1px rgba(101, 109, 118, 0.25), inset 0px 2px 0px 0px rgba(101, 109, 118, 0.05)",
+      "--sjs-shadow-inner-reset": "inset 0px 0px 0px 0px rgba(0, 0, 0, 0.15)",
+      "--sjs-border-light": "rgba(216, 222, 228, 1)",
+      "--sjs-border-default": "rgba(216, 222, 228, 1)",
+      "--sjs-border-inside": "rgba(0, 0, 0, 0.16)",
+      "--sjs-font-pagetitle-color": "rgba(31, 35, 40, 1)",
+      "--sjs-font-pagedescription-color": "rgba(101, 109, 118, 1)",
+      "--sjs-question-background": "rgba(246, 248, 250, 1)",
+      "--sjs-questionpanel-backcolor": "rgba(246, 248, 250, 1)",
+      "--sjs-questionpanel-hovercolor": "rgba(243, 244, 246, 1)",
+      "--sjs-questionpanel-cornerRadius": "6px",
+      "--sjs-font-questiondescription-color": "rgba(101, 109, 118, 1)",
+      "--sjs-editor-background": "rgba(246, 248, 250, 1)",
+      "--sjs-editorpanel-backcolor": "rgba(246, 248, 250, 1)",
+      "--sjs-editorpanel-hovercolor": "rgba(243, 244, 246, 1)",
+      "--sjs-editorpanel-cornerRadius": "6px",
+      "--sjs-font-editorfont-color": "rgba(33, 37, 42, 1)",
+      "--sjs-font-editorfont-placeholdercolor": "rgba(110, 119, 129, 1)",
+      "--sjs-font-pagetitle-weight": "600",
+      "--sjs-font-pagetitle-family": "Arial, sans-serif",
+      "--sjs-font-family": "Open Sans",
+      "--sjs-font-pagedescription-family": "Arial, sans-serif",
+      "--sjs-font-questiontitle-family": "Arial, sans-serif",
+      "--sjs-font-questiontitle-color": "rgba(31, 35, 40, 1)",
+      "--sjs-font-questiontitle-size": "14px",
+      "--sjs-font-pagetitle-size": "22px",
+      "--sjs-font-pagedescription-size": "13px",
+      "--sjs-font-questiondescription-family": "Arial, sans-serif",
+      "--sjs-font-questiondescription-size": "13px",
+      "--sjs-font-editorfont-size": "14px",
+      "--sjs-font-editorfont-family": "Arial, sans-serif",
+      "--sjs-font-headertitle-color": "rgba(255, 255, 255, 1)",
+      "--sjs-font-headerdescription-color": "rgba(255, 255, 255, 1)"
+    },
+    "themeName": "custom",
+    "colorPalette": "light",
+  };
+  const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
+
+  const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
+  themePlugin.addTheme(customTheme);
+  themePlugin.activate();
+  const themeModel = themePlugin.themeModel as ThemeModel;
+  const propertyGridSurvey = themePlugin.propertyGrid.survey;
+  const themeChooser = propertyGridSurvey.getQuestionByName("themeName") as QuestionDropdownModel;
+
+  expect(themeChooser.value).toEqual("default");
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toEqual("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel.cssVariables["--sjs-shadow-small"]).toEqual("0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+
+  themeChooser.value = "custom";
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toEqual("inset 0px 0px 0px 1px rgba(101, 109, 118, 0.25),inset 0px 2px 0px 0px rgba(101, 109, 118, 0.05)");
+  expect(themeModel.cssVariables["--sjs-shadow-small"]).toEqual("0px 0px 0px 1px rgba(101, 109, 118, 0.25),0px 2px 0px 0px rgba(101, 109, 118, 0.05),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.5)");
+
+  themeChooser.value = "default";
+  expect(themeModel.cssVariables["--sjs-shadow-inner"]).toEqual("inset 0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+  expect(themeModel.cssVariables["--sjs-shadow-small"]).toEqual("0px 1px 2px 0px rgba(0, 0, 0, 0.15)");
+});
+
+test("onThemePropertyChanged event for a custom property", (): any => {
+  Serializer.addProperty("theme", {
+    name: "paddingTopScale",
+  });
+  const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
+  const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
+  themePlugin.activate();
+  const themeModel = themePlugin.themeModel as ThemeModel;
+  const propertyGridSurvey = themePlugin.propertyGrid.survey;
+  const paddingTopScale = propertyGridSurvey.getQuestionByName("paddingTopScale");
+
+  let pluginThemeModifiedCount = 0;
+  let pluginLog = "";
+  themePlugin.onThemePropertyChanged.add((s, o) => {
+    pluginThemeModifiedCount++;
+    pluginLog += "->" + o.name;
+  });
+  let builderThemeModifiedCount = 0;
+  themeModel.onThemePropertyChanged.add(() => builderThemeModifiedCount++);
+
+  expect(pluginThemeModifiedCount).toBe(0);
+  expect(builderThemeModifiedCount).toBe(0);
+  expect(pluginLog).toBe("");
+  paddingTopScale.value = "5";
+
+  expect(pluginThemeModifiedCount).toBe(1);
+  expect(builderThemeModifiedCount).toBe(1);
+  expect(pluginLog).toBe("->paddingTopScale");
+
+  Serializer.removeProperty("theme", "paddingTopScale");
+});
+
+test("Theme tab: default device and save current device", (): any => {
+  const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
+  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
+
+  expect(themePlugin.previewDevice).toBe("desktop");
+
+  themePlugin.activate();
+  expect(themePlugin.model.simulator.device).toBe("desktop");
+
+  themePlugin.model.simulator.device = "iPhone15";
+  expect(themePlugin.previewDevice).toBe("desktop");
+
+  themePlugin.deactivate();
+  expect(themePlugin.previewDevice).toBe("iPhone15");
+
+  themePlugin.activate();
+  expect(themePlugin.model.simulator.device).toBe("iPhone15");
+  expect(themePlugin.previewDevice).toBe("iPhone15");
+
+  themePlugin.deactivate();
+  themePlugin.previewDevice = "iPhone15Plus";
+
+  themePlugin.activate();
+  expect(themePlugin.model.simulator.device).toBe("iPhone15Plus");
+});
+
+test("Theme tab: use theme palatte corresponding cretor theme palette if theme is not selected", (): any => {
+  const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
+  creator.JSON = { headerView: "advanced", questions: [{ type: "text", name: "q1" }] };
+  const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
+
+  expect(creator.preferredColorPalette).toBe("light");
+
+  themePlugin.activate();
+  expect(themePlugin.themeModel.colorPalette).toBe("light");
+  expect(themePlugin.model.simulator.survey["themeName"]).toBe("default");
+  expect(themePlugin.model.simulator.survey["colorPalette"]).toBe("light");
+
+  themePlugin.deactivate();
+  creator.syncTheme({ cssVariables: {} }, false);
+  expect(creator.preferredColorPalette).toBe("dark");
+
+  themePlugin.activate();
+  expect(themePlugin.themeModel.colorPalette).toBe("dark");
+  expect(themePlugin.model.simulator.survey["themeName"]).toBe("default");
+  expect(themePlugin.model.simulator.survey["colorPalette"]).toBe("dark");
+
+  themePlugin.deactivate();
+  creator.theme = {
+    themeName: "my",
+    colorPalette: "dark",
+    cssVariables: {}
+  };
+  creator.syncTheme({ cssVariables: {} }, true);
+  expect(creator.preferredColorPalette).toBe("light");
+
+  themePlugin.activate();
+  expect(themePlugin.themeModel.colorPalette).toBe("dark");
+  expect(themePlugin.model.simulator.survey["themeName"]).toBe("my");
+  expect(themePlugin.model.simulator.survey["colorPalette"]).toBe("dark");
+});
+
+test("Theme settings action visibility", (): any => {
+  const creator: CreatorTester = new CreatorTester({ showThemeTab: true });
+  creator.JSON = { questions: [{ type: "text", name: "q1" }] };
+  const themePlugin: ThemeTabPlugin = <ThemeTabPlugin>creator.getPlugin("theme");
+  expect(themePlugin["themeSettingsAction"].visible).toBeFalsy();
+
+  creator.activeTab = "theme";
+  creator.showOneCategoryInPropertyGrid = false;
+  expect(themePlugin["themeSettingsAction"].visible).toBeTruthy();
+
+  expect(creator.isMobileView).toBeFalsy();
+  expect(creator.showOneCategoryInPropertyGrid).toBeFalsy();
+
+  creator.showOneCategoryInPropertyGrid = true;
+  expect(themePlugin["themeSettingsAction"].visible).toBeFalsy();
+
+  creator.isMobileView = true;
+  expect(themePlugin["themeSettingsAction"].visible).toBeTruthy();
 });

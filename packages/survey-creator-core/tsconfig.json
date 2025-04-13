@@ -10,7 +10,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "build/typings/"
+    "declarationDir": "build/typings/",
+    "types": []
   },
   "include": [
     "./src/entries/index.ts"

@@ -5,6 +5,7 @@ import { ICreatorPlugin } from "../../creator-settings";
 import { editorLocalization } from "../../editorLocalization";
 import { SurveyLogicUI } from "./logic-ui";
 import { SurveyHelper } from "../../survey-helper";
+import { listComponentCss } from "../list-theme";
 
 export class TabLogicPlugin implements ICreatorPlugin {
   private filterQuestionAction: Action;
@@ -12,7 +13,7 @@ export class TabLogicPlugin implements ICreatorPlugin {
   private fastEntryAction: Action;
   public model: SurveyLogicUI;
   constructor(private creator: SurveyCreatorModel) {
-    creator.addPluginTab("logic", this);
+    creator.addTab({ name: "logic", plugin: this, iconName: "icon-logic-24x24" });
     this.createActions().forEach(action => creator.toolbar.actions.push(action));
   }
   public activate(): void {
@@ -102,17 +103,18 @@ export class TabLogicPlugin implements ICreatorPlugin {
     this.filterQuestionAction = createDropdownActionModelAdvanced({
       id: "svc-logic-filter-question",
       visible: false,
-      component: "sv-action-bar-item-dropdown",
     }, {
       items: [{ id: null, title: this.showAllQuestionsText }],
       onSelectionChanged: (item: IAction) => {
         this.model.questionFilter = !!item.id ? item.id : "";
       },
       allowSelection: true,
+      cssClasses: listComponentCss,
       locOwner: this.creator
     }, {
       verticalPosition: "bottom",
       horizontalPosition: "center",
+      cssClass: "svc-creator-popup",
       onShow: onQuestionPopupShow
     });
     items.push(this.filterQuestionAction);
@@ -127,17 +129,18 @@ export class TabLogicPlugin implements ICreatorPlugin {
     this.filterActionTypeAction = createDropdownActionModelAdvanced({
       id: "svc-logic-filter-actiontype",
       visible: false,
-      component: "sv-action-bar-item-dropdown",
     }, {
       items: [{ id: null, title: this.showAllActionTypesText }],
       onSelectionChanged: (item: IAction) => {
         this.model.actionTypeFilter = !!item.id ? item.id : "";
       },
       allowSelection: true,
+      cssClasses: listComponentCss,
       locOwner: this.creator
     }, {
       verticalPosition: "bottom",
       horizontalPosition: "center",
+      cssClass: "svc-creator-popup",
       onShow: onActionTypesPopupShow
     });
     items.push(this.filterActionTypeAction);
@@ -146,6 +149,7 @@ export class TabLogicPlugin implements ICreatorPlugin {
       this.fastEntryAction = new Action({
         id: "svc-logic-fast-entry",
         iconName: "icon-fast-entry",
+        iconSize: "auto",
         locTitleName: "pe.fastEntry",
         visible: false,
         component: "sv-action-bar-item",

@@ -5,7 +5,7 @@ function getQuestionJSON() {
   return {
     "type": "paneldynamic",
     "minPanelCount": 1,
-    "panelAddText": getLocString("theme.boxShadowAddRule"),
+    "addPanelText": getLocString("theme.boxShadowAddRule"),
     "templateElements": [
       {
         "type": "spinedit",
@@ -68,7 +68,14 @@ if (!ComponentCollection.Instance.getCustomQuestionByName("shadoweffects")) {
         if (typeof value == "undefined") return [{}];
         return typeof value == "string" ? parseBoxShadow(value) : value;
       };
-      question.valueToDataCallback = (value: string | Array<Object>): string => !!value ? (typeof value == "string" ? value : createBoxShadow(Array.isArray(value) ? value : [value])) : "";
+      question.valueToDataCallback = (value: string | Array<Object>): string => {
+        if (!value) return "";
+        if (typeof value == "string") {
+          return value;
+        } else {
+          return createBoxShadow(Array.isArray(value) ? value : [value]);
+        }
+      };
       (<QuestionPanelDynamicModel>question.contentQuestion).panels.forEach(p => p.questions.forEach(q => q.allowRootStyle = false));
     },
   });
@@ -85,7 +92,7 @@ export function createBoxShadow(value: Array<any>): string {
   value.forEach(val => { for (let key in val) { hasValue = true; } });
   if (!hasValue) return undefined;
   return value.map((val => `${val.isInset == true ? "inset " : ""}${val.x ?? 0}px ${val.y ?? 0}px ${val.blur ?? 0}px ${val.spread ?? 0}px ${val.color ?? "#000000"}`
-  )).join(", ");
+  )).join(",");
 }
 
 export function createBoxShadowReset(value: string): string {
@@ -120,4 +127,9 @@ export function parseBoxShadow(value: string = ""): Array<Object> {
     res["isInset"] = isInset;
     return res;
   });
+}
+
+export function trimBoxShadowValue(value: string): string {
+  if (!value) return value;
+  return value.replace(/\)\,\s/g, "),");
 }
